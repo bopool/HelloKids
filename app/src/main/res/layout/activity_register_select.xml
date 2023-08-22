@@ -77,6 +77,13 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/register_bus" />
+
         <TextView
             android:id="@+id/textView55"
             style="@style/text_title"
@@ -98,19 +105,23 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Button"
+                app:cornerRadius="8dp"
+                style="@style/btn_big_color1"/>
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Button"
+                app:cornerRadius="8dp" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Button"
+                app:cornerRadius="8dp" />
         </LinearLayout>
 
 
