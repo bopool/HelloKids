@@ -13,6 +13,12 @@
         android:theme="@style/Theme.HelloKids"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterSelectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SchoolbusListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScheduleListActivity"
             android:exported="false" />
         <activity

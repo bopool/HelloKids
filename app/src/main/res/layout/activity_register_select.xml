@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScheduleListActivity">
+    tools:context=".RegisterSelectActivity">
 
     <RelativeLayout
         android:id="@+id/menus"
@@ -30,7 +30,7 @@
             <Button
                 android:id="@+id/btnBottomDailynote"
                 style="@style/btn_bottom_menu3"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSchoolbus"
@@ -57,8 +57,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            style="@style/top_image_layout">
+        <LinearLayout style="@style/top_edit_layout">
+
+            <Button
+                android:id="@+id/notice_btn_back"
+                style="@style/back_button_text_title" />
 
             <TextView
                 android:id="@+id/btnLogin"
@@ -66,23 +69,23 @@
 
             <TextView
                 android:id="@+id/btnRegister"
-                style="@style/top_button2"/>
+                style="@style/top_button2" />
 
             <ImageButton
                 android:id="@+id/btnTranslate"
-                style="@style/top_button3"/>
+                style="@style/top_button3" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textPageTitle"
-            android:text="일정표"
-            style="@style/text_title" />
+            android:id="@+id/textView55"
+            style="@style/text_title"
+            android:text="회원가입" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:text="우리 아이들의 일정 확인하기"
-            style="@style/text_title_sub" />
+            android:id="@+id/textView44"
+            style="@style/text_title_sub"
+            android:text="회원가입 정보를 입력해 주세요" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,43 +95,25 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSelectClass"
-                android:text="전체반 선택"
-                app:cornerRadius="8dp"
-                style="@style/btn_select_form1"/>
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
 
             <Button
-                android:id="@+id/btnSelectDate"
-                app:cornerRadius="8dp"
-                style="@style/btn_date_select"/>
-
-            <LinearLayout
+                android:id="@+id/button2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:text="Button" />
 
-                <Button
-                    android:id="@+id/btnWrite"
-                    style="@style/btn_move_half_left"
-                    android:text="일청 추가하기"
-                    app:cornerRadius="8dp" />
-
-                <Button
-                    android:id="@+id/btnMove"
-                    style="@style/btn_move_half_right"
-                    android:text="달력으로 보기"
-                    app:cornerRadius="8dp" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <Button
+                android:id="@+id/button3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:text="Button" />
         </LinearLayout>
 
 
     </LinearLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
