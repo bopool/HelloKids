@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoticeEditActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                app:iconPadding="0dp"
+                style="@style/btn_bottom_menu1" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp"/>
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp"/>
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/container_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout style="@style/top_edit_layout">
+
+            <Button
+                android:id="@+id/notice_btn_back"
+                style="@style/back_button_text_title"
+                android:text="공지사항 수정하기" />
+
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/top_button1" />
+
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/top_button2" />
+
+            <ImageButton
+                android:id="@+id/btnTranslate"
+                style="@style/top_button3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnWrite"
+                style="@style/btn_move_activity"
+                android:text="공지사항 수정하기"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/btnSelectClass"
+                app:iconGravity="end"
+                app:cornerRadius="8dp"
+                style="@style/btn_select_form1"
+                android:text="전체반 선택" />
+
+            <Button
+                android:id="@+id/btnSelectDate"
+                app:iconGravity="end"
+                app:cornerRadius="8dp"
+                style="@style/btn_date_select" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:text="제목"
+                style="@style/text_input_title" />
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="8dp"
+                style="@style/text_input_frame_cardview">
+
+                <EditText
+                    android:id="@+id/textInputTitle"
+                    android:hint="제목을 입력하세요"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="#F4F4F4"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColorHint="#BBBBBB"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:text="내용"
+                style="@style/text_input_title" />
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="8dp"
+                style="@style/text_input_frame_cardview">
+
+                <EditText
+                    android:id="@+id/textInputContents"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:background="#F4F4F4"
+                    android:ems="10"
+                    android:gravity="top|left"
+                    android:hint="내용을 입력하세요"
+                    android:inputType="text"
+                    android:maxLines="10"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:textColorHint="#BBBBBB"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="6dp"
+                android:text="사진 및 파일 선택 (하단 클릭)"
+                android:textColor="#222222"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#F4F4F4"
+                android:padding="15dp"
+                app:cardCornerRadius="8dp">
+
+                <ImageView
+                    android:id="@+id/selectPhoto"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    app:srcCompat="@drawable/baseline_add_photo_alternate_24" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

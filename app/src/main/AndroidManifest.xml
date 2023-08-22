@@ -11,6 +11,73 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloKids"
-        tools:targetApi="31" />
+        tools:targetApi="31">
+        <activity
+            android:name=".ScheduleListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceCheckActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodmenuViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodmenuEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodmenuAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodmenuListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DailynoteViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DailynoteEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DailynoteAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DailynoteListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoticeEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoticeViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoticeAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoticeListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>
