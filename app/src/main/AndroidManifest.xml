@@ -18,9 +18,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".AlbumListActivity"
-            android:exported="false" />
-        <activity
             android:name=".RegisterSelectActivity"
             android:exported="false" />
         <activity

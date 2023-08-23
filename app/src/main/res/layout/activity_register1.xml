@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/container_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/top_edit_layout">
+
+                    <Button
+                        android:id="@+id/notice_btn_back"
+                        style="@style/back_button_text_title" />
+
+                    <TextView
+                        android:id="@+id/btnLogin"
+                        style="@style/top_button1" />
+
+                    <TextView
+                        android:id="@+id/btnRegister"
+                        style="@style/top_button2" />
+
+                    <ImageButton
+                        android:id="@+id/btnTranslate"
+                        style="@style/top_button3" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView55"
+                    style="@style/text_title"
+                    android:text="회원가입" />
+
+                <TextView
+                    android:id="@+id/textView44"
+                    style="@style/text_title_sub"
+                    android:text="회원가입 정보를 입력해 주세요" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="이름" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userName"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="이름을 입력하세요"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/text333"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="아이디" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userId"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="아이디를 입력하세요"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/text_input_title"
+                        android:text="비밀번호" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userPassword"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="비밀번호를 확인해주세요."
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호 확인" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userPassword2"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="비밀번호를 다시 입력하세요."
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="이메일" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userEmail"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="myemail@email.com"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="전화번호" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userPhoneNumber"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="010-1234-5678"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="이 앱의 약관과 개인정보정책에 동의하신 경우 회원가입 버튼을 눌러주세요!"
+                        android:textColor="#CCCCCC"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:text="약관 · 개인정보정책 보기"
+                        android:textColor="#248A3D"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/button5"
+                        style="@style/btn_move_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="회원가입하기"
+                        app:cornerRadius="8dp" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:text="© 2023 HelloKids. All rights reserved"
+                        android:textAlignment="center"
+                        android:textColor="#BBBBBB"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

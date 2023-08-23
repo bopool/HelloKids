@@ -1,35 +1,35 @@
 package com.bpdev.hellokids.model;
 
-public class User {
-    // 선생님 사용
-    private String teacherName;
-    private String id;
+public class User1 {
+    // 학부모 사용
+    private String parentsName;
+    private String userId;
     private String password;
     private String email;
     private String phone;
 
-    public User(String teacherName, String id, String password, String email, String phone) {
-        this.teacherName = teacherName;
-        this.id = id;
+    public User1(String parentsName, String userId, String password, String email, String phone) {
+        this.parentsName = parentsName;
+        this.userId = userId;
         this.password = password;
         this.email = email;
         this.phone = phone;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getParentsName() {
+        return parentsName;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setParentsName(String parentsName) {
+        this.parentsName = parentsName;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
