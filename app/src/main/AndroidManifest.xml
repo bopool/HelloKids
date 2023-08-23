@@ -21,6 +21,9 @@
             android:name=".SchoolbusAddActivity"
             android:exported="false" />
         <activity
+            android:name=".AlbumAddClassActivity"
+            android:exported="true" />
+        <activity
             android:name=".AlbumListActivity"
             android:exported="false" />
         <activity
