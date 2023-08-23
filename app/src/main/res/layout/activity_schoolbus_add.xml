@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:circularflow_defaultRadius="@dimen/cardview_default_radius"
+    tools:context=".SchoolbusListActivity">
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/container_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout style="@style/top_image_layout">
+
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/top_button1" />
+
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/top_button2" />
+
+            <ImageButton
+                android:id="@+id/btnTranslate"
+                style="@style/top_button3" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textPageTitle"
+            style="@style/text_title"
+            android:text="차량정보 등록 · 확인" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/text_title_sub"
+            android:text="우리 원에서 운행하는 차량 정보 확인" />
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/text_input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="차량 이름" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/text_input_frame_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+            <EditText
+                android:id="@+id/editText10"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#F4F4F4"
+                android:ems="10"
+                android:hint="ex) 1호차"
+                android:inputType="text"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="#BBBBBB"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/text_input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="차량 번호" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/text_input_frame_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+            <EditText
+                android:id="@+id/editText10"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#F4F4F4"
+                android:ems="10"
+                android:hint="01가 1234"
+                android:inputType="text"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="#BBBBBB"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/text_input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="운행 요일" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:text="월"
+                app:cornerRadius="25dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/text_input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="운행기사님 이름" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/text_input_frame_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+            <EditText
+                android:id="@+id/editText10"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#F4F4F4"
+                android:ems="10"
+                android:hint="이름을 입력하세요."
+                android:inputType="text"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="#BBBBBB"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/text_input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="운행기사님 연착처" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/text_input_frame_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+            <EditText
+                android:id="@+id/editText10"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#F4F4F4"
+                android:ems="10"
+                android:hint="ex) 01012345678"
+                android:inputType="text"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="#BBBBBB"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

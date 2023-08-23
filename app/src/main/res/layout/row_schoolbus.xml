@@ -50,7 +50,7 @@
                             android:paddingRight="5dp"
                             android:text="1호차"
                             android:textColor="#222222"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/textView8"
@@ -82,16 +82,17 @@
 
                                 <TextView
                                     android:id="@+id/textView13"
+                                    style="@style/text_input_title"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="등원버스"
-                                    android:textSize="20sp" />
+                                    android:textSize="15sp" />
 
                                 <TextView
                                     android:id="@+id/textView19"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginLeft="5dp"
                                     android:layout_weight="1"
                                     android:text="운행시간" />
 
@@ -111,16 +112,17 @@
 
                                 <TextView
                                     android:id="@+id/textView13"
+                                    style="@style/text_input_title"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="하원버스"
-                                    android:textSize="20sp" />
+                                    android:textSize="15sp" />
 
                                 <TextView
                                     android:id="@+id/textView19"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginLeft="5dp"
                                     android:layout_weight="1"
                                     android:text="운행시간" />
 
