@@ -1,32 +1,25 @@
 package com.bpdev.hellokids;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.config.UserApi;
-import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.User1;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity1 extends AppCompatActivity {
 
     EditText userName;
     EditText userId;
@@ -40,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register1);
 
         userName = findViewById(R.id.userName);
         userId = findViewById(R.id.userId);
@@ -67,21 +60,21 @@ public class RegisterActivity extends AppCompatActivity {
 
                 String password = userPassword.getText().toString().trim();
 
-                if (password.length() < 4 || password.length() > 12) {
+                if(password.length() < 4 || password.length() > 12){
                     Snackbar.make(button5,
                             "비밀번호 길이를 확인하세요.",
                             Snackbar.LENGTH_SHORT).show();
                     return;
                 }
 
-                String teacherName = userName.getText().toString().trim();
+                String parentsName = userName.getText().toString().trim();
                 String id = userId.getText().toString().trim();
                 String phone = userPhoneNumber.getText().toString().trim();
 
                 // 회원가입 API 를 호출한다.
 
                 // 1. 레트로핏 변수 생성
-                Retrofit retrofit = NetworkClient.getRetrofitClient(RegisterActivity.this);
+                Retrofit retrofit = NetworkClient.getRetrofitClient(RegisterActivity1.this);
 
                 // 2. api 패키지의 인터페이스 생성.
                 //    => api 폴더로 이동해서, api 인터페이스 작성해 준다!!!!
@@ -90,9 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
                 UserApi api = retrofit.create(UserApi.class);
 
                 // 3. 보낼 데이터를 준비한다.
-                User user = new User(teacherName, id, password, email, phone);
+                User1 user1 = new User1(parentsName, id, password, email, phone);
 
-                Call<UserRes> call = api.register(user);
+                Call<UserRes> call = api.register1(user1);
 
                 call.enqueue(new Callback<UserRes>() { // 받아왔을때 처리하는 코드
                     @Override
@@ -116,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                             // 회원가입이 정상적으로 끝났으니까,
                             // 메인 액티비티를 실행하고,
                             // 이 액티비티는 종료해야 한다.
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterActivity1.this, MainActivity.class);
                             startActivity(intent);
 
                             finish();
@@ -144,10 +137,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
-
         });
+
     }
 }
-
