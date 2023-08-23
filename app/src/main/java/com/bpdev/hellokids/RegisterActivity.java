@@ -2,6 +2,7 @@ package com.bpdev.hellokids;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,11 @@ import com.bpdev.hellokids.config.UserApi;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText userPhoneNumber;
 
     Button button5;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +148,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 }

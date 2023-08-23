@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted ="false">
-        <domain includeSubdomains = "true">api.xxx.com</domain>
+        <domain includeSubdomains= "true">http://172.xx.x.x:4903/</domain>
     </domain-config>
 </network-security-config>

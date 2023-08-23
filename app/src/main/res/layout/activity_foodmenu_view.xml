@@ -77,7 +77,7 @@
         <TextView
             android:id="@+id/textPageTitle"
             style="@style/text_title"
-            android:text="<  알림장" />
+            android:text="알림장" />
 
         <TextView
             android:id="@+id/textView4"

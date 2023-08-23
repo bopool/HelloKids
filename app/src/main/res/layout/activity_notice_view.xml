@@ -78,7 +78,7 @@
         <TextView
             android:id="@+id/textPageTitle"
             style="@style/text_title"
-            android:text="<  공지사항" />
+            android:text="공지사항" />
 
         <TextView
             android:id="@+id/textView4"
