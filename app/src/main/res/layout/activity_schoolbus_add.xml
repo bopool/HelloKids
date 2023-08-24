@@ -46,16 +46,11 @@
 
     </RelativeLayout>
 
-
     <LinearLayout
         android:id="@+id/container_linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout style="@style/top_image_layout">
 
@@ -83,208 +78,286 @@
             style="@style/text_title_sub"
             android:text="우리 원에서 운행하는 차량 정보 확인" />
 
-        <TextView
-            android:id="@+id/textView14"
-            style="@style/text_input_title"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="차량 이름" />
+            android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            style="@style/text_input_frame_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp">
-
-            <EditText
-                android:id="@+id/editText10"
+            <LinearLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#F4F4F4"
-                android:ems="10"
-                android:hint="ex) 1호차"
-                android:inputType="text"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColorHint="#BBBBBB"
-                android:textSize="16sp" />
+                android:orientation="vertical" >
 
-        </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="70dp"
+                    android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView14"
-            style="@style/text_input_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="차량 번호" />
+                    <TextView
+                        android:id="@+id/textView143"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="차량 이름" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/text_input_frame_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp">
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
 
-            <EditText
-                android:id="@+id/editText10"
-                android:layout_width="match_parent"
+                        <EditText
+                            android:id="@+id/editText102"
+                            android:layout_width="match_parent"
 
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#F4F4F4"
-                android:ems="10"
-                android:hint="01가 1234"
-                android:inputType="text"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColorHint="#BBBBBB"
-                android:textSize="16sp" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="ex) 1호차"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
 
-        </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/textView14"
-            style="@style/text_input_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="운행 요일" />
+                    <TextView
+                        android:id="@+id/textView142"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="차량 번호" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                        <EditText
+                            android:id="@+id/editText101"
+                            android:layout_width="match_parent"
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="01가 1234"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                    </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                    <TextView
+                        android:id="@+id/textView141"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="운행 요일" />
 
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="20dp"
+                        android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                        <Button
+                            android:id="@+id/button3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="월"
+                            android:textColor="#000000"
+                            app:cornerRadius="30dp"
+                            app:iconTint="#FFFFFF" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="월"
-                app:cornerRadius="25dp" />
+                        <Button
+                            android:id="@+id/button4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="화"
+                            android:textColor="#000000"
+                            app:cornerRadius="25dp"
+                            app:iconTint="#FFFFFF" />
 
-        </LinearLayout>
+                        <Button
+                            android:id="@+id/button6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="수"
+                            android:textColor="#000000"
+                            app:cornerRadius="25dp"
+                            app:iconTint="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/textView14"
-            style="@style/text_input_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="운행기사님 이름" />
+                        <Button
+                            android:id="@+id/button7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="목"
+                            android:textColor="#000000"
+                            app:cornerRadius="25dp"
+                            app:iconTint="#FFFFFF" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/text_input_frame_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp">
+                        <Button
+                            android:id="@+id/button8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="금"
+                            android:textColor="#000000"
+                            app:cornerRadius="25dp"
+                            app:iconTint="#FFFFFF" />
 
-            <EditText
-                android:id="@+id/editText10"
-                android:layout_width="match_parent"
+                        <Button
+                            android:id="@+id/button9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="토"
+                            android:textColor="#000000"
+                            app:cornerRadius="25dp"
+                            app:iconTint="#FFFFFF" />
 
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#F4F4F4"
-                android:ems="10"
-                android:hint="이름을 입력하세요."
-                android:inputType="text"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColorHint="#BBBBBB"
-                android:textSize="16sp" />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#F4F4F4"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:padding="0dp"
+                            android:text="일"
+                            android:textColor="#000000"
+                            app:cornerRadius="25dp"
+                            app:iconTint="#FFFFFF" />
 
-        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView14"
-            style="@style/text_input_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="운행기사님 연착처" />
+                    <TextView
+                        android:id="@+id/textView14"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="운행기사님 이름" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/text_input_frame_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp">
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
 
-            <EditText
-                android:id="@+id/editText10"
-                android:layout_width="match_parent"
+                        <EditText
+                            android:id="@+id/editText10"
+                            android:layout_width="match_parent"
 
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#F4F4F4"
-                android:ems="10"
-                android:hint="ex) 01012345678"
-                android:inputType="text"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColorHint="#BBBBBB"
-                android:textSize="16sp" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="이름을 입력하세요."
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
 
-        </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="운행기사님 연착처" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/editText11"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="ex) 01012345678"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>
