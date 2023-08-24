@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         textPageTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AlbumViewActivity.class);
+                Intent intent = new Intent(MainActivity.this, PhotoalbumViewActivity.class);
                 startActivity(intent);
             }
         });
