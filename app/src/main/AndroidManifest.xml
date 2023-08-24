@@ -21,6 +21,15 @@
             android:name=".PhotoalbumViewActivity"
             android:exported="false" />
         <activity
+            android:name=".SchoolbusAddKids"
+            android:exported="false" />
+        <activity
+            android:name=".SchoolbusAddTeacher"
+            android:exported="false" />
+        <activity
+            android:name=".SchoolBusInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".SchoolbusAddActivity"
             android:exported="false" />
         <activity
