@@ -18,11 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AlbumViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".SchoolbusAddActivity"
             android:exported="false" />
         <activity
-            android:name=".AlbumAddClassActivity"
-            android:exported="true" />
+            android:name=".AlbumAddActivity"
+            android:exported="false" />
         <activity
             android:name=".AlbumListActivity"
             android:exported="false" />
