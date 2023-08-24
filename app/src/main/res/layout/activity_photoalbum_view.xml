@@ -96,7 +96,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:padding="15dp">
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -124,6 +125,20 @@
 
                                 </LinearLayout>
 
+                                <Button
+                                    android:id="@+id/btnEditAlbum"
+                                    android:layout_width="80dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center|right"
+                                    android:backgroundTint="#A8CA35"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="2dp"
+                                    android:text="수정하기"
+                                    android:textSize="12sp"
+                                    app:iconPadding="4dp" />
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -147,7 +162,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="15dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="15dp"
                                 android:layout_marginBottom="20dp" />
 
