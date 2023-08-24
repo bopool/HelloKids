@@ -14,33 +14,32 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            style="@style/bottom_menu_layout">
+        <LinearLayout style="@style/bottom_menu_layout">
 
             <Button
                 android:id="@+id/btnBottomHome"
-                app:iconPadding="0dp"
-                style="@style/btn_bottom_menu1" />
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomNotice"
                 style="@style/btn_bottom_menu2"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomDailynote"
                 style="@style/btn_bottom_menu3"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSchoolbus"
                 style="@style/btn_bottom_menu4"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSetting"
                 style="@style/btn_bottom_menu5"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
         </LinearLayout>
 
@@ -81,38 +80,50 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:text="우리 원의 중요한 소식을 알립니다."
-            style="@style/text_title_sub" />
+            style="@style/text_title_sub"
+            android:layout_marginBottom="10dp"
+            android:text="우리 원의 중요한 소식을 알립니다." />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btnSelectClass"
-                android:text="전체반 선택"
-                app:cornerRadius="8dp"
-                style="@style/btn_select_form1"/>
-
-            <Button
-                android:id="@+id/btnSelectDate"
-                app:cornerRadius="8dp"
-                style="@style/btn_date_select"/>
-
-            <Button
-                android:id="@+id/btnWrite"
-                app:cornerRadius="8dp"
-                android:text="공지사항 작성하기"
-                style="@style/btn_move_activity"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnSelectClass"
+                        style="@style/btn_select_form1"
+                        android:text="전체반 선택"
+                        app:cornerRadius="8dp" />
+
+                    <Button
+                        android:id="@+id/btnSelectDate"
+                        style="@style/btn_date_select"
+                        app:cornerRadius="8dp" />
+
+                    <Button
+                        android:id="@+id/btnWrite"
+                        style="@style/btn_move_activity"
+                        android:text="공지사항 작성하기"
+                        app:cornerRadius="8dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>
