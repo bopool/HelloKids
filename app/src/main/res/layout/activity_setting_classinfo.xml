@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingClassinfoActivity">
+
+    <LinearLayout
+        android:id="@+id/container_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_image_layout">
+
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/top_button1" />
+
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/top_button2" />
+
+            <ImageButton
+                android:id="@+id/btnTranslate"
+                style="@style/top_button3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgBackArrow"
+                android:layout_width="35dp"
+                android:layout_height="37dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:layout_marginLeft="15dp"
+                android:text="어린이집 및 반 관리" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/text_title_sub"
+            android:layout_marginBottom="15dp"
+            android:text="반 목록 관리" />
+
+        <Button
+            android:id="@+id/btnEditAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center|right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#A8CA35"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:text="반 추가 하기"
+            android:textSize="18sp"
+            app:iconPadding="4dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        tools:layout_editor_absoluteY="731dp">
+
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
