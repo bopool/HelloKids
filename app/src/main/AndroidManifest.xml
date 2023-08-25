@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SettinglistActivity"
+            android:exported="false" />
+        <activity
             android:name=".PhotoalbumEditActivity"
             android:exported="false" />
         <activity

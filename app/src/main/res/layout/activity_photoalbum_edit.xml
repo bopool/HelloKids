@@ -234,7 +234,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnRekog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -245,7 +245,8 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="원아별 사진 폴더 생성 및 자동분류"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
 
 
         </LinearLayout>
