@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     // 혜리 - 테스트용 페이지 연결 : 테스트하려고 만든 액티비티 연결 버튼
     TextView textPageTitle;
 
+    TextView btnLogin;
 
 
     @Override
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnSignup = findViewById(R.id.btnSignup);
+        btnLogin = findViewById(R.id.btnLogin);
         button10 = findViewById(R.id.button10);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 다른화면 테스트용 버튼 - 나중에 지우기
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 사진첩 테스트용 버튼 - 나중에 지우기
-        textPageTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PhotoalbumViewActivity.class);
-                startActivity(intent);
-            }
-        });
+//        textPageTitle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, PhotoalbumViewActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
 

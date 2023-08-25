@@ -17,4 +17,8 @@ public interface UserApi {
     @POST("/register/parentp")
     Call<UserRes> register1(@Body User1 user);
 
+    @POST("/login")
+    Call<UserRes> login(@Body User user);
+
+
 }

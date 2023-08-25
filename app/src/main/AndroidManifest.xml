@@ -93,6 +93,9 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".RegisterActivity1"
+            android:exported="false" />
+        <activity
             android:name=".NoticeEditActivity"
             android:exported="false" />
         <activity

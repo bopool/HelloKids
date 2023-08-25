@@ -2,7 +2,6 @@ package com.bpdev.hellokids;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.config.UserApi;
 import com.bpdev.hellokids.model.User;
-import com.bpdev.hellokids.model.User1;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         userEmail = findViewById(R.id.userEmail);
         userPhoneNumber = findViewById(R.id.userPhoneNumber);
 
-        button5 = findViewById(R.id.button5);
+        button5 = findViewById(R.id.loginBtn);
 
         button5.setOnClickListener(new View.OnClickListener() {
             @Override

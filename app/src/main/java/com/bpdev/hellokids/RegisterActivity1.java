@@ -28,6 +28,9 @@ public class RegisterActivity1 extends AppCompatActivity {
     EditText userEmail;
     EditText userPhoneNumber;
 
+    EditText userKidsName;
+    EditText userKidsBirth;
+
     Button button5;
 
     @Override
@@ -41,8 +44,10 @@ public class RegisterActivity1 extends AppCompatActivity {
         userPassword2 = findViewById(R.id.userPassword2);
         userEmail = findViewById(R.id.userEmail);
         userPhoneNumber = findViewById(R.id.userPhoneNumber);
+        userKidsName = findViewById(R.id.userKidsName);
+        userKidsBirth = findViewById(R.id.userKidsBirth);
 
-        button5 = findViewById(R.id.button5);
+        button5 = findViewById(R.id.loginBtn);
 
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,8 @@ public class RegisterActivity1 extends AppCompatActivity {
                 String parentsName = userName.getText().toString().trim();
                 String id = userId.getText().toString().trim();
                 String phone = userPhoneNumber.getText().toString().trim();
+                String childNameP = userKidsName.getText().toString().trim();
+                String birthP = userKidsBirth.getText().toString().trim();
 
                 // 회원가입 API 를 호출한다.
 
@@ -83,7 +90,7 @@ public class RegisterActivity1 extends AppCompatActivity {
                 UserApi api = retrofit.create(UserApi.class);
 
                 // 3. 보낼 데이터를 준비한다.
-                User1 user1 = new User1(parentsName, id, password, email, phone);
+                User1 user1 = new User1(parentsName, id, password, email, phone,childNameP,birthP);
 
                 Call<UserRes> call = api.register1(user1);
 

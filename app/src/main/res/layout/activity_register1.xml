@@ -280,6 +280,66 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
+                        android:id="@+id/textView23"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="원아 이름" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userKidsName"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="원아의 이름을 입력해주세요."
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="원아 생일" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/userKidsBirth"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="ex) 2000-07-14"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -303,7 +363,7 @@
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/loginBtn"
                         style="@style/btn_move_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

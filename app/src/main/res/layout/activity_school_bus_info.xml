@@ -75,7 +75,19 @@
             <TextView
                 android:id="@+id/textPageTitle"
                 style="@style/text_title"
+                android:layout_weight="15"
                 android:text="차량 운행 관리" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:backgroundTint="#A9CB35"
+                android:text="차량 삭제"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
