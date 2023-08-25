@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SettingKidsInfoAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingClassInfoEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingClassInfoAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingClassinfoActivity"
             android:exported="false" />
         <activity

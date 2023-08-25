@@ -77,7 +77,7 @@
         <TextView
             android:id="@+id/textPageTitle"
             style="@style/text_title"
-            android:text="원아 추가하기" />
+            android:text="원생 관리" />
 
         <TextView
             android:id="@+id/textView4"

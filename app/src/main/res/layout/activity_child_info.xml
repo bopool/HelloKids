@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 이상한 에러 나서 일단 주석 처리함
     <RelativeLayout
         android:id="@+id/menus"
         style="@style/bottom_menu_layout"
@@ -239,5 +240,5 @@
 
 
     </LinearLayout>
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>
