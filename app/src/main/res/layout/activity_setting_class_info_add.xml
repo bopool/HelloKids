@@ -70,6 +70,16 @@
 
         </androidx.cardview.widget.CardView>
 
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#A9CB35"
+            android:text="어린이집 등록하기" />
+
         <TextView
             android:id="@+id/textView39"
             style="@style/text_input_title"
@@ -114,14 +124,14 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="#A9CB35"
-            android:text="등록하기" />
+            android:text="반 등록하기" />
 
 
     </LinearLayout>
