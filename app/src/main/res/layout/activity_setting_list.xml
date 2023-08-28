@@ -58,7 +58,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout style="@style/top_image_layout">
+        <LinearLayout
+            android:id="@+id/pageTitle"
+            style="@style/top_image_layout">
 
             <TextView
                 android:id="@+id/btnLogin"

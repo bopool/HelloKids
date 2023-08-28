@@ -18,7 +18,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout style="@style/top_image_layout">
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_image_layout">
 
             <TextView
                 android:id="@+id/btnLogin"
@@ -54,7 +56,7 @@
             app:cardCornerRadius="8dp">
 
             <EditText
-                android:id="@+id/userName"
+                android:id="@+id/editNurseryName"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
@@ -71,7 +73,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btnNurseryCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -97,7 +99,7 @@
             app:cardCornerRadius="8dp">
 
             <EditText
-                android:id="@+id/userName"
+                android:id="@+id/editClassName"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
@@ -124,12 +126,13 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnClassCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="#A9CB35"
             android:text="반 등록하기" />
 

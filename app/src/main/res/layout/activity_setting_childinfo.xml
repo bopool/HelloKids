@@ -58,6 +58,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/header"
             style="@style/top_image_layout">
 
             <TextView
@@ -66,23 +67,30 @@
 
             <TextView
                 android:id="@+id/btnRegister"
-                style="@style/top_button2"/>
+                style="@style/top_button2" />
 
             <ImageButton
                 android:id="@+id/btnTranslate"
-                style="@style/top_button3"/>
+                style="@style/top_button3" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPageTitle"
-            style="@style/text_title"
-            android:text="원생 관리" />
+        <LinearLayout
+            android:id="@+id/pageTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView4"
-            style="@style/text_title_sub"
-            android:text="승인된 원아를 찾아보세요" />
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="원생 관리" />
+
+            <TextView
+                android:id="@+id/textContents"
+                style="@style/text_title_sub"
+                android:text="승인된 원아를 찾아보세요" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +119,7 @@
                 android:layout_marginRight="20dp" />
 
             <Button
-                android:id="@+id/btnWrite"
+                android:id="@+id/btnCreate"
                 style="@style/btn_move_activity"
                 android:layout_marginTop="30dp"
                 android:text="추가하기"
