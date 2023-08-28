@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!-- 이상한 에러나서 주석처리함
+
     <androidx.cardview.widget.CardView
-        app:cardCornerRadius="8dp"
-        app:cardElevation="5dp"
+        android:cardCornerRadius="8dp"
+        android:cardElevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -73,21 +73,21 @@
                         android:id="@+id/textView31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="운영  시간 :  " />
 
                     <TextView
                         android:id="@+id/textView29"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="반 인원 수 :  " />
 
                     <TextView
                         android:id="@+id/textView32"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="담          임 :  " />
 
                     <TextView
@@ -108,21 +108,21 @@
                         android:id="@+id/textView34"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="오전반" />
 
                     <TextView
                         android:id="@+id/textView35"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="10명" />
 
                     <TextView
                         android:id="@+id/textView36"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="김선생님" />
 
                     <TextView
