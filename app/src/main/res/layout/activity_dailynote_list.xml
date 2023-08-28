@@ -58,6 +58,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/header"
             style="@style/top_image_layout">
 
             <TextView
@@ -66,23 +67,31 @@
 
             <TextView
                 android:id="@+id/btnRegister"
-                style="@style/top_button2"/>
+                style="@style/top_button2" />
 
             <ImageButton
                 android:id="@+id/btnTranslate"
-                style="@style/top_button3"/>
+                style="@style/top_button3" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPageTitle"
-            android:text="알림장"
-            style="@style/text_title" />
+        <LinearLayout
+            android:id="@+id/pageTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:text="선생님과 학부모님이 아이의 생활을 나눕니다."
-            style="@style/text_title_sub" />
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="알림장" />
+
+            <TextView
+                android:id="@+id/textPageContent"
+                style="@style/text_title_sub"
+                android:text="선생님과 학부모님이 아이의 생활을 나눕니다." />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
