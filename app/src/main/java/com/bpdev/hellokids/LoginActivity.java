@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.config.Config;
-import com.bpdev.hellokids.config.UserApi;
+import com.bpdev.hellokids.api.UserApi;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;

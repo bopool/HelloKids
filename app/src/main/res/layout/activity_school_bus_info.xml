@@ -327,7 +327,7 @@
                             app:cornerRadius="8dp" />
 
                         <Button
-                            android:id="@+id/btnMove"
+                            android:id="@+id/btnAdd"
                             style="@style/btn_move_half_right"
                             android:layout_marginRight="20dp"
                             android:backgroundTint="#32B768"

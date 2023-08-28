@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bpdev.hellokids.api.NetworkClient;
-import com.bpdev.hellokids.config.UserApi;
+import com.bpdev.hellokids.api.UserApi;
 import com.bpdev.hellokids.model.User1;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,10 +40,10 @@ public class RegisterActivity1 extends AppCompatActivity {
 
         userName = findViewById(R.id.userName);
         userId = findViewById(R.id.userId);
-        userPassword = findViewById(R.id.userPassword);
-        userPassword2 = findViewById(R.id.userPassword2);
-        userEmail = findViewById(R.id.userEmail);
-        userPhoneNumber = findViewById(R.id.userPhoneNumber);
+        userPassword = findViewById(R.id.editPassword);
+        userPassword2 = findViewById(R.id.editPassword2);
+        userEmail = findViewById(R.id.editEmail);
+        userPhoneNumber = findViewById(R.id.editPhoneNumber);
         userKidsName = findViewById(R.id.userKidsName);
         userKidsBirth = findViewById(R.id.userKidsBirth);
 

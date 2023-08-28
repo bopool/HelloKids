@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingRight="0dp">
 
@@ -58,7 +58,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|right"
-                            android:text="차량 정보 보기"
+                            android:text="차량 번호"
                             android:textColor="#F38727"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -77,35 +77,28 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/textView13"
+                                    android:id="@+id/txtBusTime1"
                                     style="@style/text_input_title"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="0dp"
                                     android:paddingTop="5dp"
-                                    android:text="등원버스"
+                                    android:text="운행시간"
                                     android:textSize="15sp" />
 
                                 <TextView
-                                    android:id="@+id/textView19"
+                                    android:id="@+id/txtBusTime"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5dp"
                                     android:layout_weight="1"
                                     android:text="운행시간" />
 
-                                <TextView
-                                    android:id="@+id/textView20"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="1"
-                                    android:text="[운행완료]" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -120,24 +113,42 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="0dp"
                                     android:paddingTop="5dp"
-                                    android:text="하원버스"
+                                    android:text="기사이름"
                                     android:textSize="15sp" />
 
                                 <TextView
-                                    android:id="@+id/textView19"
+                                    android:id="@+id/txtBusDriver"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5dp"
                                     android:layout_weight="1"
-                                    android:text="운행시간" />
+                                    android:text="기사이름" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/textView20"
+                                    android:id="@+id/textView13"
+                                    style="@style/text_input_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="0dp"
+                                    android:paddingTop="5dp"
+                                    android:text="기사번호"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/txtBusDriverNum"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginLeft="5dp"
                                     android:layout_weight="1"
-                                    android:text="[운행중]" />
+                                    android:text="기사번호" />
+
                             </LinearLayout>
 
                         </LinearLayout>

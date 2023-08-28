@@ -9,7 +9,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bpdev.hellokids.api.NetworkClient;
-import com.bpdev.hellokids.config.UserApi;
+import com.bpdev.hellokids.api.UserApi;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,10 +23,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText userName;
     EditText userId;
-    EditText userPassword;
-    EditText userPassword2;
-    EditText userEmail;
-    EditText userPhoneNumber;
+    EditText editPassword;
+    EditText editPassword2;
+    EditText editEmail;
+    EditText editPhoneNumber;
 
     Button button5;
 
@@ -37,10 +37,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         userName = findViewById(R.id.userName);
         userId = findViewById(R.id.userId);
-        userPassword = findViewById(R.id.userPassword);
-        userPassword2 = findViewById(R.id.userPassword2);
-        userEmail = findViewById(R.id.userEmail);
-        userPhoneNumber = findViewById(R.id.userPhoneNumber);
+        editPassword = findViewById(R.id.editPassword);
+        editPassword2 = findViewById(R.id.editPassword2);
+        editEmail = findViewById(R.id.editEmail);
+        editPhoneNumber = findViewById(R.id.editPhoneNumber);
 
         button5 = findViewById(R.id.loginBtn);
 
@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email = userEmail.getText().toString().trim();
+                String email =  editEmail.getText().toString().trim();
 
 //                Pattern pattern = Patterns.EMAIL_ADDRESS;
 //                if (pattern.matcher(email).matches() == false){
@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                    return;
 //                }
 
-                String password = userPassword.getText().toString().trim();
+                String password = editPassword.getText().toString().trim();
 
                 if (password.length() < 4 || password.length() > 12) {
                     Snackbar.make(button5,
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 String teacherName = userName.getText().toString().trim();
                 String id = userId.getText().toString().trim();
-                String phone = userPhoneNumber.getText().toString().trim();
+                String phone =editPhoneNumber.getText().toString().trim();
 
                 // 회원가입 API 를 호출한다.
 

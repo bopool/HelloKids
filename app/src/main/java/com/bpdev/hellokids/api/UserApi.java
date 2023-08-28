@@ -1,4 +1,4 @@
-package com.bpdev.hellokids.config;
+package com.bpdev.hellokids.api;
 
 
 import com.bpdev.hellokids.model.User;

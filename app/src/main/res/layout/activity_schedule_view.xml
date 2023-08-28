@@ -85,7 +85,6 @@
                 android:layout_width="38dp"
                 android:layout_height="36dp"
                 android:scaleType="centerInside"
-                android:src="@tools:sample/avatars"
                 app:srcCompat="@drawable/baseline_arrow_back_24" />
 
             <TextView
@@ -159,7 +158,6 @@
                                     android:id="@+id/imageView13"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@tools:sample/avatars"
                                     app:srcCompat="@drawable/baseline_insert_photo_24" />
                             </LinearLayout>
 

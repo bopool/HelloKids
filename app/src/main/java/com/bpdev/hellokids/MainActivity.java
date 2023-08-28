@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView btnSignup;
 
-    Button button10;
+    Button btnForTest;
 
     // 혜리 - 테스트용 페이지 연결 : 테스트하려고 만든 액티비티 연결 버튼
     TextView textPageTitle;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnSignup = findViewById(R.id.btnSignup);
         btnLogin = findViewById(R.id.btnLogin);
-        button10 = findViewById(R.id.button10);
+        btnForTest = findViewById(R.id.btnForTest);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 다른화면 테스트용 버튼 - 나중에 지우기
-        button10.setOnClickListener(new View.OnClickListener() {
+        btnForTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,SettingKidsInfoAddActivity.class);
+                Intent intent = new Intent(MainActivity.this,SchoolbusListActivity.class);
                 startActivity(intent);
             }
         });
