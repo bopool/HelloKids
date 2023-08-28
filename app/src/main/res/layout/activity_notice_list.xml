@@ -57,6 +57,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/header"
             style="@style/top_image_layout">
 
             <TextView
@@ -65,65 +66,63 @@
 
             <TextView
                 android:id="@+id/btnRegister"
-                style="@style/top_button2"/>
+                style="@style/top_button2" />
 
             <ImageButton
                 android:id="@+id/btnTranslate"
-                style="@style/top_button3"/>
+                style="@style/top_button3" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPageTitle"
-            android:text="공지사항"
-            style="@style/text_title" />
-
-        <TextView
-            android:id="@+id/textView4"
-            style="@style/text_title_sub"
-            android:layout_marginBottom="10dp"
-            android:text="우리 원의 중요한 소식을 알립니다." />
-
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/pageTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="공지사항" />
+
+            <TextView
+                android:id="@+id/textPageContents"
+                style="@style/text_title_sub"
+                android:layout_marginBottom="10dp"
+                android:text="우리 원의 중요한 소식을 알립니다." />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnSelectClass"
+                style="@style/btn_select_form1"
+                android:text="전체반 선택"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/btnSelectDate"
+                style="@style/btn_date_select"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/btnCreate"
+                style="@style/btn_move_activity"
+                android:text="공지사항 작성하기"
+                app:cornerRadius="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="12dp"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/btnSelectClass"
-                        style="@style/btn_select_form1"
-                        android:text="전체반 선택"
-                        app:cornerRadius="8dp" />
-
-                    <Button
-                        android:id="@+id/btnSelectDate"
-                        style="@style/btn_date_select"
-                        app:cornerRadius="8dp" />
-
-                    <Button
-                        android:id="@+id/btnWrite"
-                        style="@style/btn_move_activity"
-                        android:text="공지사항 작성하기"
-                        app:cornerRadius="8dp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
 
 
     </LinearLayout>

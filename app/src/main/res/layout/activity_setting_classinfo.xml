@@ -60,7 +60,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textPageContents"
                 style="@style/text_title_sub"
                 android:layout_marginBottom="15dp"
                 android:text="반 목록 관리" />

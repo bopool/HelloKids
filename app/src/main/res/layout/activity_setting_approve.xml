@@ -82,14 +82,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textContents"
-                style="@style/text_title_sub"
-                android:text="승인 할 원생을 선택하세요" />
-
-            <TextView
                 android:id="@+id/textPageTitle"
                 style="@style/text_title"
                 android:text="승인" />
+
+            <TextView
+                android:id="@+id/textPageContents"
+                style="@style/text_title_sub"
+                android:text="승인 할 원생을 선택하세요" />
         </LinearLayout>
 
         <LinearLayout

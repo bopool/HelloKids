@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true">
 
         <Button
-            android:id="@+id/notice_btn_back"
+            android:id="@+id/btnBack"
             style="@style/back_button_text_title"
             android:text="공지사항 작성하기" />
 
@@ -51,7 +51,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnWrite"
+                    android:id="@+id/btnCreate"
                     style="@style/btn_move_activity"
                     android:text="공지사항 작성하기"
                     app:cornerRadius="8dp" />
@@ -79,7 +79,7 @@
                     app:cardCornerRadius="8dp">
 
                     <EditText
-                        android:id="@+id/textInputTitle"
+                        android:id="@+id/editInputTitle"
                         android:layout_width="match_parent"
 
                         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     app:cardCornerRadius="8dp">
 
                     <EditText
-                        android:id="@+id/textInputContents"
+                        android:id="@+id/editInputContents"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:layout_margin="10dp"
@@ -196,18 +196,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/container_linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-    </LinearLayout>
 
 </RelativeLayout>

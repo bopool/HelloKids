@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <RelativeLayout
-        android:id="@+id/menus"
-        style="@style/bottom_menu_layout"
+    <LinearLayout
+        android:id="@+id/header"
+        style="@style/top_edit_layout"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/back_button_text_title" />
+
+        <TextView
+            android:id="@+id/btnLogin"
+            style="@style/top_button1" />
+
+        <TextView
+            android:id="@+id/btnRegister"
+            style="@style/top_button2" />
+
+        <ImageButton
+            android:id="@+id/btnTranslate"
+            style="@style/top_button3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pageTitle"
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:orientation="vertical">
 
-        <LinearLayout style="@style/bottom_menu_layout">
+        <TextView
+            android:id="@+id/textPageTitle"
+            style="@style/text_title"
+            android:text="회원가입" />
 
-            <Button
-                android:id="@+id/btnBottomHome"
-                style="@style/btn_bottom_menu1"
-                app:iconPadding="0dp" />
+        <TextView
+            android:id="@+id/textPageContents"
+            style="@style/text_title_sub"
+            android:text="회원가입 정보를 입력해 주세요." />
 
-            <Button
-                android:id="@+id/btnBottomNotice"
-                style="@style/btn_bottom_menu2"
-                app:iconPadding="0dp" />
-
-            <Button
-                android:id="@+id/btnBottomDailynote"
-                style="@style/btn_bottom_menu3"
-                app:iconPadding="0dp" />
-
-            <Button
-                android:id="@+id/btnBottomSchoolbus"
-                style="@style/btn_bottom_menu4"
-                app:iconPadding="0dp" />
-
-            <Button
-                android:id="@+id/btnBottomSetting"
-                style="@style/btn_bottom_menu5"
-                app:iconPadding="0dp" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/menus"
+        android:layout_below="@id/pageTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,38 +66,8 @@
             <LinearLayout
                 android:id="@+id/container_linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <LinearLayout style="@style/top_edit_layout">
-
-                    <Button
-                        android:id="@+id/notice_btn_back"
-                        style="@style/back_button_text_title" />
-
-                    <TextView
-                        android:id="@+id/btnLogin"
-                        style="@style/top_button1" />
-
-                    <TextView
-                        android:id="@+id/btnRegister"
-                        style="@style/top_button2" />
-
-                    <ImageButton
-                        android:id="@+id/btnTranslate"
-                        style="@style/top_button3" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView55"
-                    style="@style/text_title"
-                    android:text="회원가입" />
-
-                <TextView
-                    android:id="@+id/textView44"
-                    style="@style/text_title_sub"
-                    android:text="회원가입 정보를 입력해 주세요" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,7 +77,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/textUserName"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -132,7 +107,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/text333"
+                        android:id="@+id/textUserId"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -162,7 +137,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/textPassword"
                         style="@style/text_input_title"
                         android:text="비밀번호" />
 
@@ -173,7 +148,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/userPassword"
+                            android:id="@+id/editPassword"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -191,7 +166,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/textPassword2"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -202,7 +177,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/userPassword2"
+                            android:id="@+id/editPassword2"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -220,7 +195,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/textEmail"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -233,7 +208,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/userEmail"
+                            android:id="@+id/editEmail"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -250,7 +225,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/textPhoneNumber"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -263,7 +238,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/userPhoneNumber"
+                            android:id="@+id/editPhoneNumber"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -280,67 +255,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/textView23"
-                        style="@style/text_input_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="원아 이름" />
-
-                    <androidx.cardview.widget.CardView
-                        style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="8dp">
-
-                        <EditText
-                            android:id="@+id/userKidsName"
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#F4F4F4"
-                            android:ems="10"
-                            android:hint="원아의 이름을 입력해주세요."
-                            android:inputType="text"
-                            android:padding="5dp"
-                            android:singleLine="true"
-                            android:textColorHint="#BBBBBB"
-                            android:textSize="16sp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        style="@style/text_input_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="원아 생일" />
-
-                    <androidx.cardview.widget.CardView
-                        style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="8dp">
-
-                        <EditText
-                            android:id="@+id/userKidsBirth"
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#F4F4F4"
-                            android:ems="10"
-                            android:hint="ex) 2000-07-14"
-                            android:inputType="text"
-                            android:padding="5dp"
-                            android:singleLine="true"
-                            android:textColorHint="#BBBBBB"
-                            android:textSize="16sp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/textAgree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -352,7 +267,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/textAgreement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -390,5 +305,45 @@
         </LinearLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
