@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,22 +10,22 @@
         android:id="@+id/menus"
         style="@style/bottom_menu_layout"
         android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            style="@style/bottom_menu_layout">
+        <LinearLayout style="@style/bottom_menu_layout">
 
             <Button
                 android:id="@+id/btnBottomHome"
-                app:iconPadding="0dp"
-                style="@style/btn_bottom_menu1" />
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomNotice"
                 style="@style/btn_bottom_menu2"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomDailynote"
@@ -35,12 +35,12 @@
             <Button
                 android:id="@+id/btnBottomSchoolbus"
                 style="@style/btn_bottom_menu4"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSetting"
                 style="@style/btn_bottom_menu5"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
         </LinearLayout>
 
@@ -57,10 +57,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout style="@style/top_edit_layout">
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_edit_layout">
 
             <Button
-                android:id="@+id/notice_btn_back"
+                android:id="@+id/btnBack"
                 style="@style/back_button_text_title" />
 
             <TextView
@@ -77,15 +79,22 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPageTitle"
-            style="@style/text_title"
-            android:text="로그인" />
+        <LinearLayout
+            android:id="@+id/pageTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView44"
-            style="@style/text_title_sub"
-            android:text="로그인 정보를 입력해 주세요" />
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="로그인" />
+
+            <TextView
+                android:id="@+id/textContents"
+                style="@style/text_title_sub"
+                android:text="로그인 정보를 입력해 주세요" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +104,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/textUserEmail"
                 style="@style/text_input_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,7 +117,7 @@
                 app:cardCornerRadius="8dp">
 
                 <EditText
-                    android:id="@+id/editEmail"
+                    android:id="@+id/editUserEmail"
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
@@ -125,7 +134,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textUserPassword"
                 style="@style/text_input_title"
                 android:text="비밀번호" />
 
@@ -134,7 +143,7 @@
                 style="@style/text_input_frame_cardview">
 
                 <EditText
-                    android:id="@+id/editPassword"
+                    android:id="@+id/editUserPassword"
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
@@ -151,7 +160,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/textFindPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -163,7 +172,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/loginBtn"
+                android:id="@+id/btnlogin"
                 style="@style/btn_move_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -188,4 +197,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

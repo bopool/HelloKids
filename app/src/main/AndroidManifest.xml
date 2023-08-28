@@ -45,7 +45,7 @@
             android:name=".SettingApproveActivity"
             android:exported="false" />
         <activity
-            android:name=".SettinglistActivity"
+            android:name=".SettingListActivity"
             android:exported="false" />
         <activity
             android:name=".PhotoalbumEditActivity"
