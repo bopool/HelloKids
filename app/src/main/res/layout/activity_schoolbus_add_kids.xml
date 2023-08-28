@@ -51,7 +51,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout style="@style/top_image_layout">
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_image_layout">
 
             <TextView
                 android:id="@+id/btnLogin"
@@ -73,21 +75,23 @@
             android:text="탑승자 확인" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textPageContents"
             style="@style/text_title_sub"
             android:text="탑승하는 원아를 확인하세요" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/btnSave"
             style="@style/btn_move_activity"
             android:layout_marginTop="10dp"
-            android:text="확인"
-            android:textSize="12sp"
+            android:padding="6dp"
+            android:text="확    인"
+            android:textSize="16sp"
             app:cornerRadius="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>

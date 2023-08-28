@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SchoolbusDeleteActivity">
+
+    <LinearLayout
+        android:id="@+id/headerSmall"
+        style="@style/top_edit_layout"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/back_button_text_title"
+            android:text="차량 삭제하기" />
+
+        <TextView
+            android:id="@+id/btnLogin"
+            style="@style/top_button1" />
+
+        <TextView
+            android:id="@+id/btnRegister"
+            style="@style/top_button2" />
+
+        <ImageButton
+            android:id="@+id/btnTranslate"
+            style="@style/top_button3" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/menus"
+        android:layout_below="@id/headerSmall"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

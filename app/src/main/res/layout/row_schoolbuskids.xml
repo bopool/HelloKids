@@ -29,15 +29,21 @@
                 android:orientation="horizontal"
                 android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/txtBusName"
+                <CheckBox
+                    android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtKidsOnBoard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
                     android:paddingRight="5dp"
                     android:text="탑승 원아 이름"
                     android:textColor="#222222"
-                    android:textSize="14sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
