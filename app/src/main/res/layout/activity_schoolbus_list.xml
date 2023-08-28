@@ -107,13 +107,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnWrite"
+                    android:id="@+id/btnDelete"
                     style="@style/btn_move_half_left"
                     android:text="차량삭제"
                     app:cornerRadius="8dp" />
 
                 <Button
-                    android:id="@+id/btnMove"
+                    android:id="@+id/btnAdd"
                     style="@style/btn_move_half_right"
                     android:text="차량추가"
                     app:cornerRadius="8dp" />

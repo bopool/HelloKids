@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/selectPhoto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DailynoteEditActivity">
@@ -14,18 +15,17 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            style="@style/bottom_menu_layout">
+        <LinearLayout style="@style/bottom_menu_layout">
 
             <Button
                 android:id="@+id/btnBottomHome"
-                app:iconPadding="0dp"
-                style="@style/btn_bottom_menu1" />
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomNotice"
                 style="@style/btn_bottom_menu2"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomDailynote"
@@ -35,12 +35,12 @@
             <Button
                 android:id="@+id/btnBottomSchoolbus"
                 style="@style/btn_bottom_menu4"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSetting"
                 style="@style/btn_bottom_menu5"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
         </LinearLayout>
 
@@ -61,8 +61,8 @@
 
             <Button
                 android:id="@+id/notice_btn_back"
-                android:text="알림장 수정하기"
-                style="@style/back_button_text_title"/>
+                style="@style/back_button_text_title"
+                android:text="알림장 수정하기" />
 
             <TextView
                 android:id="@+id/btnLogin"
@@ -87,42 +87,42 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnWrite"
+                android:id="@+id/btnEdit"
                 style="@style/btn_move_activity"
-                app:cornerRadius="8dp"
-                android:text="알림장 수정하기" />
+                android:text="알림장 수정하기"
+                app:cornerRadius="8dp" />
 
             <Button
                 android:id="@+id/btnSelectClass"
-                app:iconGravity="end"
-                app:cornerRadius="8dp"
                 style="@style/btn_select_form1"
-                android:text="전체반 선택" />
+                android:text="전체반 선택"
+                app:cornerRadius="8dp"
+                app:iconGravity="end" />
 
             <Button
                 android:id="@+id/btnSelectDate"
-                app:iconGravity="end"
+                style="@style/btn_date_select"
                 app:cornerRadius="8dp"
-                style="@style/btn_date_select" />
+                app:iconGravity="end" />
 
             <TextView
                 android:id="@+id/textView"
-                android:text="제목"
-                style="@style/text_input_title" />
+                style="@style/text_input_title"
+                android:text="제목" />
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="8dp"
-                style="@style/text_input_frame_cardview">
+                style="@style/text_input_frame_cardview"
+                app:cardCornerRadius="8dp">
 
                 <EditText
                     android:id="@+id/textInputTitle"
-                    android:hint="제목을 입력하세요"
-
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="#F4F4F4"
                     android:ems="10"
+                    android:hint="제목을 입력하세요"
                     android:inputType="text"
                     android:padding="5dp"
                     android:singleLine="true"
@@ -133,12 +133,12 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:text="내용"
-                style="@style/text_input_title" />
+                style="@style/text_input_title"
+                android:text="내용" />
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="8dp"
-                style="@style/text_input_frame_cardview">
+                style="@style/text_input_frame_cardview"
+                app:cardCornerRadius="8dp">
 
                 <EditText
                     android:id="@+id/textInputContents"

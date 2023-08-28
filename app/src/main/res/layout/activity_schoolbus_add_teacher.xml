@@ -82,7 +82,7 @@
             android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/btnWrite"
+            android:id="@+id/btnSave"
             style="@style/btn_move_activity"
             android:layout_marginTop="10dp"
             android:text="확인"

@@ -69,13 +69,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnWrite"
+                    android:id="@+id/btnAdd"
                     style="@style/btn_move_half_left"
                     android:text="일청 추가하기"
                     app:cornerRadius="8dp" />
 
                 <Button
-                    android:id="@+id/btnMove"
+                    android:id="@+id/btnList"
                     style="@style/btn_move_half_right"
                     android:text="목록으로 보기"
                     app:cornerRadius="8dp" />

@@ -88,7 +88,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnWrite"
+                android:id="@+id/btnCreate"
                 style="@style/btn_move_activity"
                 app:cornerRadius="8dp"
                 android:text="식단표 작성하기" />

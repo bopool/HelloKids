@@ -104,7 +104,7 @@
                 app:cornerRadius="8dp" />
 
             <Button
-                android:id="@+id/btnWrite"
+                android:id="@+id/btnCreate"
                 style="@style/btn_move_activity"
                 android:text="사진첩 만들기"
                 app:cornerRadius="8dp" />

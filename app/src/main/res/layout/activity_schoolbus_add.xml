@@ -114,7 +114,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/editText102"
+                            android:id="@+id/editName"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/editText101"
+                            android:id="@+id/editNum"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/editEmail"
+                            android:id="@+id/editDriver"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                         app:cardCornerRadius="8dp">
 
                         <EditText
-                            android:id="@+id/editText11"
+                            android:id="@+id/editPhone"
                             android:layout_width="match_parent"
 
                             android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <Button
-                        android:id="@+id/btnWrite"
+                        android:id="@+id/btnSave"
                         style="@style/btn_move_activity"
                         android:layout_marginTop="10dp"
                         android:text="차량정보 저장하기"

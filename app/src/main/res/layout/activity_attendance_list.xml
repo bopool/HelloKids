@@ -108,13 +108,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnWrite"
+                    android:id="@+id/btnCreate"
                     style="@style/btn_move_half_left"
                     android:text="출석부 만들기"
                     app:cornerRadius="8dp" />
 
                 <Button
-                    android:id="@+id/btnMove"
+                    android:id="@+id/btnCalendar"
                     style="@style/btn_move_half_right"
                     android:text="달력으로 보기"
                     app:cornerRadius="8dp" />

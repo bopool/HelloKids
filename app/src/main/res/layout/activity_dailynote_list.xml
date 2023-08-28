@@ -103,7 +103,7 @@
                 style="@style/btn_date_select"/>
 
             <Button
-                android:id="@+id/btnWrite"
+                android:id="@+id/btnCreate"
                 style="@style/btn_move_activity"
                 android:text="알림장 작성하기"
                 app:cornerRadius="8dp" />

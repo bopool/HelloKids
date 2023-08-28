@@ -108,7 +108,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnWrite"
+                    android:id="@+id/btnSave"
                     style="@style/btn_move_activity"
                     android:text="출석체크 저장하기"
                     app:cornerRadius="8dp" />

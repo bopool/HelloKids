@@ -111,7 +111,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnWrite"
+                    android:id="@+id/btnAdd"
                     style="@style/btn_move_activity"
                     android:text="등록하기"
                     app:cornerRadius="8dp" />
