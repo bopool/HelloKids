@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SchoolbusViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".schoolbusParentListActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingSchoolbusDeleteActivity"
             android:exported="false" />
         <activity
@@ -74,7 +80,7 @@
             android:name=".SchoolbusAddTeacher"
             android:exported="false" />
         <activity
-            android:name=".SchoolBusInfoActivity"
+            android:name=".SchoolbusInfoActivity"
             android:exported="false" />
         <activity
             android:name=".SettingSchoolbusAddActivity"
