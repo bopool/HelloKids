@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingSchoolbusListActivity">
+    tools:context=".SettingSchoolbusEditActivity">
 
     <LinearLayout
         android:id="@+id/header"
@@ -30,19 +30,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="12dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="148dp">
 
         <TextView
             android:id="@+id/textPageTitle"
             style="@style/text_title"
-            android:text="차량정보 등록" />
+            android:text="차량정보 수정 및 삭제" />
 
         <TextView
             android:id="@+id/textView4"
             style="@style/text_title_sub"
-            android:text="우리 원에서 운행하는 차량 정보 등록하기" />
+            android:text="운행하는 차량 정보를 수정 및 삭제할 수 있습니다" />
+
     </LinearLayout>
 
     <ScrollView
@@ -98,6 +99,7 @@
                     style="@style/text_input_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="차량 번호" />
 
                 <androidx.cardview.widget.CardView
@@ -128,6 +130,7 @@
                     style="@style/text_input_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="운행 시간" />
 
                 <androidx.cardview.widget.CardView
@@ -158,6 +161,7 @@
                     style="@style/text_input_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="운행기사님 이름" />
 
                 <androidx.cardview.widget.CardView
@@ -188,6 +192,7 @@
                     style="@style/text_input_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="운행기사님 연착처" />
 
                 <androidx.cardview.widget.CardView
@@ -216,7 +221,8 @@
                 <Button
                     android:id="@+id/btnSave"
                     style="@style/btn_move_activity"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
                     android:text="차량정보 등록하기"
                     app:cornerRadius="8dp" />
 

@@ -34,6 +34,7 @@
         android:id="@+id/btnCreate"
         style="@style/btn_move_activity"
         android:layout_below="@id/header"
+        android:layout_marginTop="12dp"
         android:text="알림장 수정하기"
         app:cornerRadius="8dp" />
 
@@ -43,7 +44,6 @@
         android:layout_above="@id/menus"
         android:layout_below="@id/btnCreate"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:orientation="vertical">
 
