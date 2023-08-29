@@ -48,7 +48,7 @@ public class SchoolbusListActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SchoolbusListActivity.this,SchoolbusAddActivity.class);
+                Intent intent = new Intent(SchoolbusListActivity.this, SettingSchoolbusAddActivity.class);
                 startActivity(intent);
             }
         });

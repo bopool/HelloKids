@@ -51,7 +51,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout style="@style/top_image_layout">
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_image_layout">
 
             <TextView
                 android:id="@+id/btnLogin"
@@ -67,19 +69,22 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPageTitle"
-            style="@style/text_title"
-            android:text="선생님 선택" />
-
-        <TextView
-            android:id="@+id/textView4"
-            style="@style/text_title_sub"
-            android:text="인솔할 교사를 선택하세요" />
-
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
+            android:id="@+id/pageTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="선생님 선택" />
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/text_title_sub"
+                android:text="인솔할 교사를 선택하세요" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnSave"
@@ -88,6 +93,11 @@
             android:text="확인"
             android:textSize="12sp"
             app:cornerRadius="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>

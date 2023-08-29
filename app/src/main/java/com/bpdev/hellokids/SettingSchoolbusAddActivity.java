@@ -7,23 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.bpdev.hellokids.api.BusApi;
 import com.bpdev.hellokids.api.NetworkClient;
-import com.bpdev.hellokids.api.UserApi;
 import com.bpdev.hellokids.model.Bus;
 import com.bpdev.hellokids.model.BusRes;
-import com.bpdev.hellokids.model.User;
-import com.bpdev.hellokids.model.UserRes;
-import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class SchoolbusAddActivity extends AppCompatActivity {
+public class SettingSchoolbusAddActivity extends AppCompatActivity {
 
     EditText editBusName;
     EditText editBusNum;
@@ -36,7 +31,7 @@ public class SchoolbusAddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schoolbus_add);
+        setContentView(R.layout.activity_setting_schoolbus_add);
 
         editBusName = findViewById(R.id.editBusName);
         editBusNum = findViewById(R.id.editBusNum);
@@ -57,7 +52,7 @@ public class SchoolbusAddActivity extends AppCompatActivity {
 
 
                 // 1. 레트로핏 변수 생성
-                Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusAddActivity.this);
+                Retrofit retrofit = NetworkClient.getRetrofitClient(SettingSchoolbusAddActivity.this);
 
                 // 2. api 패키지의 인터페이스 생성.
                 //    => api 폴더로 이동해서, api 인터페이스 작성해 준다!!!!
@@ -80,7 +75,7 @@ public class SchoolbusAddActivity extends AppCompatActivity {
                         // 200 OK 인지 확인
                         if (response.isSuccessful()) {
 
-                            Intent intent = new Intent(SchoolbusAddActivity.this, SchoolbusListActivity.class);
+                            Intent intent = new Intent(SettingSchoolbusAddActivity.this, SchoolbusListActivity.class);
                             startActivity(intent);
 
                             // 이렇게 상태코드써서 코드짜면 클라이언트 개발자가 코드짜기 쉽다
