@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/pageTitle"
+            android:id="@+id/header"
             style="@style/top_image_layout">
 
             <TextView
@@ -76,15 +76,22 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPageTitle"
-            style="@style/text_title"
-            android:text="설정" />
+        <LinearLayout
+            android:id="@+id/pageTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textPageContents"
-            style="@style/text_title_sub"
-            android:text="설정을 변경 해 보세요" />
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="설정" />
+
+            <TextView
+                android:id="@+id/textPageContents"
+                style="@style/text_title_sub"
+                android:text="설정을 변경 해 보세요" />
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -96,11 +103,11 @@
         android:layout_below="@id/container_linearLayout"
         android:layout_alignParentTop="false"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textNurserySetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -110,10 +117,11 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="어린이집 및 반 관리"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/textKidsSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -123,10 +131,11 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="원생 관리"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/textParentApprove"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -136,10 +145,11 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="학부모 승인"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textSchoolbusSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -149,7 +159,8 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="차량 추가 및 삭제"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
