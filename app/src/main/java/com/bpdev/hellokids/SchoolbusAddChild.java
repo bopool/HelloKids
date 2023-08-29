@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SchoolbusAddKids extends AppCompatActivity {
+public class SchoolbusAddChild extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schoolbus_add_kids);
+        setContentView(R.layout.activity_schoolbus_add_child);
     }
 }

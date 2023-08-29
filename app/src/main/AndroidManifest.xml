@@ -86,7 +86,7 @@
             android:name=".PhotoalbumViewActivity"
             android:exported="false" />
         <activity
-            android:name=".SchoolbusAddKids"
+            android:name=".SchoolbusAddChild"
             android:exported="false" />
         <activity
             android:name=".SchoolbusAddTeacher"

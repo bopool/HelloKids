@@ -102,11 +102,13 @@
             <TextView
                 android:id="@+id/textView"
                 style="@style/text_input_title"
+                android:layout_marginTop="12dp"
                 android:text="원아 목록" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp" />
 
         </LinearLayout>
 
