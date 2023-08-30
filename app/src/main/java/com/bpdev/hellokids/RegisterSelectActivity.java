@@ -15,6 +15,9 @@ public class RegisterSelectActivity extends AppCompatActivity {
 
     int n; // 선생님인지 원장선생님인지 학부모인지 구별하기 위한 변수
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,20 @@ public class RegisterSelectActivity extends AppCompatActivity {
         cvPrincipal = findViewById(R.id.cvPrincipal);
         cvParent = findViewById(R.id.cvParent);
 
+
+
+        // '학부모'를 선택
+        cvParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterSelectActivity.this,RegisterActivity1.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+        // '선생님'을 선택
         cvTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,6 +50,8 @@ public class RegisterSelectActivity extends AppCompatActivity {
             }
         });
 
+
+        // '원장님'을 선택
         cvPrincipal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,13 +61,6 @@ public class RegisterSelectActivity extends AppCompatActivity {
             }
         });
 
-        cvParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterSelectActivity.this,RegisterActivity1.class);
-                startActivity(intent);
 
-            }
-        });
     }
 }

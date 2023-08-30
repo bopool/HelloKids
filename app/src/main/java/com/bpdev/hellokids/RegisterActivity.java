@@ -30,6 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button button5;
 
+
+    // -- -- -- 선생님 회원가입 -- -- -- //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         button5 = findViewById(R.id.loginBtn);
 
+
+        //
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
