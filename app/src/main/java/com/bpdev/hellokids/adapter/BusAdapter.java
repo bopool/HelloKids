@@ -94,9 +94,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
         TextView textBusName;
         TextView textBusNum;
-        TextView textBusTime;
-        TextView textDriver;
-        TextView textDriverNum;
         TextView textDriveStart;
         TextView textDriveOk;
         TextView textDriveEnd;
@@ -112,7 +109,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
             textBusName = itemView.findViewById(R.id.txtBusName);
             textBusNum = itemView.findViewById(R.id.txtBusNum);
-//            textBusTime = itemView.findViewById(R.id.txtBusTime);
             textDriveStart = itemView.findViewById(R.id.txtDriveStart);
             textDriveEnd = itemView.findViewById(R.id.txtDriveEnd);
             textDriveOk = itemView.findViewById(R.id.txtDriveOk);
@@ -120,8 +116,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
             imgBus = itemView.findViewById(R.id.imgBus);
             btnLocation = itemView.findViewById(R.id.btnLocation);
             checkBoxBus = itemView.findViewById(R.id.checkBoxBus);
-
-
 
 
         }
