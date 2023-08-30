@@ -16,38 +16,47 @@ import retrofit2.http.Path;
 
 public interface UserApi {
 
-//  회원 가입 - 선생님
+    //  회원 가입 - 선생님
     @POST("/user/register/teacher")
     Call<UserRes> register(@Body User user);
+
     @PUT("/user/teacher/<int:id>")
     Call<UserRes> update(@Path("teacherId") int Id, @Body User user);
-    @GET("/user/teacher/<int:id>")
-    Call<UserRes> view(@Path("teacherId") int Id);
-    @DELETE("/user/teacher/<int:id>")
-    Call<UserRes> delete(@Path("teacherId") int Id);
+
+//    @GET("/user/teacher/<int:id>")
+//    Call<UserRes> view(@Path("teacherId") int Id);
+//
+//    @DELETE("/user/teacher/<int:id>")
+//    Call<UserRes> delete(@Path("teacherId") int Id);
 
 
     // 회원 가입 - 학부모
     @POST("/user/register/parent")
     Call<UserRes> register1(@Body User1 user);
+
     @PUT("/user/parent/<int:id>")
     Call<UserRes> update(@Path("parentId") int id, @Body User1 user);
-//    @GET("/user/parent/<int:id>")
-//    Call<UserRes> view(@Path("parentId") int id);
-//    @DELETE("/user/parent/<int:id>")
-//    Call<UserRes> delete(@Path("parentId") int id);
-//
-//
-//    // 로그인, 로그아웃
+
+    @GET("/user/parent/<int:id>")
+    Call<UserRes> view(@Path("parentId") int id);
+
+    @DELETE("/user/parent/<int:id>")
+    Call<UserRes> delete(@Path("parentId") int id);
+
+
+    // 로그인, 로그아웃
     @POST("/user/login")
     Call<UserRes> login(@Body User user);
+
     @DELETE("/user/logout")
     Call<UserRes> logout(@Body User user);
 //
 //
 //    // setting
-//    @POST("/setting/child") // JSON 버전 아이 입력
+//    @POST("/setting/child")
+//    // JSON 버전 아이 입력
 //    Call<UserRes> upload(@Path(""));
+//
 //    @GET("/setting/children/<int:nurseryId>/all")
 //    Call<UserRes>
 //    @GET("/setting/children/<int:classId>")
@@ -138,8 +147,6 @@ public interface UserApi {
 //    Call<UserRes>
 //
 //
-//
-//
 //    // 알림장
 //    @POST("/dailynote/write/<int:childId>") // 알림장 등록
 //    Call<UserRes>
@@ -169,36 +176,11 @@ public interface UserApi {
 //    @GET("/schedule/<int:nurseryId>/all")
 //    Call<UserRes>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+

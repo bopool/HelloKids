@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editEmail;
     EditText editPassword;
 
-    Button loginBtn;
+    Button registerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
         editEmail = findViewById(R.id.editEmail);
         editPassword = findViewById(R.id.editPassword);
-        loginBtn = findViewById(R.id.loginBtn);
+        registerBtn = findViewById(R.id.registerBtn);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = editEmail.getText().toString().trim();
@@ -48,14 +48,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 Pattern pattern = Patterns.EMAIL_ADDRESS;
                 if(pattern.matcher(email).matches() == false){
-                    Snackbar.make(loginBtn,
+                    Snackbar.make(registerBtn,
                             "이메일 형식을 바르게 입력하세요.",
                             Snackbar.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(password.length() < 4 || password.length() > 12 ){
-                    Snackbar.make(loginBtn,
+                    Snackbar.make(registerBtn,
                             "비밀번호 길이가 잘못되었습니다.",
                             Snackbar.LENGTH_SHORT).show();
                     return;
@@ -93,12 +93,12 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
 
                         } else if (response.code() == 400){
-                            Snackbar.make(loginBtn,
+                            Snackbar.make(registerBtn,
                                     "비밀번호가 맞지 않습니다.",
                                     Snackbar.LENGTH_SHORT).show();
                             return;
                         } else {
-                            Snackbar.make(loginBtn,
+                            Snackbar.make(registerBtn,
                                     "서버에 문제가 있습니다.",
                                     Snackbar.LENGTH_SHORT).show();
                             return;

@@ -22,6 +22,11 @@ import com.bpdev.hellokids.model.BusDailyRecord;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
     Context context;
@@ -53,9 +58,9 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
         BusDailyRecord bus = busArrayList.get(position); // position는 해당 위치를 나타낸다
 
-        holder.txtBusName.setText(bus.getShuttleName());
-        holder.txtDriveStart.setText(bus.getShuttleStart());
-        holder.txtDriveEnd.setText(bus.getShuttleStop());
+        holder.textBusName.setText(bus.getShuttleName());
+        holder.textDriveStart.setText(bus.getShuttleStart());
+        holder.textDriveEnd.setText(bus.getShuttleStop());
 
         holder.btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,29 +92,30 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtBusName;
-        TextView txtBusNum;
-
-        TextView txtBusTime;
-        TextView txtDriveStart;
-        TextView txtDriveEnd;
-        TextView txtDriveOk;
-
+        TextView textBusName;
+        TextView textBusNum;
+        TextView textBusTime;
+        TextView textDriver;
+        TextView textDriverNum;
+        TextView textDriveStart;
+        TextView textDriveOk;
+        TextView textDriveEnd;
         CardView cardView;
         ImageView imgBus;
         Button btnLocation;
         CheckBox checkBoxBus;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
 
-            txtBusName = itemView.findViewById(R.id.txtBusName);
-            txtBusNum = itemView.findViewById(R.id.txtBusNum);
-            txtBusTime = itemView.findViewById(R.id.txtBusTime);
-            txtDriveStart = itemView.findViewById(R.id.txtDriveStart);
-            txtDriveEnd = itemView.findViewById(R.id.txtDriveEnd);
-            txtDriveOk = itemView.findViewById(R.id.txtDriveOk);
+            textBusName = itemView.findViewById(R.id.txtBusName);
+            textBusNum = itemView.findViewById(R.id.txtBusNum);
+//            textBusTime = itemView.findViewById(R.id.txtBusTime);
+            textDriveStart = itemView.findViewById(R.id.txtDriveStart);
+            textDriveEnd = itemView.findViewById(R.id.txtDriveEnd);
+            textDriveOk = itemView.findViewById(R.id.txtDriveOk);
 
             imgBus = itemView.findViewById(R.id.imgBus);
             btnLocation = itemView.findViewById(R.id.btnLocation);
