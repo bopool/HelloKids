@@ -79,18 +79,18 @@ public class MainActivity extends AppCompatActivity {
 
         // -- -- -- 기    능 -- -- -- //
 
-        // 회원가입이나 로그인이 되어있는지 확인(토큰 있는지 확인)
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        token = sp.getString(Config.ACCESS_TOKEN, "");
-
-        if(token.isEmpty()){
-            Intent intent = new Intent(MainActivity.this, RegisterSelectActivity.class);
-            startActivity(intent);
-
-            // 메인 액티비티 종료
-            finish();
-            return;
-        }
+//        // 회원가입이나 로그인이 되어있는지 확인(토큰 있는지 확인)
+//        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//        token = sp.getString(Config.ACCESS_TOKEN, "");
+//
+//        if(token.isEmpty()){
+//            Intent intent = new Intent(MainActivity.this, RegisterSelectActivity.class);
+//            startActivity(intent);
+//
+//            // 메인 액티비티 종료
+//            finish();
+//            return;
+//        }
 
 
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         btnSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,PhotoalbumListActivity.class);
+                Intent intent = new Intent(MainActivity.this,ScheduleListActivity.class);
                 startActivity(intent);
             }
         });
@@ -169,6 +169,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        // 출석부
+        btnAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,AttendanceListActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         // 안심등하원 버튼
