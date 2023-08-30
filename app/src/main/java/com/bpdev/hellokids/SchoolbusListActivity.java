@@ -13,6 +13,8 @@ import com.bpdev.hellokids.adapter.BusAdapter;
 import com.bpdev.hellokids.api.BusApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.model.Bus;
+import com.bpdev.hellokids.model.BusDailyRecord;
+import com.bpdev.hellokids.model.BusDailyRecordList;
 import com.bpdev.hellokids.model.BusList;
 
 import java.util.ArrayList;
@@ -28,9 +30,10 @@ public class SchoolbusListActivity extends AppCompatActivity {
 
     BusAdapter adapter;
 
-    ArrayList<Bus> busArrayList = new ArrayList<>();
+    ArrayList<BusDailyRecord> busArrayList = new ArrayList<>();
 
     Button btnAdd;
+    Button btnInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class SchoolbusListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schoolbus_list);
 
         btnAdd = findViewById(R.id.btnAdd);
+        btnInfo = findViewById(R.id.btnInfo);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -48,21 +52,31 @@ public class SchoolbusListActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SchoolbusListActivity.this, SettingSchoolbusAddActivity.class);
+                Intent intent = new Intent(SchoolbusListActivity.this,  SchoolbusAddActivity.class);
                 startActivity(intent);
             }
         });
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SchoolbusListActivity.this, SchoolbusInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusListActivity.this);
 
         BusApi api = retrofit.create(BusApi.class);
 
-        Call<BusList> call = api.busList();
-        call.enqueue(new Callback<BusList>() {
+        Call<BusDailyRecordList> call = api.busList();
+        call.enqueue(new Callback<BusDailyRecordList>() {
             @Override
-            public void onResponse(Call<BusList> call, Response<BusList> response) {
+            public void onResponse(Call<BusDailyRecordList> call, Response<BusDailyRecordList> response) {
                 if(response.isSuccessful()){
-                    BusList busList = response.body();
+                    BusDailyRecordList busList = response.body();
 
                     busArrayList.addAll( busList.getItems() );
 
@@ -78,7 +92,7 @@ public class SchoolbusListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BusList> call, Throwable t) {
+            public void onFailure(Call<BusDailyRecordList> call, Throwable t) {
 
             }
         });

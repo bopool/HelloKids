@@ -47,7 +47,7 @@
             android:name=".ScheduleViewActivity"
             android:exported="false" />
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".ScheduleListActivity"
             android:exported="false" />
         <activity
             android:name=".ScheduleEditActivity"
@@ -71,9 +71,6 @@
             android:name=".SettingClassinfoActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".SettingApproveActivity"
             android:exported="false" />
         <activity
@@ -95,9 +92,6 @@
             android:name=".SchoolbusInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingSchoolbusAddActivity"
-            android:exported="false" />
-        <activity
             android:name=".PhotoalbumAddActivity"
             android:exported="false" />
         <activity
@@ -111,9 +105,6 @@
             android:exported="false" />
         <activity
             android:name=".SchoolbusListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ScheduleListActivity"
             android:exported="false" />
         <activity
             android:name=".AttendanceCheckActivity"
