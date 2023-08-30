@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,34 +23,68 @@ import retrofit2.Retrofit;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    // 최상단 헤더의 버튼
+    TextView btnRegister;
+    TextView btnLogin;
+    ImageButton btnTranslate;
+    Button btnBack;
+
+    //
     EditText userName;
     EditText userId;
     EditText editPassword;
     EditText editPassword2;
     EditText editEmail;
     EditText editPhoneNumber;
+    Button registerBtn;
 
-    Button button5;
+    // 하단 바로가기 메뉴 버튼
+    Button btnBottomHome;
+    Button btnBottomNotice;
+    Button btnBottomDailyNote;
+    Button btnBottomSchoolbus;
+    Button btnBottomSetting;
 
 
-    // -- -- -- 선생님 회원가입 -- -- -- //
+
+
+    // -- -- -- -- 선생님 회원가입 -- -- -- -- //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // -- -- -- 화면 연결 -- -- -- //
+        // 최상단 헤더 버튼 화면 연결
+        btnRegister = findViewById(R.id.btnRegister);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnTranslate = findViewById(R.id.btnTranslate);
+        btnBack = findViewById(R.id.btnBack);
+
+
+        // 메인 파트 화면 연결
         userName = findViewById(R.id.userName);
         userId = findViewById(R.id.userId);
         editPassword = findViewById(R.id.editPassword);
         editPassword2 = findViewById(R.id.editPassword2);
         editEmail = findViewById(R.id.editEmail);
         editPhoneNumber = findViewById(R.id.editPhoneNumber);
+        registerBtn = findViewById(R.id.registerBtn);
 
-        button5 = findViewById(R.id.loginBtn);
+        // 하단 바로가기 메뉴 화면 연결
+        btnBottomHome = findViewById(R.id.btnBottomHome);
+        btnBottomNotice = findViewById(R.id.btnBottomNotice);
+        btnBottomDailyNote = findViewById(R.id.btnBottomDailynote);
+        btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
+        btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
 
-        //
-        button5.setOnClickListener(new View.OnClickListener() {
+
+
+        // -- -- -- 기능 -- -- -- //
+
+        // '회원가입하기' 버튼 눌렀을 때
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -65,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = editPassword.getText().toString().trim();
 
                 if (password.length() < 4 || password.length() > 12) {
-                    Snackbar.make(button5,
+                    Snackbar.make(registerBtn,
                             "비밀번호 길이를 확인하세요.",
                             Snackbar.LENGTH_SHORT).show();
                     return;
@@ -120,7 +156,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             // 이렇게 상태코드써서 코드짜면 클라이언트 개발자가 코드짜기 쉽다
                         } else if (response.code() == 400) {
-                            Snackbar.make(button5, "이미 회원가입 되어있습니다. 로그인 하세요.", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(registerBtn, "이미 회원가입 되어있습니다. 로그인 하세요.", Snackbar.LENGTH_SHORT).show();
                             return;
 
                         } else if (response.code() == 401) {
@@ -145,6 +181,77 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
         });
+
+
+        // '뒤로가기(화살표)' 버튼 눌렀을 때
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+//        // -- -- -- 하단 바로가기 메뉴 버튼 -- -- -- //
+//        // 홈 바로가기
+//        btnBottomHome.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//
+//        // 공지사항 바로가기
+//        btnBottomNotice.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RegisterActivity.this, NoticeListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//
+//        // 알림장 바로가기
+//        btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RegisterActivity.this, DailynoteListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//
+//        // 안심등하원 바로가기
+//        btnBottomSchoolbus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                // 선생님화면
+//                Intent intent = new Intent(RegisterActivity.this, SchoolbusListActivity.class);
+//                startActivity(intent);
+//
+//                // 학부모화면
+////                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//
+//        // 설정 바로가기
+//        btnBottomSetting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent = new Intent(RegisterActivity.this, SettingListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
     }
 }
 

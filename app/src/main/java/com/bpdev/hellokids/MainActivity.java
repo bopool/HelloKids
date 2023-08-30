@@ -15,7 +15,7 @@ import com.bpdev.hellokids.config.Config;
 public class MainActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
-    TextView btnSignup;
+    TextView btnRegister;
     TextView btnLogin;
     ImageButton btnTranslate;
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnAttendance;
     ImageButton btnSchoolbus;
 
-    // 하단 바로가기 메뉴
+    // 하단 바로가기 메뉴 버튼
     Button btnBottomHome;
     Button btnBottomNotice;
     Button btnBottomDailyNote;
@@ -43,17 +43,41 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
+    // -- -- -- -- 메인 화면 -- -- -- -- //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSignup = findViewById(R.id.btnSignup);
+        // -- -- -- 화면 연결 -- -- -- //
+
+        // 최상단 헤더 버튼 화면 연결
+        btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         btnForTest = findViewById(R.id.btnForTest);
+        btnTranslate = findViewById(R.id.btnTranslate);
 
+        // 메인 파트 버튼 화면 연결
+        btnDailyNote = findViewById(R.id.btnDailyNote);
+        btnNotice = findViewById(R.id.btnNotice);
+        btnPhotoAlbum = findViewById(R.id.btnPhotoAlbum);
+        btnSchedule = findViewById(R.id.btnSchedule);
+        btnFoodMenu = findViewById(R.id.btnFoodMenu);
+        btnAttendance = findViewById(R.id.btnAttendance);
+        btnSchoolbus = findViewById(R.id.btnSchoolbus);
+
+        // 하단 바로가기 메뉴 화면 연결
+        btnBottomHome = findViewById(R.id.btnBottomHome);
+        btnBottomNotice = findViewById(R.id.btnBottomNotice);
+        btnBottomDailyNote = findViewById(R.id.btnBottomDailynote);
+        btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
+        btnBottomSetting = findViewById(R.id.btnBottomSetting);
+
+
+
+
+
+        // -- -- -- 기    능 -- -- -- //
 
         // 회원가입이나 로그인이 되어있는지 확인(토큰 있는지 확인)
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -71,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // -- -- -- 최상단 헤더 버튼 -- -- -- //
+        // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,RegisterSelectActivity.class);
@@ -96,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // -- -- -- 메인 파트 버튼 -- -- -- //
+        // -- -- 메인 파트 버튼 -- -- //
         // 알림장 버튼 
         btnDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // -- -- -- 하단 바로가기 버튼 -- -- -- //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,11 +234,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // 설정 바로가기
+        btnBottomSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, SettingListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         
 
 
 
-        // 다른화면 테스트용 버튼 - 나중에 지우기
+        // -- -- -- 다른화면 테스트용 버튼 - 나중에 지우기 -- -- -- //
         btnForTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
