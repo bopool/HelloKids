@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
-    // 테스트용 버튼
-    Button btnForTest;
 
     // 토큰
     String token;
@@ -54,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
-        btnForTest = findViewById(R.id.btnForTest);
         btnTranslate = findViewById(R.id.btnTranslate);
 
         // 메인 파트 버튼 화면 연결
@@ -252,19 +249,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, SettingListActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        
-
-
-
-        // -- -- -- 다른화면 테스트용 버튼 - 나중에 지우기 -- -- -- //
-        btnForTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,SchoolbusListActivity.class);
                 startActivity(intent);
             }
         });

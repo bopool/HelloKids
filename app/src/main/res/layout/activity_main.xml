@@ -92,12 +92,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnForTest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="화면테스트용버튼" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

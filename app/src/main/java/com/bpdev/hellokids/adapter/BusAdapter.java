@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bpdev.hellokids.R;
+import com.bpdev.hellokids.RegisterSelectActivity;
+import com.bpdev.hellokids.SchoolbusInfoActivity;
 import com.bpdev.hellokids.SchoolbusLocationActivity;
 import com.bpdev.hellokids.model.BusDailyRecord;
 
@@ -40,6 +42,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
     /* 체크박스 리스너 */
     private CheckBoxClickListener mCheckBoxClickListener;
+
+    int id = 0;
 
     public BusAdapter(Context context, ArrayList<BusDailyRecord> busArrayList) {
         this.context = context;
@@ -75,13 +79,19 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
             if(holder.checkBoxBus.isChecked()) {
                 // 체크가 되어 있음
                 //mCheckBoxClickListener.onClickCheckBox(1, position);
-                Toast.makeText(context, "짧게 출력 Hello World!", Toast.LENGTH_SHORT).show();
+                id = bus.getId(); // 선택한 운행 기록 id
+                String strId = Integer.toString(id);
+                Intent intent = new Intent(context,SchoolbusInfoActivity.class);
+                intent.putExtra("strId",strId);
+                context.startActivity(intent);
             }
             else {
                 // 체크가 되어있지 않음
-                mCheckBoxClickListener.onClickCheckBox(0, position);
+                //mCheckBoxClickListener.onClickCheckBox(0, position);
             }
         });
+
+
 
     }
 

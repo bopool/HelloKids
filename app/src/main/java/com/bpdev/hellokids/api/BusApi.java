@@ -24,7 +24,7 @@ public interface BusApi {
     Call<BusDailyRecordList>busList(); // 차량 운행 기록 리스트
 
     @POST("/schoolbus/drive/{id}/location")
-    Call<BusRes>addLocation(@Path("id") int id, @Header("Authorization") String token, @Body Location location);
+    Call<BusRes>addLocation(@Path("id") int id, @Body Location location);
 
     @POST("/schoolbus/drive/{id}")
     Call<BusRes>addBusDailyRecord(@Body BusDailyRecord busDailyRecord); // 차량 운행 등록
