@@ -91,6 +91,17 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
             }
         });
 
+        holder.btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                id = bus.getId(); // 선택한 운행 기록 id
+                String strId = Integer.toString(id);
+                Intent intent = new Intent(context,SchoolbusLocationActivity.class);
+                intent.putExtra("strId",strId);
+                context.startActivity(intent);
+            }
+        });
+
 
 
     }
