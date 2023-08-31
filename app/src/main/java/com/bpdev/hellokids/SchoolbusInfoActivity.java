@@ -49,22 +49,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.util.Log;
+
 public class SchoolbusInfoActivity extends AppCompatActivity {
 
-    private static final String TAG = SchoolbusInfoActivity.class.getSimpleName();
-    private static final int GPS_UTIL_LOCATION_PERMISSION_REQUEST_CODE = 100;
-    private static final int GPS_UTIL_LOCATION_RESOLUTION_REQUEST_CODE = 101;
+    LocationManager locationManager;
 
-    public static final int DEFAULT_LOCATION_REQUEST_PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY;
-    public static final long DEFAULT_LOCATION_REQUEST_INTERVAL = 20000L;
-    public static final long DEFAULT_LOCATION_REQUEST_FAST_INTERVAL = 10000L;
+    LocationListener locationListener;
 
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    private LocationRequest locationRequest;
-    private double lng, lat;
+    double myLng, myLat;
 
     Button btnStart;
     Button btnEnd;
+
+    Location location1 = new Location(0,0);
 
 
     @Override
@@ -78,70 +86,126 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
         String strId = getIntent().getStringExtra("strId");
         int id = Integer.parseInt(strId);
 
+        // 1. 레트로핏 변수 생성
+        Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusInfoActivity.this);
+
+        // 2. api 패키지의 인터페이스 생성.
+        //    => api 폴더로 이동해서, api 인터페이스 작성해 준다!!!!
+        //    => 인터페이스가 작성이 다 되었으면, API를 만들어준다.
+
+        BusApi api = retrofit.create(BusApi.class);
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkLocationPermission();
 
-                // 1. 레트로핏 변수 생성
-                Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusInfoActivity.this);
+                // 3.
+                // 핸드폰의 위치를 가져오기 위해서는 시스템서비스로부터 로케이션 매니저를 받아온다
+                // --> 빨간줄 뜨면 캐스트 하기
+                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-                // 2. api 패키지의 인터페이스 생성.
-                //    => api 폴더로 이동해서, api 인터페이스 작성해 준다!!!!
-                //    => 인터페이스가 작성이 다 되었으면, API를 만들어준다.
-
-                BusApi api = retrofit.create(BusApi.class);
-
-                // 3. 보낼 데이터를 준비한다.
-                Location location = new Location(lat,lng);
-
-                Call<BusRes> call = api.addLocation(id,location);
-
-                call.enqueue(new Callback<BusRes>() { // 받아왔을때 처리하는 코드
+                // 3-1.
+                // 로케이션 리스너를 만든다
+                locationListener = new LocationListener() {
                     @Override
-                    public void onResponse(Call<BusRes> call, Response<BusRes> response) {
+                    public void onLocationChanged(@NonNull android.location.Location location) {
+                        // 이동해서 위치가 변하면 그때마다 실행된다
+                        // 여기에 로직을 작성한다
+                        // -- 예시 : 위치가 바뀌면 알람소리를 내겠다, 위도와경도의 정보를 표시하겠다...
+
+                        // - (@NonNull Location location) 의 location에 위도와 경도의 정보가 있음.
+                        // 위도 가져오는 코드
+                        myLat = location.getLatitude();
+                        // 경도 가져오는 코드
+                        myLng = location.getLongitude();
+
+                        location1.setLat(myLat);
+                        location1.setLng(myLng);
+
+                        Call<BusRes> call = api.addLocation(id,location1);
+
+                        call.enqueue(new Callback<BusRes>() { // 받아왔을때 처리하는 코드
+                            @Override
+                            public void onResponse(Call<BusRes> call, Response<BusRes> response) {
 
 
-                        // 서버로부터 응답을 받아서 처리하는 코드 작성.
+                                // 서버로부터 응답을 받아서 처리하는 코드 작성.
 
-                        // 200 OK 인지 확인
-                        if (response.isSuccessful()) {
+                                // 200 OK 인지 확인
+                                if (response.isSuccessful()) {
 
-                            // 회원가입에서 받은 억세스토큰은,
-                            // 앱 내에 저장해야 한다.
-                            //                            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                            //                            SharedPreferences.Editor editor = sp.edit();
-                            //                            UserRes res = response.body();
-                            //
-                            //                            editor.putString(Config.ACCESS_TOKEN, res.getAccess_token());
-                            //                            editor.apply();
+                                    // 회원가입에서 받은 억세스토큰은,
+                                    // 앱 내에 저장해야 한다.
+                                    //                            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                                    //                            SharedPreferences.Editor editor = sp.edit();
+                                    //                            UserRes res = response.body();
+                                    //
+                                    //                            editor.putString(Config.ACCESS_TOKEN, res.getAccess_token());
+                                    //                            editor.apply();
 
-                            // 회원가입이 정상적으로 끝났으니까,
-                            // 메인 액티비티를 실행하고,
-                            // 이 액티비티는 종료해야 한다.
+                                    // 회원가입이 정상적으로 끝났으니까,
+                                    // 메인 액티비티를 실행하고,
+                                    // 이 액티비티는 종료해야 한다.
 
-                            // 이렇게 상태코드써서 코드짜면 클라이언트 개발자가 코드짜기 쉽다
-                        } else if (response.code() == 400) {
+                                    // 이렇게 상태코드써서 코드짜면 클라이언트 개발자가 코드짜기 쉽다
+                                } else if (response.code() == 400) {
 
 
-                        } else if (response.code() == 401) {
+                                } else if (response.code() == 401) {
 
-                        } else if (response.code() == 404) {
+                                } else if (response.code() == 404) {
 
-                        } else if (response.code() == 500) {
+                                } else if (response.code() == 500) {
 
-                        } else {
-                            // 200OK 아닌경우
+                                } else {
+                                    // 200OK 아닌경우
 
-                        }
+                                }
 
+                            }
+
+                            @Override
+                            public void onFailure(Call<BusRes> call, Throwable t) {
+
+                            }
+                        });
+
+                        //Log.i("myLocation", "위도 : "+location.getLatitude());
+                        //Log.i("myLocation", "경도 : "+location.getLongitude());
                     }
+                };
 
-                    @Override
-                    public void onFailure(Call<BusRes> call, Throwable t) {
+                // 3-2. 위치 정보 허용 요청하기 (매뉴얼)
+                if(ActivityCompat.checkSelfPermission(
+                        SchoolbusInfoActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED){
 
-                    }
-                });
+                    // 3-2. 위치기반서비스 사용하겠다고 허용 안했다면 허용 해 달라고 요청한다.
+                    ActivityCompat.requestPermissions(
+                            SchoolbusInfoActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION},
+                            100);
+                    return;
+                }
+
+                // 위치기반을 허용하였으므로
+                // 로케이션 매니저에 리스너를 연결한다.
+                // 파라미터 설명
+                // - LocationManager.GPS_PROVIDER : 위치 정보 확인
+                // - 숫자 : 몇초에 한번씩 위치를 파악하는가 (1000 = 1초)
+                // - 숫자 : 미터. 몇 미터 갈때마다 파악하는가? (미터단위) : 마이너스라면 위치 안 재고, 설정한 초 마다 위치 파악
+                // - : 몇초마다 또는 몇 미터마다 움직였을때 어떤 코드를 사용할까?
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, -1, locationListener);
+
+            }
+        });
+
+        btnEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationManager.removeUpdates(locationListener);
             }
         });
 
@@ -149,82 +213,40 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
     }
 
 
-    private void checkLocationPermission() {
-        int accessLocation = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        if (accessLocation == PackageManager.PERMISSION_GRANTED) {
-            checkLocationSetting();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_UTIL_LOCATION_PERMISSION_REQUEST_CODE);
-        }
-    }
 
-    private void checkLocationSetting() {
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(DEFAULT_LOCATION_REQUEST_PRIORITY);
-        locationRequest.setInterval(DEFAULT_LOCATION_REQUEST_INTERVAL);
-        locationRequest.setFastestInterval(DEFAULT_LOCATION_REQUEST_FAST_INTERVAL);
+    // 4.
+    // 3-2 에서 연결
+    // 위치기반 서비스 권한 허용했는지
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest).setAlwaysShow(true);
-        settingsClient.checkLocationSettings(builder.build())
-                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-                    @Override
-                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(SchoolbusInfoActivity.this);
-                        try {
-                            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
-                        } catch (SecurityException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                })
-                .addOnFailureListener(SchoolbusInfoActivity.this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        int statusCode = ((ApiException) e).getStatusCode();
-                        switch (statusCode) {
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                try {
-                                    ResolvableApiException rae = (ResolvableApiException) e;
-                                    rae.startResolutionForResult(SchoolbusInfoActivity.this, GPS_UTIL_LOCATION_RESOLUTION_REQUEST_CODE);
-                                } catch (IntentSender.SendIntentException sie) {
-                                    Log.w(TAG, "unable to start resolution for result due to " + sie.getLocalizedMessage());
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                String errorMessage = "location settings are inadequate, and cannot be fixed here. Fix in Settings.";
-                                Log.e(TAG, errorMessage);
-                        }
-                    }
-                });
-    }
+        // 위치기반 허용하겠다 했다면 --> 다시한번 허용했는지 확인
+        if (requestCode == 100) {
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+            if (ActivityCompat.checkSelfPermission(
+                    SchoolbusInfoActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-        if (requestCode == GPS_UTIL_LOCATION_RESOLUTION_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                checkLocationSetting();
-            } else {
-                finish();
+                // 3-2. 위치기반서비스 사용하겠다고 허용 안했다면 허용 해 달라고 요청한다.
+                ActivityCompat.requestPermissions(
+                        SchoolbusInfoActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                        100);
+                return;
             }
+
+            // 위치기반을 허용하였으므로
+            // 로케이션 매니저에 리스너를 연결한다.
+            // 파라미터 설명
+            // - LocationManager.GPS_PROVIDER : 위치 정보 확인
+            // - 숫자 : 몇초에 한번씩 위치를 파악하는가 (1000 = 1초)
+            // - 숫자 : 미터. 몇 미터 갈때마다 파악하는가? (미터단위) : 마이너스라면 위치 안 재고 설정한 초 마다 위치 파악
+            // - : 몇초마다 또는 몇 미터마다 움직였을때 어떤 코드를 사용할까?
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, -1, locationListener);
+
         }
     }
-
-    private LocationCallback locationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            super.onLocationResult(locationResult);
-            lng = locationResult.getLastLocation().getLongitude();
-            lat = locationResult.getLastLocation().getLatitude();
-            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-
-
-        }
-        @Override
-        public void onLocationAvailability(LocationAvailability locationAvailability) {
-            super.onLocationAvailability(locationAvailability);
-            Log.i(TAG, "onLocationAvailability - " + locationAvailability);
-        }
-    };
 }
