@@ -28,6 +28,9 @@ public class PhotoalbumListActivity extends AppCompatActivity {
     Button btnSelectDate;
     Button btnCreate;
 
+    // 사진 관련 버튼
+    Button btnCreate;
+
 
 
 
@@ -56,10 +59,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnSelectDate = findViewById(R.id.btnSelectDate);
         btnCreate = findViewById(R.id.btnCreate);
 
-
-
-
-
+        btnCreate = findViewById(R.id.btnCreate);
 
 
         // -- -- 최상단 헤더 버튼 -- -- //
@@ -163,6 +163,14 @@ public class PhotoalbumListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PhotoalbumListActivity.this,PhotoalbumAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PhotoalbumListActivity.this, PhotoalbumAddActivity.class);
                 startActivity(intent);
             }
         });

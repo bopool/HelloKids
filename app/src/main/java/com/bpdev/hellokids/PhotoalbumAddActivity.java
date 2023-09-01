@@ -7,10 +7,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import com.bpdev.hellokids.adapter.BusAdapter;
+import com.bpdev.hellokids.api.BusApi;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.SettingApi;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.BusDailyRecord;
+import com.bpdev.hellokids.model.BusDailyRecordList;
+import com.bpdev.hellokids.model.classList;
+import com.bpdev.hellokids.model.nurseryClass;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +48,13 @@ import com.bpdev.hellokids.adapter.PhotoAddAdapter;
 import java.util.ArrayList;
 
 public class PhotoalbumAddActivity extends AppCompatActivity {
+
+
+    ArrayList<nurseryClass> classArrayList = new ArrayList<>();
+
+    String[] classNameList = {}; // 일단 에러나지말라고 {} 써줌
+
+    Spinner classSpinner;
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -106,6 +134,59 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photoalbum_add);
+
+        classSpinner = findViewById(R.id.btnSelectClass);
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumAddActivity.this);
+
+        SettingApi api = retrofit.create(SettingApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN,"");
+
+        Call<classList> call = api.classListView("Bearer "+token);
+        call.enqueue(new Callback<classList>() {
+            @Override
+            public void onResponse(Call<classList> call, Response<classList> response) {
+                if(response.isSuccessful()){
+                    classList classList = response.body();
+
+                    classArrayList.addAll( classList.getItems() );
+
+                    Log.i("classArrayList", classArrayList.get(1).getClassName());
+
+                    classNameList  = new String[classArrayList.size()];
+                    for (int i = 0; i <classArrayList.size(); i++) {
+                        classNameList[i] = classArrayList.get(i).getClassName();
+                    }
+
+                    Log.i(" classNameList",  classNameList[2]);
+
+                }
+
+                else{
+
+                }
+            }
+            @Override
+            public void onFailure(Call<classList> call, Throwable t) {
+
+            }
+
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                classNameList);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        classSpinner.setAdapter(adapter);
+
+        classSpinner.setSelection(0);
+
+    }
 
         // -- -- -- 스피너 -- -- -- //
         Spinner spFacilityType = (Spinner)findViewById(R.id.btnSelectClass);
@@ -230,12 +311,12 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
-        
-        
-        
+
+
+
+
         // -- -- 메인 파트 버튼 -- -- //
-        
+
         // 등록하기 버튼
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +324,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
                 // 스피어에서 선택한 반 이름 가져오기
                 //String SelectClass = btnSelectClass.getSelectedItem().toString();
-                
+
             }
         });
 

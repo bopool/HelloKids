@@ -66,7 +66,6 @@ public class SchoolbusListActivity extends AppCompatActivity {
         });
 
 
-
         Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusListActivity.this);
 
         BusApi api = retrofit.create(BusApi.class);
