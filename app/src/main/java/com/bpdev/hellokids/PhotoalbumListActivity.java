@@ -23,6 +23,10 @@ public class PhotoalbumListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
+    // 메인 파트 버튼
+    Button btnSelectClass;
+    Button btnSelectDate;
+    Button btnCreate;
 
 
 
@@ -46,6 +50,11 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnBottomDailyNote = findViewById(R.id.btnBottomDailynote);
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
+
+        // 메인 파트 버튼 연결
+        btnSelectClass = findViewById(R.id.btnSelectClass);
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+        btnCreate = findViewById(R.id.btnCreate);
 
 
 
@@ -82,9 +91,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
 
 
-
-
-// -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,5 +148,29 @@ public class PhotoalbumListActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
+
+
+        // -- -- 메인 파트 버튼 -- -- //
+        
+        // 사진첩 만들기
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PhotoalbumListActivity.this,PhotoalbumAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
+
+
+
 }

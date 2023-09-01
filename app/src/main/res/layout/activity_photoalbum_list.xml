@@ -100,7 +100,7 @@
             <Button
                 android:id="@+id/btnSelectDate"
                 style="@style/btn_date_select"
-                android:text="반 선택"
+                android:text="날짜 선택"
                 app:cornerRadius="8dp" />
 
             <Button
