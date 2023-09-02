@@ -13,16 +13,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.bpdev.hellokids.adapter.BusAdapter;
-import com.bpdev.hellokids.api.BusApi;
+
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
-import com.bpdev.hellokids.model.BusDailyRecord;
-import com.bpdev.hellokids.model.BusDailyRecordList;
 import com.bpdev.hellokids.model.classList;
 import com.bpdev.hellokids.model.nurseryClass;
 
@@ -33,30 +31,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bpdev.hellokids.adapter.PhotoAddAdapter;
 
-import java.util.ArrayList;
 
 public class PhotoalbumAddActivity extends AppCompatActivity {
 
-
     ArrayList<nurseryClass> classArrayList = new ArrayList<>();
-
     String[] classNameList = {}; // 일단 에러나지말라고 {} 써줌
+    Spinner spinnerSelectClass;
 
-    Spinner classSpinner;
-
-    // 최상단 헤더의 버튼
+    // 최상단 헤더 버튼
     TextView btnRegister;
     TextView btnLogin;
     ImageButton btnTranslate;
@@ -71,8 +62,6 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
     // 메인 파트 버튼
     Button btnAdd;
-    Spinner btnSelectClass;
-    Button btnSeleckClass;
     Button btnSelectDate;
     Button btnSelectPhoto;
     Button btnRekog;
@@ -80,54 +69,45 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     EditText TextInpitContents;
 
 
-    // 이미지의 uri를 담을 ArrayList 객체
+    // 이미지 uri를 담을 ArrayList 객체
     ArrayList<Uri> uriList = new ArrayList<>();
-
 
     // 리사이클러뷰
     RecyclerView recyclerView;
     // 리사이클러뷰에 적용시킬 어댑터
-    PhotoAddAdapter adapter;
-
+    PhotoAddAdapter photoAddAdapter;
 
     // 스피너(드롭다운목록 띄우기)
-    String[] facilityList = {
-            "새싹반", "꽃잎반", "열매반" // 사용하고있는 선생님이 속한 어린이집의 반들이 나와야한다
-    };
-
-
-
+    //    String[] facilityList = {
+    //            "새싹반", "꽃잎반", "열매반" // 사용하고있는 선생님이 속한 어린이집의 반들이 나와야한다
+    //    };
+    //
 
     // startActivityForResult 대신할 런처
-//    ActivityResultLauncher<Intent> launcher =
-//            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//                    new ActivityResultCallback<ActivityResult>() {
-//                        @Override
-//                        public void onActivityResult(ActivityResult result) {
-//                            // 데이터를 받아 오는 코드는 여기에 작성 하면 된다.
-//                            //Intent intent = new Intent(Intent.ACTION_PICK);
-//                            //intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                            //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                            //intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                            //setResult(1, intent);
-//                            Log.i("Photo ADD ClassName", "getResultCode()");
-//
-//
-//                            if(  result.getResultCode() == 1111){
-//
-//                                Log.i("Photo ADD ClassName", "getResultCode()");
-//
-//                                //SelectClass = result.getData().getIntExtra("data",0);
-//                                //btnSelectClass.setText(""+futureAge);
-//                            }
-//
-//                        }
-//                    });
-
-
-
-
-
+    //    ActivityResultLauncher<Intent> launcher =
+    //            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    //                    new ActivityResultCallback<ActivityResult>() {
+    //                        @Override
+    //                        public void onActivityResult(ActivityResult result) {
+    //                            // 데이터를 받아 오는 코드는 여기에 작성 하면 된다.
+    //                            //Intent intent = new Intent(Intent.ACTION_PICK);
+    //                            //intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+    //                            //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+    //                            //intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    //                            //setResult(1, intent);
+    //                            Log.i("Photo ADD ClassName", "getResultCode()");
+    //
+    //
+    //                            if(  result.getResultCode() == 1111){
+    //
+    //                                Log.i("Photo ADD ClassName", "getResultCode()");
+    //
+    //                                //SelectClass = result.getData().getIntExtra("data",0);
+    //                                //btnSelectClass.setText(""+futureAge);
+    //                            }
+    //
+    //                        }
+    //                    });
 
 
     @Override
@@ -135,73 +115,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photoalbum_add);
 
-        classSpinner = findViewById(R.id.btnSelectClass);
+        spinnerSelectClass = findViewById(R.id.spinnerSelectClass);
 
-        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumAddActivity.this);
-
-        SettingApi api = retrofit.create(SettingApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN,"");
-
-        Call<classList> call = api.classListView("Bearer "+token);
-        call.enqueue(new Callback<classList>() {
-            @Override
-            public void onResponse(Call<classList> call, Response<classList> response) {
-                if(response.isSuccessful()){
-                    classList classList = response.body();
-
-                    classArrayList.addAll( classList.getItems() );
-
-                    Log.i("classArrayList", classArrayList.get(1).getClassName());
-
-                    classNameList  = new String[classArrayList.size()];
-                    for (int i = 0; i <classArrayList.size(); i++) {
-                        classNameList[i] = classArrayList.get(i).getClassName();
-                    }
-
-                    Log.i(" classNameList",  classNameList[2]);
-
-                }
-
-                else{
-
-                }
-            }
-            @Override
-            public void onFailure(Call<classList> call, Throwable t) {
-
-            }
-
-        });
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_spinner_item,
-                classNameList);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        classSpinner.setAdapter(adapter);
-
-        classSpinner.setSelection(0);
-
-    }
-
-        // -- -- -- 스피너 -- -- -- //
-        Spinner spFacilityType = (Spinner)findViewById(R.id.btnSelectClass);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                facilityList);
-        spFacilityType.setAdapter(adapter);
-        spFacilityType.setSelection(0);
-
-
-        // -- -- -- 화면 연결 -- -- -- //
-
-        // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         btnTranslate = findViewById(R.id.btnTranslate);
@@ -224,10 +139,72 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
 
 
+        // Retrofit
+        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumAddActivity.this);
+        SettingApi api = retrofit.create(SettingApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN,"");
+
+        Call<classList> call = api.classListView("Bearer "+token);
+        call.enqueue(new Callback<classList>() {
+            @Override
+            public void onResponse(Call<classList> call, Response<classList> response) {
+                if(response.isSuccessful()){
+                    classList classList = response.body();
+                    classArrayList.addAll( classList.getItems() );
+                    Log.i("classArrayList", classArrayList.get(1).getClassName());
+
+                    classNameList  = new String[classArrayList.size()];
+                    for (int i = 0; i <classArrayList.size(); i++) {
+                        classNameList[i] = classArrayList.get(i).getClassName();
+                    }
+                    Log.i(" classNameList",  classNameList[2]);
+                }
+                else{
+                }
+            }
+            @Override
+            public void onFailure(Call<classList> call, Throwable t) {
+            }
+        });
+
+
+        // 스피너
+        ArrayAdapter<String> classArrayAdapter = new ArrayAdapter<String>(PhotoalbumAddActivity.this,
+                android.R.layout.simple_spinner_dropdown_item,
+                classNameList);
+
+        spinnerSelectClass.setAdapter(classArrayAdapter);
+        spinnerSelectClass.setSelection(0);
+
+        spinnerSelectClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),classArrayList.get(i)+"가 선택되었습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        //                this,
+        //                android.R.layout.simple_spinner_item,
+        //                classNameList);
+        //
+        //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 
-        // -- -- 최상단 헤더 버튼 -- -- //
+        // 화면 연결
+
+        // 최상단 헤더 버튼 화면 연결
+
+        // 최상단 헤더 버튼
+
+
+
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,13 +226,9 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
         // 번역 버튼
 
+        // 하단 바로가기 메뉴 버튼
 
 
-
-
-
-
-        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,8 +269,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 // 학부모화면
-//                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
-//                startActivity(intent);
+                // Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
+                // startActivity(intent);
             }
         });
 
@@ -306,24 +279,21 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         btnBottomSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(PhotoalbumAddActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });
 
 
-
-
-        // -- -- 메인 파트 버튼 -- -- //
+        // 메인 파트 버튼
 
         // 등록하기 버튼
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // 스피어에서 선택한 반 이름 가져오기
-                //String SelectClass = btnSelectClass.getSelectedItem().toString();
+                // 스피너에서 선택한 반 이름 가져오기
+                // String SelectClass = btnSelectClass.getSelectedItem().toString();
 
             }
         });
@@ -340,13 +310,12 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 2222);
-                //setResult(1111, intent);
+                // setResult(1111, intent);
 
-                //launcher.launch(intent);
+                // launcher.launch(intent);
             }
         });
     }
-
 
 
 
@@ -367,8 +336,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                     Uri imageUri = data.getData();
                     uriList.add(imageUri);
 
-                    adapter = new PhotoAddAdapter(uriList, getApplicationContext());
-                    recyclerView.setAdapter(adapter);
+                    photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
+                    recyclerView.setAdapter(photoAddAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(PhotoalbumAddActivity.this, LinearLayoutManager.HORIZONTAL, true));
                 }
                 else{      // 이미지를 여러장 선택한 경우
@@ -395,8 +364,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                             }
                         }
 
-                        adapter = new PhotoAddAdapter(uriList, getApplicationContext());
-                        recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 세팅
+                        photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
+                        recyclerView.setAdapter(photoAddAdapter); // 리사이클러뷰에 어댑터 세팅
                         recyclerView.setLayoutManager(new LinearLayoutManager(PhotoalbumAddActivity.this, LinearLayoutManager.HORIZONTAL, true));     // 리사이클러뷰 수평 스크롤 적용
                     }
                 }

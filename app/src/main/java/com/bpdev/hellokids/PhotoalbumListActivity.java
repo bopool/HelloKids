@@ -26,7 +26,6 @@ public class PhotoalbumListActivity extends AppCompatActivity {
     // 메인 파트 버튼
     Button btnSelectClass;
     Button btnSelectDate;
-    Button btnCreate;
 
     // 사진 관련 버튼
     Button btnCreate;
@@ -59,8 +58,6 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnSelectDate = findViewById(R.id.btnSelectDate);
         btnCreate = findViewById(R.id.btnCreate);
 
-        btnCreate = findViewById(R.id.btnCreate);
-
 
         // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼
@@ -83,12 +80,6 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
-
-
-
-
 
 
         // -- -- 하단 바로가기 메뉴 버튼 -- -- //
@@ -149,24 +140,9 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
         // -- -- 메인 파트 버튼 -- -- //
-        
-        // 사진첩 만들기
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this,PhotoalbumAddActivity.class);
-                startActivity(intent);
-            }
-        });
 
+        // 사진첩 만들기
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,10 +151,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
             }
         });
 
+
     }
-
-
-
-
 
 }

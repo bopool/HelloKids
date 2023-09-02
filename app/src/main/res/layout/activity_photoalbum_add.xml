@@ -116,6 +116,15 @@
                     android:text="등록하기"
                     app:cornerRadius="8dp" />
 
+                <Spinner
+                    android:id="@+id/spinnerSelectClass"
+                    style="@style/btn_select_form1"
+                    android:text="반 선택"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="8dp"
+                    app:iconGravity="end"/>
+
                 <Button
                     android:id="@+id/btnSelectClass"
                     style="@style/btn_select_form1"
@@ -204,7 +213,7 @@
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btnSelectPhoto"
                         style="@style/btn_detail_green"
                         android:layout_width="110dp"
                         android:layout_height="40dp"
@@ -234,7 +243,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnRekog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
