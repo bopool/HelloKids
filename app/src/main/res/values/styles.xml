@@ -313,6 +313,16 @@
         <item name = "android:textStyle">bold</item>
     </style>
 
+    <style name = "btn_detail_green_left">
+        <item name = "android:layout_width">130dp</item>
+        <item name = "android:layout_height">48dp</item>
+        <item name = "android:backgroundTint">#32B668</item>
+        <item name = "android:paddingTop">2dp</item>
+        <item name = "android:paddingBottom">2dp</item>
+        <item name = "android:textSize">12sp</item>
+        <item name = "android:textStyle">bold</item>
+    </style>
+
 
     <!-- 글 입력 양식-->
     <style name = "text_input_title">

@@ -73,7 +73,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     ArrayList<Uri> uriList = new ArrayList<>();
 
     // 리사이클러뷰
-    RecyclerView recyclerView;
+    RecyclerView photoRecyclerView;
     // 리사이클러뷰에 적용시킬 어댑터
     PhotoAddAdapter photoAddAdapter;
 
@@ -135,6 +135,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         TextInpitContents = findViewById(R.id.textInputContents);
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
         btnRekog = findViewById(R.id.btnRekog);
+
+        photoRecyclerView = findViewById(R.id.photoRecyclerView);
 
 
 
@@ -337,8 +339,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                     uriList.add(imageUri);
 
                     photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
-                    recyclerView.setAdapter(photoAddAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(PhotoalbumAddActivity.this, LinearLayoutManager.HORIZONTAL, true));
+                    photoRecyclerView.setAdapter(photoAddAdapter);
+                    photoRecyclerView.setLayoutManager(new LinearLayoutManager(PhotoalbumAddActivity.this, LinearLayoutManager.HORIZONTAL, true));
                 }
                 else{      // 이미지를 여러장 선택한 경우
                     ClipData clipData = data.getClipData();
@@ -365,8 +367,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                         }
 
                         photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
-                        recyclerView.setAdapter(photoAddAdapter); // 리사이클러뷰에 어댑터 세팅
-                        recyclerView.setLayoutManager(new LinearLayoutManager(PhotoalbumAddActivity.this, LinearLayoutManager.HORIZONTAL, true));     // 리사이클러뷰 수평 스크롤 적용
+                        photoRecyclerView.setAdapter(photoAddAdapter); // 리사이클러뷰에 어댑터 세팅
+                        photoRecyclerView.setLayoutManager(new LinearLayoutManager(PhotoalbumAddActivity.this, LinearLayoutManager.HORIZONTAL, true));     // 리사이클러뷰 수평 스크롤 적용
                     }
                 }
             }
