@@ -28,16 +28,13 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodmenu_list);
 
 
-        // -- -- -- 화면 연결 -- -- -- //
+        // 화면 연결 //
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -57,7 +54,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
 
-        // -- -- 최상단 헤더 버튼 -- -- //
+        // 최상단 헤더 버튼 //
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +82,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
 
-        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // 하단 바로가기 메뉴 버튼 //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,10 +141,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
 
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
-
+        // 메인 파트 동작 //
 
 
 

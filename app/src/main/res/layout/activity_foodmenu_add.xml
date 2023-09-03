@@ -127,7 +127,7 @@
                     android:layout_margin="10dp"
                     android:background="#F4F4F4"
                     android:ems="10"
-                    android:hint="메뉴들을 입력하세요."
+                    android:hint="내용을 입력하세요."
                     android:inputType="text"
                     android:padding="5dp"
                     android:singleLine="true"
