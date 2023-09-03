@@ -1,5 +1,7 @@
 package com.bpdev.hellokids;
 
+
+
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.Nullable;
@@ -41,8 +43,11 @@ import android.widget.Toast;
 import com.bpdev.hellokids.adapter.PhotoAddAdapter;
 
 
+
+
 public class PhotoalbumAddActivity extends AppCompatActivity {
 
+    // 스피너, 반 이름
     ArrayList<nurseryClass> classArrayList = new ArrayList<>();
     String[] classNameList = {}; // 일단 에러나지말라고 {} 써줌
     Spinner spinnerSelectClass;
@@ -66,7 +71,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     Button btnSelectPhoto;
     Button btnRekog;
     EditText textInputTitle;
-    EditText TextInpitContents;
+    EditText textInputContents;
 
 
     // 이미지 uri를 담을 ArrayList 객체
@@ -115,8 +120,10 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photoalbum_add);
 
+        // 스피너 연결
         spinnerSelectClass = findViewById(R.id.spinnerSelectClass);
 
+        // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         btnTranslate = findViewById(R.id.btnTranslate);
@@ -132,15 +139,15 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAdd);
         btnSelectDate = findViewById(R.id.btnSelectDate);
         textInputTitle = findViewById(R.id.textInputTitle);
-        TextInpitContents = findViewById(R.id.textInputContents);
+        textInputContents = findViewById(R.id.textInputContents);
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
         btnRekog = findViewById(R.id.btnRekog);
-
         photoRecyclerView = findViewById(R.id.photoRecyclerView);
 
 
 
 
+        // 스피너에 반 이름 가져오기
         // Retrofit
         Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumAddActivity.this);
         SettingApi api = retrofit.create(SettingApi.class);
@@ -199,14 +206,10 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
 
 
-        // 화면 연결
 
-        // 최상단 헤더 버튼 화면 연결
+
 
         // 최상단 헤더 버튼
-
-
-
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,9 +231,11 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
         // 번역 버튼
 
+
+
+
+
         // 하단 바로가기 메뉴 버튼
-
-
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,8 +292,10 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         });
 
 
-        // 메인 파트 버튼
 
+
+
+        // 메인 파트 버튼
         // 등록하기 버튼
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,7 +328,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
 
 
-    // 앨범에서 액티비티로 돌아온 후 실행되는 메서드
+    // 파일 선택 후 앨범에서 액티비티로 돌아온 후 실행되는 메서드
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
