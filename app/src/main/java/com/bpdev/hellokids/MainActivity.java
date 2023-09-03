@@ -19,6 +19,13 @@ public class MainActivity extends AppCompatActivity {
     TextView btnLogin;
     ImageButton btnTranslate;
 
+    // 하단 바로가기 메뉴 버튼
+    Button btnBottomHome;
+    Button btnBottomNotice;
+    Button btnBottomDailyNote;
+    Button btnBottomSchoolbus;
+    Button btnBottomSetting;
+
     // 메인 파트
     ImageButton btnDailyNote;
     ImageButton btnNotice;
@@ -28,12 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnAttendance;
     ImageButton btnSchoolbus;
 
-    // 하단 바로가기 메뉴 버튼
-    Button btnBottomHome;
-    Button btnBottomNotice;
-    Button btnBottomDailyNote;
-    Button btnBottomSchoolbus;
-    Button btnBottomSetting;
 
 
     // 토큰

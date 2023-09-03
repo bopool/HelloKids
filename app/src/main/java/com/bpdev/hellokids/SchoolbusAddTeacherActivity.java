@@ -1,5 +1,7 @@
 package com.bpdev.hellokids;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,9 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class NoticeViewActivity extends AppCompatActivity {
+public class SchoolbusAddTeacherActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -30,10 +30,14 @@ public class NoticeViewActivity extends AppCompatActivity {
 
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice_view);
+        setContentView(R.layout.activity_schoolbus_add_teacher);
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -60,7 +64,7 @@ public class NoticeViewActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NoticeViewActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,7 +74,7 @@ public class NoticeViewActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NoticeViewActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -91,7 +95,7 @@ public class NoticeViewActivity extends AppCompatActivity {
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NoticeViewActivity.this, MainActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -101,7 +105,7 @@ public class NoticeViewActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NoticeViewActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -111,7 +115,7 @@ public class NoticeViewActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NoticeViewActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -123,7 +127,7 @@ public class NoticeViewActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 선생님화면
-                Intent intent = new Intent(NoticeViewActivity.this, SchoolbusListActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this, SchoolbusListActivity.class);
                 startActivity(intent);
 
                 // 학부모화면
@@ -138,7 +142,7 @@ public class NoticeViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(NoticeViewActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(SchoolbusAddTeacherActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });

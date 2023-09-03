@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingKidsInfoAddActivity">
+    tools:context=".SettingChildInfoAddActivity">
+
+    <LinearLayout
+        android:id="@+id/header"
+        style="@style/top_image_layout">
+
+        <TextView
+            android:id="@+id/btnLogin"
+            style="@style/top_button1" />
+
+        <TextView
+            android:id="@+id/btnRegister"
+            style="@style/top_button2" />
+
+        <ImageButton
+            android:id="@+id/btnTranslate"
+            style="@style/top_button3" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/menus"
+        android:layout_below="@id/header">
 
         <LinearLayout
             android:id="@+id/container_linearLayout"
@@ -16,22 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
-
-            <LinearLayout style="@style/top_image_layout">
-
-                <TextView
-                    android:id="@+id/btnLogin"
-                    style="@style/top_button1" />
-
-                <TextView
-                    android:id="@+id/btnRegister"
-                    style="@style/top_button2" />
-
-                <ImageButton
-                    android:id="@+id/btnTranslate"
-                    style="@style/top_button3" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/textPageTitle"
@@ -80,7 +125,7 @@
                 app:cardCornerRadius="8dp">
 
                 <EditText
-                    android:id="@+id/userName"
+                    android:id="@+id/childName"
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
@@ -113,7 +158,7 @@
                 app:cardCornerRadius="8dp">
 
                 <EditText
-                    android:id="@+id/userName"
+                    android:id="@+id/childBirth"
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
@@ -181,4 +226,4 @@
         </LinearLayout>
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

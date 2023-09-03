@@ -23,6 +23,10 @@ public class FoodmenuListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
+    // 메인 파트 버튼
+
+
+
 
 
 
@@ -81,10 +85,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
 
-
-
-
-// -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,5 +141,15 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
+
+
+
     }
 }

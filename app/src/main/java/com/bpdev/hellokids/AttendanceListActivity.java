@@ -23,6 +23,8 @@ public class AttendanceListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
+    // 메인 파트 버튼
+
 
 
 
@@ -53,6 +55,7 @@ public class AttendanceListActivity extends AppCompatActivity {
 
 
         // -- -- 최상단 헤더 버튼 -- -- //
+
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +86,7 @@ public class AttendanceListActivity extends AppCompatActivity {
 
 
 
-// -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +142,16 @@ public class AttendanceListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
+
+
+
 
 
     }

@@ -23,6 +23,10 @@ public class SettingApproveActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
+    // 메인 파트 버튼
+
+
+
 
 
 
@@ -46,6 +50,8 @@ public class SettingApproveActivity extends AppCompatActivity {
         btnBottomDailyNote = findViewById(R.id.btnBottomDailynote);
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
+
+        // 메인 파트 화면 연결
 
 
 
@@ -140,6 +146,16 @@ public class SettingApproveActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
+
+
+
 
 
     }

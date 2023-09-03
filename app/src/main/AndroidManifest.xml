@@ -59,7 +59,7 @@
             android:name=".ScheduleCalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingKidsInfoAddActivity"
+            android:name=".SettingChildInfoAddActivity"
             android:exported="false" />
         <activity
             android:name=".SettingClassInfoEditActivity"
@@ -83,10 +83,10 @@
             android:name=".PhotoalbumViewActivity"
             android:exported="false" />
         <activity
-            android:name=".SchoolbusAddChild"
+            android:name=".SchoolbusAddChildActivity"
             android:exported="false" />
         <activity
-            android:name=".SchoolbusAddTeacher"
+            android:name=".SchoolbusAddTeacherActivity"
             android:exported="false" />
         <activity
             android:name=".SchoolbusInfoActivity"

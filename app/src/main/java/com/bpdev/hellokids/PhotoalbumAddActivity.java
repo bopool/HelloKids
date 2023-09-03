@@ -295,7 +295,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
 
 
-        // 메인 파트 버튼
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
         // 등록하기 버튼
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

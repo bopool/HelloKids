@@ -80,7 +80,7 @@ public class DailynoteListActivity extends AppCompatActivity {
 
 
 
-// -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +136,16 @@ public class DailynoteListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
+
+
+
 
     }
 }

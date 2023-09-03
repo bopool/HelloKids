@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.bpdev.hellokids.adapter.BusAdapter;
 import com.bpdev.hellokids.api.BusApi;
@@ -36,10 +39,17 @@ public class SchoolbusLocationActivity extends AppCompatActivity implements OnMa
     ArrayList<Location> busLoaction = new ArrayList<>();
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolbus_location);
+
+
+        // 메인 파트
 
         String strId = getIntent().getStringExtra("strId");
         int id = Integer.parseInt(strId);

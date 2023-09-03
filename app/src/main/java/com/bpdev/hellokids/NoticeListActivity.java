@@ -136,5 +136,14 @@ public class NoticeListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
+
+
     }
 }
