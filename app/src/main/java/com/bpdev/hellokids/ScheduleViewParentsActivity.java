@@ -1,31 +1,33 @@
 package com.bpdev.hellokids;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bpdev.hellokids.adapter.BusAdapter;
-import com.bpdev.hellokids.api.BusApi;
-import com.bpdev.hellokids.api.FoodMenuApi;
 import com.bpdev.hellokids.api.NetworkClient;
-import com.bpdev.hellokids.model.BusDailyRecordList;
-import com.bpdev.hellokids.model.FoodMenu;
-import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
+import com.bpdev.hellokids.api.ScheduleApi;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.Result;
+import com.bpdev.hellokids.model.ScheduleRes;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class FoodmenuViewActivity extends AppCompatActivity {
+public class ScheduleViewParentsActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -39,21 +41,22 @@ public class FoodmenuViewActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
-    // 메인 파트 버튼
+    // 메인 기능
     TextView textDate;
-    ImageView photoContent;
-    TextView textContent;
-    TextView contentType;
-    ArrayList<FoodMenu> foodMenuArrayList = new ArrayList<>();
+    TextView textTitle;
+    TextView textContents;
+
+
+    ScheduleRes schedule;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_foodmenu_view);
+        setContentView(R.layout.activity_schedule_view_parents);
 
-        // 화면 연결 //
+        schedule = (ScheduleRes) getIntent().getSerializableExtra("schedule");
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -67,65 +70,28 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
-        // 메인파트
+
+
+        // 메인 파트 화면 연결
         textDate = findViewById(R.id.textDate);
-        photoContent = findViewById(R.id.photoContent);
-        textContent = findViewById(R.id.textContent);
-        contentType = findViewById(R.id.contentType);
+        textTitle = findViewById(R.id.textTitle);
+        textContents = findViewById(R.id.textContents);
 
 
+        // -- -- -- 메인 파트 동작 -- -- -- //
 
-        // 메인 파트 동작 //
-        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
-        FoodMenuApi api = retrofit.create(FoodMenuApi.class);
-        Call<FoodMenu> call = api.foodMenuView(1);
-        call.enqueue(new Callback<FoodMenu>() {
-            @Override
-            public void onResponse(Call<FoodMenu> call, Response<FoodMenu> response) {
-                if(response.isSuccessful()){
-
-                    FoodMenu foodMenu = response.body();
-
-                    textDate.setText(foodMenu.getMealDate());
-                    textContent.setText(foodMenu.getMealContent());
-                    contentType.setText(foodMenu.getMealType());
-                    Glide.with(FoodmenuViewActivity.this)
-                            .load(foodMenu.getMealPhotoUrl())
-                            .into(photoContent);
-                    }
-
-                else{
+        textDate.setText(schedule.getDate());
+        textTitle.setText( schedule.getTitle() );
+        textContents.setText(schedule.getContents());
 
 
-                }
-            }
+        // -- -- 최상단 헤더 버튼 -- -- //
 
-            @Override
-            public void onFailure(Call<FoodMenu> call, Throwable t) {
-
-            }
-
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // 최상단 헤더 버튼 //
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuViewActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(ScheduleViewParentsActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -135,7 +101,7 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuViewActivity.this,LoginActivity.class);
+                Intent intent = new Intent(ScheduleViewParentsActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -143,17 +109,12 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         // 번역 버튼
 
 
-
-
-
-
-
-        // 하단 바로가기 메뉴 버튼 //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuViewActivity.this, MainActivity.class);
+                Intent intent = new Intent(ScheduleViewParentsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -163,7 +124,7 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuViewActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(ScheduleViewParentsActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -173,7 +134,7 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuViewActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(ScheduleViewParentsActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -184,13 +145,9 @@ public class FoodmenuViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // 선생님화면
-                Intent intent = new Intent(FoodmenuViewActivity.this, SchoolbusListActivity.class);
+                //학부모화면
+                Intent intent = new Intent(ScheduleViewParentsActivity.this, SchoolbusParentListActivity.class);
                 startActivity(intent);
-
-                // 학부모화면
-//                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
-//                startActivity(intent);
             }
         });
 
@@ -200,12 +157,11 @@ public class FoodmenuViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(FoodmenuViewActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(ScheduleViewParentsActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });
 
-
-
     }
+
 }

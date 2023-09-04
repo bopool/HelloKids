@@ -2,6 +2,7 @@ package com.bpdev.hellokids;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,16 +40,24 @@ public class ScheduleAddActivity extends AppCompatActivity {
     String[] classNameList = {"꽃잎반","씨앗반"}; // 일단 에러나지말라고 {} 써줌
     Spinner spinnerSelectClass;
 
+
     // api호출 시 들어갈 데이터
     private int classId = 1; // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서)
     private String title;
     private String contents;
-
     private String date = "2023-09-30";  // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서) 근데 데이터베이스에 0000-00-00으로 들어감!!!
+    public int selectIcon = 0; // 아이콘 선택
+
 
     Button btnSave;
     EditText textInputTitle;
     EditText textInputContents;
+
+    ImageView imgBirth;
+    ImageView imgPicnic;
+    ImageView imgFieldStudy;
+    ImageView imgEvent;
+    ImageView imgFestival;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +68,11 @@ public class ScheduleAddActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         textInputTitle = findViewById(R.id.textInputTitle);
         textInputContents = findViewById(R.id.textInputContents);
+        imgBirth = findViewById(R.id.imgBirth);
+        imgPicnic = findViewById(R.id.imgPicnic);
+        imgFieldStudy = findViewById(R.id.imgFieldStudy);
+        imgEvent = findViewById(R.id.imgEvent);
+        imgFestival = findViewById(R.id.imgFestival);
 
 
         // 스피너
@@ -101,7 +116,7 @@ public class ScheduleAddActivity extends AppCompatActivity {
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
 
                 // 3. 보낼 데이터를 준비한다.
-                Schedule schedule = new Schedule(classId,title,contents,date);
+                Schedule schedule = new Schedule(classId,title,contents,date,selectIcon);
 
                 Call<Result> call = api.scheduleAdd("Bearer "+token,schedule);
 
@@ -154,6 +169,43 @@ public class ScheduleAddActivity extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+        imgBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectIcon = 1;
+                Snackbar.make(imgBirth,"생일 아이콘을 선택했습니다.",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        imgPicnic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectIcon = 2;
+                Snackbar.make(imgBirth,"소풍 아이콘을 선택했습니다.",Snackbar.LENGTH_SHORT).show();
+            }
+
+        });
+        imgFieldStudy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectIcon = 3;
+                Snackbar.make(imgBirth,"체험학습 아이콘을 선택했습니다.",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        imgEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectIcon = 4;
+                Snackbar.make(imgBirth,"행사 아이콘을 선택했습니다.",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        imgFestival.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectIcon = 5;
+                Snackbar.make(imgBirth,"축제 아이콘을 선택했습니다.",Snackbar.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,20 +1,55 @@
 package com.bpdev.hellokids;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import static android.content.ContentValues.TAG;
 
+import android.content.ClipData;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bpdev.hellokids.adapter.PhotoAddAdapter;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.SettingApi;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.classList;
+import com.bpdev.hellokids.model.nurseryClass;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FoodmenuAddActivity extends AppCompatActivity {
 
-    // 최상단 헤더의 버튼
+    // 스피너, 반 이름
+    ArrayList<nurseryClass> classArrayList = new ArrayList<>();
+    String[] classNameList = {};
+    Spinner spinnerSelectClass;
+
+    // 최상단 헤더 버튼
     TextView btnRegister;
     TextView btnLogin;
     ImageButton btnTranslate;
+
 
     // 하단 바로가기 메뉴 버튼
     Button btnBottomHome;
@@ -24,12 +59,47 @@ public class FoodmenuAddActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    Button btnAdd;
+    Button btnSelectDate;
+    Button btnSelectFoodMenu;
+    EditText textInputTitle;
+    EditText textInputContents;
 
 
+    // 이미지 uri를 담을 ArrayList 객체
+    ArrayList<Uri> uriList = new ArrayList<>();
+
+    // 사진 리사이클러뷰
+    RecyclerView photoRecyclerView;
+    // 리사이클러뷰에 적용시킬 어댑터
+    PhotoAddAdapter photoAddAdapter;
 
 
-
-
+    // startActivityForResult 대신할 런처
+    //    ActivityResultLauncher<Intent> launcher =
+    //            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    //                    new ActivityResultCallback<ActivityResult>() {
+    //                        @Override
+    //                        public void onActivityResult(ActivityResult result) {
+    //                            // 데이터를 받아 오는 코드는 여기에 작성 하면 된다.
+    //                            //Intent intent = new Intent(Intent.ACTION_PICK);
+    //                            //intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+    //                            //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+    //                            //intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    //                            //setResult(1, intent);
+    //                            Log.i("FoodMenu ADD ClassName", "getResultCode()");
+    //
+    //
+    //                            if(  result.getResultCode() == 1111){
+    //
+    //                                Log.i("FoodMenu ADD ClassName", "getResultCode()");
+    //
+    //                                //SelectClass = result.getData().getIntExtra("data",0);
+    //                                //btnSelectClass.setText(""+futureAge);
+    //                            }
+    //
+    //                        }
+    //                    });
 
 
     @Override
@@ -37,13 +107,11 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodmenu_add);
 
-        // -- -- -- 화면 연결 -- -- -- //
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         btnTranslate = findViewById(R.id.btnTranslate);
-
 
         // 하단 바로가기 메뉴 화면 연결
         btnBottomHome = findViewById(R.id.btnBottomHome);
@@ -53,19 +121,71 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+        btnAdd = findViewById(R.id.btnCreate);
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+        textInputTitle = findViewById(R.id.textInputTitle);
+        textInputContents = findViewById(R.id.textInputCategory);
+        btnSelectFoodMenu = findViewById(R.id.btnSelectPhoto);
+        photoRecyclerView = findViewById(R.id.photoRecyclerView);
 
 
+        // 스피너에 반 이름 가져오기
+        // Retrofit
+        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuAddActivity.this);
+        SettingApi api = retrofit.create(SettingApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5MzgxNjQ0MywianRpIjoiODdlMDkwMWUtMzg4ZC00ZmNiLTkxOGMtMmE2MDM2NDNiNmM5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjkzODE2NDQzfQ.wjE72DyE4C-0BqL6LFr5CS-FEg-w5rN-Vvpq3wA2ZRg");
+
+        Call<classList> call = api.classListView("Bearer "+token);
+        call.enqueue(new Callback<classList>() {
+            @Override
+            public void onResponse(Call<classList> call, Response<classList> response) {
+                if(response.isSuccessful()){
+                    classList classLists = response.body();
+                    classArrayList.addAll( classLists.getItems() );
+                    Log.i("classArrayList", classArrayList+"");
+
+                    classNameList  = new String[classArrayList.size()];
+                    for (int i = 0; i <classArrayList.size(); i++) {
+                        classNameList[i] = classArrayList.get(i).getClassName();
+                    }
+                    Log.i(" classNameList", classNameList+"");
+                    }
+                else{
+                }
+            }
+            @Override
+            public void onFailure(Call<classList> call, Throwable t) {
+            }
+        });
+
+        // 스피너
+        ArrayAdapter<String> classArrayAdapter = new ArrayAdapter<>(FoodmenuAddActivity.this,
+                android.R.layout.simple_spinner_dropdown_item,
+                classNameList);
+
+        spinnerSelectClass = findViewById(R.id.spinnerSelectClass);
+        spinnerSelectClass.setAdapter(classArrayAdapter);
+        spinnerSelectClass.setSelection(0);
+        spinnerSelectClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),classArrayList.get(i)+"가 선택되었습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
 
-
-
-
-        // -- -- 최상단 헤더 버튼 -- -- //
+        // 최상단 헤더 버튼
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuAddActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(FoodmenuAddActivity.this, RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,13 +205,7 @@ public class FoodmenuAddActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // 하단 바로가기 메뉴 버튼
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +246,8 @@ public class FoodmenuAddActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 // 학부모화면
-//                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
-//                startActivity(intent);
+                // Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
+                // startActivity(intent);
             }
         });
 
@@ -142,7 +256,6 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         btnBottomSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(FoodmenuAddActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
@@ -154,8 +267,89 @@ public class FoodmenuAddActivity extends AppCompatActivity {
 
         // -- -- -- 메인 파트 동작 -- -- -- //
 
+        // 등록하기 버튼
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // 스피너에서 선택한 반 이름 가져오기
+                // String SelectClass = btnSelectClass.getSelectedItem().toString();
+
+            }
+        });
 
 
+
+        // 파일 선택하기 버튼
+        btnSelectFoodMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 2222);
+                // setResult(1111, intent);
+
+                // launcher.launch(intent);
+            }
+        });
+    }
+
+
+    // 파일 선택 후 앨범에서 액티비티로 돌아온 후 실행되는 메서드
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.i("data : ", String.valueOf(data));
+
+        if(requestCode == 2222){
+            if(data == null){   // 어떤 이미지도 선택하지 않은 경우
+                Toast.makeText(getApplicationContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
+            }
+            else{   // 이미지를 하나라도 선택한 경우
+                if(data.getClipData() == null){     // 이미지를 하나만 선택한 경우
+                    Log.e("single choice: ", String.valueOf(data.getData()));
+                    Uri imageUri = data.getData();
+                    uriList.add(imageUri);
+
+                    photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
+                    photoRecyclerView.setAdapter(photoAddAdapter);
+                    photoRecyclerView.setLayoutManager(new LinearLayoutManager(FoodmenuAddActivity.this, LinearLayoutManager.HORIZONTAL, true));
+                }
+                else{      // 이미지를 여러장 선택한 경우
+                    ClipData clipData = data.getClipData();
+                    Log.e("clipData", String.valueOf(clipData.getItemCount()));
+
+                    if(clipData.getItemCount() > 20){   // 선택한 이미지가 21장 이상인 경우
+                        Toast.makeText(getApplicationContext(), "사진은 20장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
+                    }
+                    else{   // 선택한 이미지가 1장 이상 20장 이하인 경우
+                        Log.e(TAG, "multiple choice");
+
+                        for (int i = 0; i < clipData.getItemCount(); i++){
+                            Uri imageUri = clipData.getItemAt(i).getUri();
+                            Log.i(TAG, "msg : "+clipData);
+                            Log.i(TAG, "msg : "+imageUri);
+
+                            // 선택한 이미지들의 uri를 가져온다.
+                            try {
+                                uriList.add(imageUri);  //uri를 list에 담는다.
+
+                            } catch (Exception e) {
+                                Log.e(TAG, "File select error", e);
+                            }
+                        }
+
+                        photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
+                        photoRecyclerView.setAdapter(photoAddAdapter); // 리사이클러뷰에 어댑터 세팅
+                        photoRecyclerView.setLayoutManager(new LinearLayoutManager(FoodmenuAddActivity.this, LinearLayoutManager.HORIZONTAL, true));     // 리사이클러뷰 수평 스크롤 적용
+                    }
+                }
+            }
+        }
 
     }
 }

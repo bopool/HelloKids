@@ -1,13 +1,31 @@
 package com.bpdev.hellokids;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.ScheduleApi;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.Result;
+import com.bpdev.hellokids.model.ScheduleRes;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ScheduleViewActivity extends AppCompatActivity {
 
@@ -23,13 +41,17 @@ public class ScheduleViewActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
-    // 메인 파트 버튼
+    // 기능 버튼
+    Button btnEdit;
+    Button btnDelete;
+
+    // 메인 기능
+    TextView textDate;
+    TextView textTitle;
+    TextView textContents;
 
 
-
-
-
-
+    ScheduleRes schedule;
 
 
 
@@ -37,6 +59,8 @@ public class ScheduleViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_view);
+
+        schedule = (ScheduleRes) getIntent().getSerializableExtra("schedule");
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -50,11 +74,21 @@ public class ScheduleViewActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
+        // 기능 버튼 화면 연결
+        btnEdit  = findViewById(R.id.btnEdit);
+        btnDelete = findViewById(R.id.btnDelete);
+
         // 메인 파트 화면 연결
+        textDate = findViewById(R.id.textDate);
+        textTitle = findViewById(R.id.textTitle);
+        textContents = findViewById(R.id.textContents);
 
 
+        // -- -- -- 메인 파트 동작 -- -- -- //
 
-
+        textDate.setText(schedule.getDate());
+        textTitle.setText( schedule.getTitle() );
+        textContents.setText(schedule.getContents());
 
 
         // -- -- 최상단 헤더 버튼 -- -- //
@@ -79,14 +113,6 @@ public class ScheduleViewActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
-
-
-
-
-
-
 
 
         // -- -- 하단 바로가기 메뉴 버튼 -- -- //
@@ -146,14 +172,88 @@ public class ScheduleViewActivity extends AppCompatActivity {
             }
         });
 
+        // 기능 버튼 동작
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ScheduleViewActivity.this, ScheduleEditActivity.class);
+                intent.putExtra("schedule",schedule);
+                startActivity(intent);
+
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+    }
+
+    void showDialog(){  // 블로그에 넣어서 언제든 복사 붙여넣기 하기
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("삭제");
+        builder.setMessage("정말 삭제하시겠습니까?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                showProgress();
+
+                Retrofit retrofit = NetworkClient.getRetrofitClient(ScheduleViewActivity.this);
+
+                ScheduleApi api = retrofit.create(ScheduleApi.class);
+
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN,"");
+
+                Call<Result> call = api.scheduleDelete(schedule.getId(),"Bearer " + token);
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        dismissProgress();
+
+                        if(response.isSuccessful()){
+
+                            Intent intent = new Intent(ScheduleViewActivity.this, ScheduleListActivity .class);
+                            startActivity(intent);
+
+                            finish();
 
 
+                        }else{
+                            // 유저한테, 서버에 문제있다고 메시지 띄운다.
 
+                        }
+                    }
 
-        // -- -- -- 메인 파트 동작 -- -- -- //
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
 
+            }
+        });
+        builder.setNegativeButton("NO",null);
+        builder.setCancelable(true);
+        builder.show();
+    }
 
+    Dialog dialog;
 
+    void showProgress(){
+        dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(new ProgressBar(this));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
 
+    void dismissProgress(){
+        dialog.dismiss();
     }
 }

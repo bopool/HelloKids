@@ -24,6 +24,10 @@ public class FoodmenuListActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    Button btnCreate;
+
+
+
 
 
 
@@ -47,6 +51,20 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnBottomDailyNote = findViewById(R.id.btnBottomDailynote);
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
+
+        //
+        btnCreate = findViewById(R.id.btnCreate);
+
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FoodmenuListActivity.this,FoodmenuAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
@@ -82,7 +100,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
 
-        // 하단 바로가기 메뉴 버튼 //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,11 +156,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-        // 메인 파트 동작 //
-
 
 
     }

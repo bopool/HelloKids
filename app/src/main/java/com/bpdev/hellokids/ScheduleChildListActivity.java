@@ -1,5 +1,9 @@
 package com.bpdev.hellokids;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,19 +13,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bpdev.hellokids.adapter.BusAdapter;
 import com.bpdev.hellokids.adapter.ScheduleAdapter;
-import com.bpdev.hellokids.api.BusApi;
+import com.bpdev.hellokids.adapter.ScheduleParentsAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.ScheduleApi;
 import com.bpdev.hellokids.config.Config;
-import com.bpdev.hellokids.model.BusDailyRecord;
-import com.bpdev.hellokids.model.BusDailyRecordList;
-import com.bpdev.hellokids.model.Schedule;
 import com.bpdev.hellokids.model.ScheduleList;
 import com.bpdev.hellokids.model.ScheduleRes;
 
@@ -32,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ScheduleListActivity extends AppCompatActivity {
+public class ScheduleChildListActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -46,14 +42,11 @@ public class ScheduleListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
-    // 메인 파트 버튼
-    Button btnAdd;
-
     // 메인 기능
 
     RecyclerView recyclerView;
 
-    ScheduleAdapter adapter;
+    ScheduleParentsAdapter adapter;
 
     ArrayList<ScheduleRes> scheduleArrayList = new ArrayList<>();
 
@@ -63,7 +56,7 @@ public class ScheduleListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule_list);
+        setContentView(R.layout.activity_schedule_child_list);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -87,15 +80,13 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
-        // 메인 파트 버튼
-        btnAdd = findViewById(R.id.btnAdd);
 
         // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(ScheduleChildListActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -105,7 +96,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this,LoginActivity.class);
+                Intent intent = new Intent(ScheduleChildListActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -118,7 +109,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this, MainActivity.class);
+                Intent intent = new Intent(ScheduleChildListActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -128,7 +119,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(ScheduleChildListActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -138,7 +129,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(ScheduleChildListActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -149,13 +140,9 @@ public class ScheduleListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // 선생님화면
-                Intent intent = new Intent(ScheduleListActivity.this, SchoolbusListActivity.class);
-                startActivity(intent);
-
                 // 학부모화면
-//                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ScheduleChildListActivity.this, SchoolbusParentListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -165,21 +152,13 @@ public class ScheduleListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ScheduleListActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(ScheduleChildListActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });
 
-        // 메인 파트 버튼
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this, ScheduleAddActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        Retrofit retrofit = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
+        Retrofit retrofit = NetworkClient.getRetrofitClient(ScheduleChildListActivity.this);
 
         ScheduleApi api = retrofit.create(ScheduleApi.class);
 
@@ -188,7 +167,7 @@ public class ScheduleListActivity extends AppCompatActivity {
 
         Log.i("token",token);
 
-        Call<ScheduleList> call = api.scheduleList("Bearer "+token);
+        Call<ScheduleList> call = api.scheduleChildList("Bearer "+token);
         call.enqueue(new Callback<ScheduleList>() {
             @Override
             public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
@@ -200,7 +179,7 @@ public class ScheduleListActivity extends AppCompatActivity {
                     scheduleArrayList.addAll( scheduleList1.getItems() );
 
                     //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
-                    adapter = new ScheduleAdapter(ScheduleListActivity.this, scheduleArrayList);
+                    adapter = new ScheduleParentsAdapter(ScheduleChildListActivity.this, scheduleArrayList);
 
                     recyclerView.setAdapter(adapter);
                 }

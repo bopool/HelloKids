@@ -6,7 +6,7 @@ public class ScheduleList {
 
     private String result;
     private int count;
-    private ArrayList<Schedule> items;
+    private ArrayList<ScheduleRes> items;
 
     public String getResult() {
         return result;
@@ -24,11 +24,11 @@ public class ScheduleList {
         this.count = count;
     }
 
-    public ArrayList<Schedule> getItems() {
+    public ArrayList<ScheduleRes> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Schedule> items) {
+    public void setItems(ArrayList<ScheduleRes> items) {
         this.items = items;
     }
 }

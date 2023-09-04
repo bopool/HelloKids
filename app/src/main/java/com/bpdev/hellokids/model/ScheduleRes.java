@@ -1,25 +1,31 @@
 package com.bpdev.hellokids.model;
 
-
 import java.io.Serializable;
-import java.sql.Date;
 
-public class Schedule implements Serializable {
+public class ScheduleRes implements Serializable {
 
+    private int id;
     private int classId;
     private String title;
     private String contents;
     private String date;
-
     private int selectIcon;
 
-
-    public Schedule(int classId, String title, String contents, String date, int selectIcon) {
+    public ScheduleRes(int id, int classId, String title, String contents, String date, int selectIcon) {
+        this.id = id;
         this.classId = classId;
         this.title = title;
         this.contents = contents;
         this.date = date;
         this.selectIcon = selectIcon;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getClassId() {

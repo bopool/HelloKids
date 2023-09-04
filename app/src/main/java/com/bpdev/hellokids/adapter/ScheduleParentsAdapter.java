@@ -13,14 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.bpdev.hellokids.R;
-import com.bpdev.hellokids.ScheduleViewActivity;
+import com.bpdev.hellokids.ScheduleViewParentsActivity;
 import com.bpdev.hellokids.model.ScheduleRes;
 
 import java.util.ArrayList;
 
-public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
+public class ScheduleParentsAdapter extends RecyclerView.Adapter<ScheduleParentsAdapter.ViewHolder>{
 
     Context context;
 
@@ -28,20 +27,20 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     int id;
 
-    public ScheduleAdapter(Context context, ArrayList<ScheduleRes> scheduleArrayList) {
+    public ScheduleParentsAdapter(Context context, ArrayList<ScheduleRes> scheduleArrayList) {
         this.context = context;
         this.scheduleArrayList = scheduleArrayList;
     }
 
     @NonNull
     @Override
-    public ScheduleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ScheduleParentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule,parent,false);
-        return new ScheduleAdapter.ViewHolder(view);
+        return new ScheduleParentsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ScheduleAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ScheduleParentsAdapter.ViewHolder holder, int position) {
         ScheduleRes schedule = scheduleArrayList.get(position); // position는 해당 위치를 나타낸다
 
         int selectIcon = schedule.getSelectIcon();
@@ -97,7 +96,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     ScheduleRes schedule = scheduleArrayList.get(index);
-                    Intent intent = new Intent(context, ScheduleViewActivity.class);
+                    Intent intent = new Intent(context, ScheduleViewParentsActivity.class);
                     intent.putExtra("schedule",schedule);
                     intent.putExtra("index",index);
                     Log.i("scheduleId",schedule.getId()+"");
