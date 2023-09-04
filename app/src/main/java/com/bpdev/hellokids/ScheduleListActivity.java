@@ -5,9 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,12 +23,15 @@ import com.bpdev.hellokids.adapter.ScheduleAdapter;
 import com.bpdev.hellokids.api.BusApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.ScheduleApi;
+import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.BusDailyRecord;
 import com.bpdev.hellokids.model.BusDailyRecordList;
 import com.bpdev.hellokids.model.Schedule;
 import com.bpdev.hellokids.model.ScheduleList;
 import com.bpdev.hellokids.model.ScheduleRes;
+import com.bpdev.hellokids.model.classList;
+import com.bpdev.hellokids.model.nurseryClass;
 
 import java.util.ArrayList;
 
@@ -32,7 +40,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ScheduleListActivity extends AppCompatActivity {
+public class ScheduleListActivity extends AppCompatActivity  { // implements AdapterView.OnItemSelectedListener
+
+    Spinner spinnerClass;
+    ArrayList<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
+    ArrayList<nurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -57,7 +69,7 @@ public class ScheduleListActivity extends AppCompatActivity {
 
     ArrayList<ScheduleRes> scheduleArrayList = new ArrayList<>();
 
-
+    int classId;
 
 
     @Override
@@ -71,6 +83,135 @@ public class ScheduleListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        spinnerClass = findViewById(R.id.spinnerClass);
+
+
+        // 스피너에 반 이름 가져오기
+        Retrofit retrofit = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
+        SettingApi api = retrofit.create(SettingApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<classList> call = api.classListView("Bearer " + token);
+        call.enqueue(new Callback<classList>() {
+            @Override
+            public void onResponse(Call<classList> call, Response<classList> response) {
+                if (response.isSuccessful()) {
+                    classList classList = response.body();
+                    classArrayList.addAll(classList.getItems());
+                    Log.i("classArrayList", classArrayList.get(1).getClassName());
+
+                    for (int i = 0; i < classArrayList.size(); i++) {
+                        classNameArrayList.add(classArrayList.get(i).getClassName());
+                    }
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<classList> call, Throwable t) {
+            }
+        });
+
+        // 스피너
+        ArrayAdapter<String> classArrayAdapter = new ArrayAdapter<String>(ScheduleListActivity.this,
+                android.R.layout.simple_spinner_dropdown_item,
+                classNameArrayList);
+
+        spinnerClass.setAdapter(classArrayAdapter);
+        spinnerClass.setSelection(Adapter.NO_SELECTION, true);
+
+        // spinnerClass.setOnItemSelectedListener(this);
+
+        // 스피너에서 반 선택 했을 때
+        spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("kkkk", "" + i);
+                Toast.makeText(getApplicationContext(), classArrayList.get(i).getClassName() + "가 선택되었습니다.",
+                        Toast.LENGTH_SHORT).show();
+                classId = classArrayList.get(i).getId();
+
+                Log.i("classId", classId + "");
+
+                // 반별 일정표 리스트 조회
+                Retrofit retrofit1 = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
+
+                ScheduleApi api1 = retrofit1.create(ScheduleApi.class);
+
+                SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+
+                Log.i("token1", token1);
+
+                Call<ScheduleList> call1 = api1.scheduleClassList(classId, "Bearer " + token1);
+                call1.enqueue(new Callback<ScheduleList>() {
+                    @Override
+                    public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+                        if (response.isSuccessful()) {
+                            ScheduleList scheduleList1 = response.body();
+
+                            Log.i("aaa1", scheduleList1.getResult());
+
+                            scheduleArrayList.addAll(scheduleList1.getItems());
+
+                            //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+                            adapter = new ScheduleAdapter(ScheduleListActivity.this, scheduleArrayList);
+
+                            recyclerView.setAdapter(adapter);
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ScheduleList> call, Throwable t) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // 로그인 한 선생님이 속한 어린이집 전체 일정 리스트 조회
+                Retrofit retrofit2 = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
+
+                ScheduleApi api2 = retrofit2.create(ScheduleApi.class);
+
+                SharedPreferences sp2 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token2 = sp2.getString(Config.ACCESS_TOKEN, "");
+
+                Log.i("token2", token2);
+
+                Call<ScheduleList> call2 = api2.scheduleList("Bearer " + token2);
+                call2.enqueue(new Callback<ScheduleList>() {
+                    @Override
+                    public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+                        if (response.isSuccessful()) {
+                            ScheduleList scheduleList2 = response.body();
+
+                            Log.i("aaa2", scheduleList2.getResult());
+
+                            scheduleArrayList.addAll(scheduleList2.getItems());
+
+                            //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+                            adapter = new ScheduleAdapter(ScheduleListActivity.this, scheduleArrayList);
+
+                            recyclerView.setAdapter(adapter);
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ScheduleList> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
 
         // -- -- -- 화면 연결 -- -- -- //
@@ -95,7 +236,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(ScheduleListActivity.this, RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -105,7 +246,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleListActivity.this,LoginActivity.class);
+                Intent intent = new Intent(ScheduleListActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -179,43 +320,92 @@ public class ScheduleListActivity extends AppCompatActivity {
             }
         });
 
-        Retrofit retrofit = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
-
-        ScheduleApi api = retrofit.create(ScheduleApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN,"");
-
-        Log.i("token",token);
-
-        Call<ScheduleList> call = api.scheduleList("Bearer "+token);
-        call.enqueue(new Callback<ScheduleList>() {
-            @Override
-            public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
-                if(response.isSuccessful()){
-                    ScheduleList scheduleList1 = response.body();
-
-                    Log.i("aaa",scheduleList1.getResult());
-
-                    scheduleArrayList.addAll( scheduleList1.getItems() );
-
-                    //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
-                    adapter = new ScheduleAdapter(ScheduleListActivity.this, scheduleArrayList);
-
-                    recyclerView.setAdapter(adapter);
-                }
-
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ScheduleList> call, Throwable t) {
-
-            }
-        });
-
-
     }
+
+//    @Override
+//    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//        Log.d("kkkk", "" + i);
+//
+//        Toast.makeText(getApplicationContext(), classArrayList.get(i).getClassName() + "가 선택되었습니다.",
+//                Toast.LENGTH_SHORT).show();
+//        classId = classArrayList.get(i).getId();
+//
+//        Log.i("classId", classId + "");
+//
+//        // 반별 일정표 리스트 조회
+//        Retrofit retrofit1 = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
+//
+//        ScheduleApi api1 = retrofit1.create(ScheduleApi.class);
+//
+//        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+//
+//        Log.i("token1", token1);
+//
+//        Call<ScheduleList> call1 = api1.scheduleClassList(classId, "Bearer " + token1);
+//        call1.enqueue(new Callback<ScheduleList>() {
+//            @Override
+//            public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+//                if (response.isSuccessful()) {
+//                    ScheduleList scheduleList1 = response.body();
+//
+//                    Log.i("aaa1", scheduleList1.getResult());
+//
+//                    scheduleArrayList.addAll(scheduleList1.getItems());
+//
+//                    //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+//                    adapter = new ScheduleAdapter(ScheduleListActivity.this, scheduleArrayList);
+//
+//                    recyclerView.setAdapter(adapter);
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ScheduleList> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> adapterView) {
+//        // 로그인 한 선생님이 속한 어린이집 전체 일정 리스트 조회
+//        Retrofit retrofit2 = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
+//
+//        ScheduleApi api2 = retrofit2.create(ScheduleApi.class);
+//
+//        SharedPreferences sp2 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//        String token2 = sp2.getString(Config.ACCESS_TOKEN, "");
+//
+//        Log.i("token2", token2);
+//
+//        Call<ScheduleList> call2 = api2.scheduleList("Bearer " + token2);
+//        call2.enqueue(new Callback<ScheduleList>() {
+//            @Override
+//            public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+//                if (response.isSuccessful()) {
+//                    ScheduleList scheduleList2 = response.body();
+//
+//                    Log.i("aaa2", scheduleList2.getResult());
+//
+//                    scheduleArrayList.addAll(scheduleList2.getItems());
+//
+//                    //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+//                    adapter = new ScheduleAdapter(ScheduleListActivity.this, scheduleArrayList);
+//
+//                    recyclerView.setAdapter(adapter);
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ScheduleList> call, Throwable t) {
+//
+//            }
+//        });
+
 }

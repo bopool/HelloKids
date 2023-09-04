@@ -154,11 +154,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 선생님 화면
-//                Intent intent = new Intent(MainActivity.this,ScheduleListActivity.class);
-//                startActivity(intent);
-                // 학부모 화면
-                Intent intent = new Intent(MainActivity.this,ScheduleChildListActivity.class);
+                Intent intent = new Intent(MainActivity.this,ScheduleListActivity.class);
                 startActivity(intent);
+                // 학부모 화면
+//                Intent intent = new Intent(MainActivity.this,ScheduleChildListActivity.class);
+//                startActivity(intent);
             }
         });
 

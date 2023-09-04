@@ -10,5 +10,5 @@ import retrofit2.http.Header;
 public interface SettingApi {
 
     @GET("/setting/class/list")
-    Call<classList> classListView(@Header("Authorization") String token); // 차량 운행 기록 리스트 조회
+    Call<classList> classListView(@Header("Authorization") String token); // 선생님이 속한 반 리스트 조회
 }

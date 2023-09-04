@@ -42,7 +42,7 @@ public class ScheduleAddActivity extends AppCompatActivity {
 
 
     // api호출 시 들어갈 데이터
-    private int classId = 1; // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서)
+    private int classId = 5; // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서)
     private String title;
     private String contents;
     private String date = "2023-09-30";  // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서) 근데 데이터베이스에 0000-00-00으로 들어감!!!
