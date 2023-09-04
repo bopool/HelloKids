@@ -328,7 +328,6 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     }
 
 
-
     // 파일 선택 후 앨범에서 액티비티로 돌아온 후 실행되는 메서드
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

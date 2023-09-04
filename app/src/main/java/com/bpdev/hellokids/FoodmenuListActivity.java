@@ -24,6 +24,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    Button btnCreate;
 
 
 
@@ -37,7 +38,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_foodmenu_list);
 
 
-        // -- -- -- 화면 연결 -- -- -- //
+        // 화면 연결 //
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -51,13 +52,27 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
+        //
+        btnCreate = findViewById(R.id.btnCreate);
+
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FoodmenuListActivity.this,FoodmenuAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
 
 
 
-        // -- -- 최상단 헤더 버튼 -- -- //
+
+
+
+        // 최상단 헤더 버튼 //
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,14 +156,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
-
-
 
 
     }
