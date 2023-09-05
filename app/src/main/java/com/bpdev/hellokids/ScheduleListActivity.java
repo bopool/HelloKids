@@ -57,6 +57,7 @@ public class ScheduleListActivity extends AppCompatActivity {
     HashMap<String, Integer> map = new HashMap<>();
 
 
+
     // 최상단 헤더의 버튼
     TextView btnRegister;
     TextView btnLogin;
@@ -120,7 +121,7 @@ public class ScheduleListActivity extends AppCompatActivity {
 
         spinnerClass.setAdapter(arrayAdapter);
 
-        spinnerClass.setSelection(0);
+        spinnerClass.setSelection(0,false);
 
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

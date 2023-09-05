@@ -2,21 +2,17 @@ package com.bpdev.hellokids.model;
 
 public class DailyNote {
     private int teacherId;
-    private int childId;
     private String title;
     private String contents;
-    private String photoUrl;
     private String dailyTemperCheck;
     private String dailyMealCheck;
     private String dailyNapCheck;
     private String dailyPooCheck;
 
-    public DailyNote(int teacherId, int childId, String title, String contents, String photoUrl, String dailyTemperCheck, String dailyMealCheck, String dailyNapCheck, String dailyPooCheck) {
+    public DailyNote(int teacherId, String title, String contents, String dailyTemperCheck, String dailyMealCheck, String dailyNapCheck, String dailyPooCheck) {
         this.teacherId = teacherId;
-        this.childId = childId;
         this.title = title;
         this.contents = contents;
-        this.photoUrl = photoUrl;
         this.dailyTemperCheck = dailyTemperCheck;
         this.dailyMealCheck = dailyMealCheck;
         this.dailyNapCheck = dailyNapCheck;
@@ -29,14 +25,6 @@ public class DailyNote {
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
-    }
-
-    public int getChildId() {
-        return childId;
-    }
-
-    public void setChildId(int childId) {
-        this.childId = childId;
     }
 
     public String getTitle() {
@@ -53,14 +41,6 @@ public class DailyNote {
 
     public void setContents(String contents) {
         this.contents = contents;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 
     public String getDailyTemperCheck() {

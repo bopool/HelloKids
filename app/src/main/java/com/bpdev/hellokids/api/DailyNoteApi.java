@@ -12,5 +12,5 @@ import retrofit2.http.Path;
 
 public interface DailyNoteApi {
     @POST("/dailynote/write/{childId}")
-    Call<Result> scheduleAdd(@Path("childId") int childId, @Header("Authorization") String token, @Body DailyNote dailyNote);
+    Call<Result> dailyNoteAdd(@Path("childId") int childId, @Header("Authorization") String token, @Body DailyNote dailyNote);
 }
