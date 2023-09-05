@@ -46,7 +46,7 @@ public class DailyNoteAdapter extends RecyclerView.Adapter<DailyNoteAdapter.View
         TextView textDate;
         TextView textDailyTitle;
         TextView textDailyContents;
-        ImageView imgDailyPhoto;
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -55,7 +55,7 @@ public class DailyNoteAdapter extends RecyclerView.Adapter<DailyNoteAdapter.View
             textDate = itemView.findViewById(R.id.textDate);
             textDailyTitle = itemView.findViewById(R.id.textDailyTitle);
             textDailyContents = itemView.findViewById(R.id.textDailyContents);
-            imgDailyPhoto = itemView.findViewById(R.id.imgDailyPhoto);
+
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
