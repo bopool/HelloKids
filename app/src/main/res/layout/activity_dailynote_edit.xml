@@ -6,294 +6,300 @@
     android:layout_height="match_parent"
     tools:context=".DailynoteEditActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/header"
-                style="@style/top_edit_layout"
-                android:layout_alignParentTop="true">
-
-                <Button
-                    android:id="@+id/btnBack"
-                    style="@style/back_button_text_title"
-                    android:text="알림장 수정하기" />
-
-                <TextView
-                    android:id="@+id/btnLogin"
-                    style="@style/top_button1" />
-
-                <TextView
-                    android:id="@+id/btnRegister"
-                    style="@style/top_button2" />
-
-                <ImageButton
-                    android:id="@+id/btnTranslate"
-                    style="@style/top_button3" />
-
-            </LinearLayout>
+            android:id="@+id/header"
+            style="@style/top_edit_layout"
+            android:layout_alignParentTop="true">
 
             <Button
-                android:id="@+id/btnCreate"
-                style="@style/btn_move_activity"
-                android:layout_below="@id/header"
-                android:layout_marginTop="12dp"
-                android:text="알림장 수정하기"
-                app:cornerRadius="8dp" />
+                android:id="@+id/btnBack"
+                style="@style/back_button_text_title"
+                android:text="알림장 수정하기" />
+
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/top_button1" />
+
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/top_button2" />
+
+            <ImageButton
+                android:id="@+id/btnTranslate"
+                style="@style/top_button3" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnCreate"
+            style="@style/btn_move_activity"
+            android:layout_below="@id/header"
+            android:layout_marginTop="12dp"
+            android:text="알림장 수정하기"
+            app:cornerRadius="8dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/menus"
-                android:layout_below="@id/btnCreate"
-                android:layout_gravity="center"
-                android:layout_marginBottom="12dp"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnSelectClass"
-                    style="@style/btn_select_form1"
-                    android:text="원아 이름"
-                    app:cornerRadius="8dp"
-                    app:iconGravity="end" />
-
-                <Button
-                    android:id="@+id/btnSelectDate"
-                    style="@style/btn_select_form1"
-                    android:text="작성 날짜"
-                    app:cornerRadius="8dp"
-                    app:iconGravity="end" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/text_input_title"
-                    android:text="제목 입력" />
-
-                <androidx.cardview.widget.CardView
-                    style="@style/text_input_frame_cardview"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp">
+                    android:layout_above="@id/menus"
+                    android:layout_below="@id/btnCreate"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/editInputTitle"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/btnSelectClass"
+                        style="@style/btn_select_form1"
+                        android:text="원아 이름"
+                        app:cornerRadius="8dp"
+                        app:iconGravity="end" />
 
+                    <Button
+                        android:id="@+id/btnSelectDate"
+                        style="@style/btn_select_form1"
+                        android:text="작성 날짜"
+                        app:cornerRadius="8dp"
+                        app:iconGravity="end" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/text_input_title"
+                        android:text="제목 입력" />
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="#F4F4F4"
-                        android:ems="10"
-                        android:hint="제목을 입력하세요"
-                        android:inputType="text"
-                        android:padding="5dp"
-                        android:singleLine="true"
-                        android:textColorHint="#BBBBBB"
-                        android:textSize="16sp" />
+                        app:cardCornerRadius="8dp">
 
-                </androidx.cardview.widget.CardView>
+                        <EditText
+                            android:id="@+id/editInputTitle"
+                            android:layout_width="match_parent"
 
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/text_input_title"
-                    android:text="내용 입력" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="제목을 입력하세요"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
 
-                <androidx.cardview.widget.CardView
-                    style="@style/text_input_frame_cardview"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp">
+                    </androidx.cardview.widget.CardView>
 
-                    <EditText
-                        android:id="@+id/editInputContents"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_margin="10dp"
-                        android:background="#F4F4F4"
-                        android:ems="10"
-                        android:gravity="top|left"
-                        android:hint="내용을 입력하세요"
-                        android:inputType="text"
-                        android:maxLines="10"
-                        android:padding="5dp"
-                        android:singleLine="false"
-                        android:textColorHint="#BBBBBB"
-                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/text_input_title"
+                        android:text="내용 입력" />
 
-                </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/editInputContents"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:gravity="top|left"
+                            android:hint="내용을 입력하세요"
+                            android:inputType="text"
+                            android:maxLines="10"
+                            android:padding="5dp"
+                            android:singleLine="false"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
+
+                    </androidx.cardview.widget.CardView>
 
 
-                <TextView
-                    android:id="@+id/textView8"
-                    style="@style/text_input_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="온도 체크" />
-
-                <androidx.cardview.widget.CardView
-                    style="@style/text_input_frame_cardview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp">
-
-                    <EditText
-                        android:id="@+id/editInputTemp"
+                    <TextView
+                        android:id="@+id/textView8"
+                        style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="#F4F4F4"
-                        android:ems="10"
-                        android:hint="체온을 입력하세요"
-                        android:inputType="text"
-                        android:padding="5dp"
-                        android:singleLine="true"
-                        android:textColorHint="#BBBBBB"
-                        android:textSize="16sp" />
+                        android:text="온도 체크" />
 
-                </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
 
-                <TextView
-                    android:id="@+id/textView12"
-                    style="@style/text_input_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="식사량 체크" />
+                        <EditText
+                            android:id="@+id/editInputTemp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="#F4F4F4"
+                            android:ems="10"
+                            android:hint="체온을 입력하세요"
+                            android:inputType="text"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="16sp" />
 
-                <androidx.cardview.widget.CardView
-                    style="@style/text_input_frame_cardview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp">
+                    </androidx.cardview.widget.CardView>
 
-                    <RadioGroup
-                        android:id="@+id/radioGroupMeal"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/textView12"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="식사량 체크" />
 
-                        <RadioButton
-                            android:id="@+id/radioMealSmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="적게" />
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
 
-                        <RadioButton
-                            android:id="@+id/radioMealMiddle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="보통" />
-
-                        <RadioButton
-                            android:id="@+id/radioMealBig"
+                        <RadioGroup
+                            android:id="@+id/radioGroupMeal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:layout_weight="1"
-                            android:text="많이" />
+                            android:orientation="horizontal">
 
-                    </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/radioMealSmall"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:text="적게" />
 
-                </androidx.cardview.widget.CardView>
+                            <RadioButton
+                                android:id="@+id/radioMealMiddle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:text="보통" />
 
-                <TextView
-                    android:id="@+id/textView18"
-                    style="@style/text_input_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="낮잠 체크" />
+                            <RadioButton
+                                android:id="@+id/radioMealBig"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:layout_weight="1"
+                                android:text="많이" />
 
-                <androidx.cardview.widget.CardView
-                    style="@style/text_input_frame_cardview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp">
+                        </RadioGroup>
 
-                    <RadioGroup
-                        android:id="@+id/radioGroupNap"
-                        android:layout_width="wrap_content"
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="낮잠 체크" />
 
-                        <RadioButton
-                            android:id="@+id/radioNapSmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="적게" />
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
 
-                        <RadioButton
-                            android:id="@+id/radioNapMiddle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="보통" />
-
-                        <RadioButton
-                            android:id="@+id/radioNapBig"
+                        <RadioGroup
+                            android:id="@+id/radioGroupNap"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:layout_weight="1"
-                            android:text="많이" />
+                            android:orientation="horizontal">
 
-                    </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/radioNapSmall"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:text="적게" />
 
-                </androidx.cardview.widget.CardView>
+                            <RadioButton
+                                android:id="@+id/radioNapMiddle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:text="보통" />
 
-                <TextView
-                    android:id="@+id/textView17"
-                    style="@style/text_input_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="배변량 체크" />
+                            <RadioButton
+                                android:id="@+id/radioNapBig"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:layout_weight="1"
+                                android:text="많이" />
 
-                <androidx.cardview.widget.CardView
-                    style="@style/text_input_frame_cardview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp">
+                        </RadioGroup>
 
-                    <RadioGroup
-                        android:id="@+id/radioGroupPoo"
-                        android:layout_width="wrap_content"
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="배변량 체크" />
 
-                        <RadioButton
-                            android:id="@+id/radioPooSmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="적게" />
+                    <androidx.cardview.widget.CardView
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
 
-                        <RadioButton
-                            android:id="@+id/radioPooMiddle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="보통" />
-
-                        <RadioButton
-                            android:id="@+id/radioPooBig"
+                        <RadioGroup
+                            android:id="@+id/radioGroupPoo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:layout_weight="1"
-                            android:text="많이" />
+                            android:orientation="horizontal">
 
-                    </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/radioPooSmall"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:text="적게" />
 
-                </androidx.cardview.widget.CardView>
+                            <RadioButton
+                                android:id="@+id/radioPooMiddle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:text="보통" />
 
+                            <RadioButton
+                                android:id="@+id/radioPooBig"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:layout_weight="1"
+                                android:text="많이" />
+
+                        </RadioGroup>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
             </LinearLayout>
+        </ScrollView>
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/menus"
