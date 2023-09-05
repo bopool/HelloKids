@@ -182,7 +182,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
 
                 // 3. 보낼 데이터를 준비한다.
-                DailyNote dailyNote = new DailyNote(teacherId,title,contents,dailyTemperCheck,dailyMealCheck,dailyNapCheck,dailyPooCheck);
+                DailyNote dailyNote = new DailyNote(title,contents,dailyTemperCheck,dailyMealCheck,dailyNapCheck,dailyPooCheck);
 
                 Call<Result> call = api.dailyNoteAdd(childId,"Bearer "+token,dailyNote);
 
@@ -259,14 +259,6 @@ public class DailynoteAddActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
-
-
-
-
-
-
 
 
         // -- -- 하단 바로가기 메뉴 버튼 -- -- //

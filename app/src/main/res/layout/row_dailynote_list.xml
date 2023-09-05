@@ -77,13 +77,6 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imgDailyPhoto"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/a2241_2492_616" />
-
             </LinearLayout>
 
         </LinearLayout>

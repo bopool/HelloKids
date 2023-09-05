@@ -101,8 +101,8 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSelectClass"
-                android:text="전체반 선택"
+                android:id="@+id/btnSelectChild"
+                android:text="원아 선택"
                 app:cornerRadius="8dp"
                 style="@style/btn_select_form1"/>
 

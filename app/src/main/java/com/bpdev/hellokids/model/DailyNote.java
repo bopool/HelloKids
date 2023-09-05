@@ -1,7 +1,6 @@
 package com.bpdev.hellokids.model;
 
 public class DailyNote {
-    private int teacherId;
     private String title;
     private String contents;
     private String dailyTemperCheck;
@@ -9,22 +8,13 @@ public class DailyNote {
     private String dailyNapCheck;
     private String dailyPooCheck;
 
-    public DailyNote(int teacherId, String title, String contents, String dailyTemperCheck, String dailyMealCheck, String dailyNapCheck, String dailyPooCheck) {
-        this.teacherId = teacherId;
+    public DailyNote(String title, String contents, String dailyTemperCheck, String dailyMealCheck, String dailyNapCheck, String dailyPooCheck) {
         this.title = title;
         this.contents = contents;
         this.dailyTemperCheck = dailyTemperCheck;
         this.dailyMealCheck = dailyMealCheck;
         this.dailyNapCheck = dailyNapCheck;
         this.dailyPooCheck = dailyPooCheck;
-    }
-
-    public int getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
     }
 
     public String getTitle() {

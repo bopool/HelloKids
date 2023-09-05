@@ -6,62 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".DailynoteAddActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_edit_layout">
+
+            <Button
+                android:id="@+id/btnBack"
+                style="@style/back_button_text_title"
+                android:text="알림장 작성하기" />
+
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/top_button1" />
+
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/top_button2" />
+
+            <ImageButton
+                android:id="@+id/btnTranslate"
+                style="@style/top_button3" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/header"
-                style="@style/top_edit_layout">
+            <Button
+                android:id="@+id/btnSelectClass"
+                style="@style/btn_select_form1"
+                android:text="원아 선택"
+                app:cornerRadius="8dp"
+                app:iconGravity="end" />
 
-                <Button
-                    android:id="@+id/btnBack"
-                    style="@style/back_button_text_title"
-                    android:text="알림장 작성하기" />
-
-                <TextView
-                    android:id="@+id/btnLogin"
-                    style="@style/top_button1" />
-
-                <TextView
-                    android:id="@+id/btnRegister"
-                    style="@style/top_button2" />
-
-                <ImageButton
-                    android:id="@+id/btnTranslate"
-                    style="@style/top_button3" />
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnCreate"
+                style="@style/btn_move_activity"
+                android:layout_marginTop="12dp"
+                android:text="알림장 작성하기"
+                app:cornerRadius="8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btnSelectClass"
-                    style="@style/btn_select_form1"
-                    android:text="원아 선택"
-                    app:cornerRadius="8dp"
-                    app:iconGravity="end" />
-
-                <Button
-                    android:id="@+id/btnCreate"
-                    style="@style/btn_move_activity"
-                    android:layout_marginTop="12dp"
-                    android:text="알림장 작성하기"
-                    app:cornerRadius="8dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -248,7 +242,7 @@
                 <androidx.cardview.widget.CardView
                     style="@style/text_input_frame_cardview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="8dp">
 
                     <RadioGroup
@@ -286,7 +280,8 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
 
     <RelativeLayout
