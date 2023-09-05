@@ -1,20 +1,22 @@
 package com.bpdev.hellokids.model;
 
-public class DailyNoteRes {
+import java.io.Serializable;
+
+public class DailyNoteRow implements Serializable {
+
     private int id;
-    private int teacherId;
-    private int childId;
+    private String createdAt;
     private String title;
     private String contents;
+
     private String dailyTemperCheck;
     private String dailyMealCheck;
     private String dailyNapCheck;
     private String dailyPooCheck;
 
-    public DailyNoteRes(int id, int teacherId, int childId, String title, String contents, String dailyTemperCheck, String dailyMealCheck, String dailyNapCheck, String dailyPooCheck) {
+    public DailyNoteRow(int id, String createdAt, String title, String contents, String dailyTemperCheck, String dailyMealCheck, String dailyNapCheck, String dailyPooCheck) {
         this.id = id;
-        this.teacherId = teacherId;
-        this.childId = childId;
+        this.createdAt = createdAt;
         this.title = title;
         this.contents = contents;
         this.dailyTemperCheck = dailyTemperCheck;
@@ -31,20 +33,12 @@ public class DailyNoteRes {
         this.id = id;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public int getChildId() {
-        return childId;
-    }
-
-    public void setChildId(int childId) {
-        this.childId = childId;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getTitle() {

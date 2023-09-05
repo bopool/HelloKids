@@ -100,11 +100,10 @@
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnSelectChild"
-                android:text="원아 선택"
-                app:cornerRadius="8dp"
-                style="@style/btn_select_form1"/>
+            <Spinner
+                android:id="@+id/spinnerChild"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/btnSelectDate"
