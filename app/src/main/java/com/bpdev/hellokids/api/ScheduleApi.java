@@ -27,6 +27,10 @@ public interface ScheduleApi {
     @GET("/schedule/child/list")
     Call<ScheduleList>scheduleChildList(@Header("Authorization") String token);
 
+    @GET("/schedule/{classId}/class")
+    Call<ScheduleList>scheduleClassList(@Path("classId") int classId, @Header("Authorization") String token);
+
+
     @PUT("/schedule/{id}")
     Call<Result> scheduleEdit(@Path("id") int id, @Header("Authorization") String token, @Body Schedule Schedule);
 
