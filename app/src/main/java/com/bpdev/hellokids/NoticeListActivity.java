@@ -23,6 +23,11 @@ public class NoticeListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
+
+    //
+    Button btnCreate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +48,17 @@ public class NoticeListActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
+        //
+        btnCreate = findViewById(R.id.btnCreate);
 
 
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NoticeListActivity.this,NoticeAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -80,7 +94,7 @@ public class NoticeListActivity extends AppCompatActivity {
 
 
 
-// -- -- 하단 바로가기 메뉴 버튼 -- -- //
+        // -- -- 하단 바로가기 메뉴 버튼 -- -- //
         // 홈 바로가기
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +152,6 @@ public class NoticeListActivity extends AppCompatActivity {
         });
 
 
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
 
 
 
