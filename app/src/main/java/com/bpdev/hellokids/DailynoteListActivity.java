@@ -23,6 +23,9 @@ public class DailynoteListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
+    // 화면 이동
+    Button btnCreate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +46,16 @@ public class DailynoteListActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
+        // 화면 이동 버튼 연결
+        btnCreate = findViewById(R.id.btnCreate);
 
-
-
-
-
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DailynoteListActivity.this,DailynoteAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼

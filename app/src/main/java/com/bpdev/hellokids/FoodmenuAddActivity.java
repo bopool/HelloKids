@@ -28,8 +28,8 @@ import com.bpdev.hellokids.adapter.PhotoAddAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
-import com.bpdev.hellokids.model.classList;
-import com.bpdev.hellokids.model.nurseryClass;
+import com.bpdev.hellokids.model.ClassList;
+import com.bpdev.hellokids.model.NurseryClass;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ import retrofit2.Retrofit;
 public class FoodmenuAddActivity extends AppCompatActivity {
 
     // 스피너, 반 이름
-    ArrayList<nurseryClass> classArrayList = new ArrayList<>();
+    ArrayList<NurseryClass> classArrayList = new ArrayList<>();
     String[] classNameList = {};
     Spinner spinnerSelectClass;
 
@@ -137,12 +137,12 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String token = sp.getString(Config.ACCESS_TOKEN,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5MzgxNjQ0MywianRpIjoiODdlMDkwMWUtMzg4ZC00ZmNiLTkxOGMtMmE2MDM2NDNiNmM5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjkzODE2NDQzfQ.wjE72DyE4C-0BqL6LFr5CS-FEg-w5rN-Vvpq3wA2ZRg");
 
-        Call<classList> call = api.classListView("Bearer "+token);
-        call.enqueue(new Callback<classList>() {
+        Call<ClassList> call = api.classListView("Bearer "+token);
+        call.enqueue(new Callback<ClassList>() {
             @Override
-            public void onResponse(Call<classList> call, Response<classList> response) {
+            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
                 if(response.isSuccessful()){
-                    classList classLists = response.body();
+                    ClassList classLists = response.body();
                     classArrayList.addAll( classLists.getItems() );
                     Log.i("classArrayList", classArrayList+"");
 
@@ -156,7 +156,7 @@ public class FoodmenuAddActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<classList> call, Throwable t) {
+            public void onFailure(Call<ClassList> call, Throwable t) {
             }
         });
 

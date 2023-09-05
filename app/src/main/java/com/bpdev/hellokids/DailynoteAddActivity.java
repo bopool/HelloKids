@@ -4,12 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DailynoteAddActivity extends AppCompatActivity {
+
+    private int teacherId = 0;
+    private int childId = 4; // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서)
+    private String title;
+    private String contents;
+    private String photoUrl;
+    private String dailyTemperCheck;
+    private String dailyMealCheck;
+    private String dailyNapCheck;
+    private String dailyPooCheck;
+
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -24,7 +36,16 @@ public class DailynoteAddActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    Button btnCreate;
 
+    // 메인 기능
+
+    EditText editInputTitle;
+    EditText editInputContents;
+    EditText editInputTemp;
+    EditText editInputMeal;
+    EditText editInputNap;
+    EditText editInputPoo;
 
 
 
@@ -47,11 +68,28 @@ public class DailynoteAddActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+        btnCreate = findViewById(R.id.btnCreate);
+        editInputTitle = findViewById(R.id.editInputTitle);
+        editInputContents = findViewById(R.id.editInputContents);
+        editInputTemp = findViewById(R.id.editInputTemp);
+        editInputMeal = findViewById(R.id.editInputMeal);
+        editInputNap = findViewById(R.id.editInputNap);
+        editInputPoo = findViewById(R.id.editInputPoo);
 
 
+        // -- -- -- 메인 파트 동작 -- -- -- //
 
-
-
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title =  editInputTitle.getText().toString().trim();
+                contents = editInputContents.getText().toString().trim();
+                dailyTemperCheck = editInputTemp.getText().toString().trim();
+                dailyMealCheck = editInputMeal.getText().toString().trim();
+                dailyNapCheck = editInputNap.getText().toString().trim();
+                dailyPooCheck = editInputPoo.getText().toString().trim();
+            }
+        });
 
         // -- -- 최상단 헤더 버튼 -- -- //
 
@@ -141,19 +179,6 @@ public class DailynoteAddActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
-
-
-
-
-
-
-
 
 
     }

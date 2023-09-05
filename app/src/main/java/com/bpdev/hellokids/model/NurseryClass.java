@@ -2,12 +2,12 @@ package com.bpdev.hellokids.model;
 
 import java.io.Serializable;
 
-public class nurseryClass implements Serializable {
+public class NurseryClass implements Serializable {
 
     private int id;
     private String className;
 
-    public nurseryClass(int id, String className) {
+    public NurseryClass(int id, String className) {
         this.id = id;
         this.className = className;
     }
