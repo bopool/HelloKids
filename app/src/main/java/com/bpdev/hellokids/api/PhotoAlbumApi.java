@@ -3,6 +3,7 @@ package com.bpdev.hellokids.api;
 
 
 
+import com.bpdev.hellokids.model.PhotoAlbumId;
 import com.bpdev.hellokids.model.Result;
 
 import okhttp3.MultipartBody;
@@ -25,7 +26,7 @@ import retrofit2.http.Query;
 
 public interface PhotoAlbumApi {
 
-    // 사진첩 생성 API
+    // 사진첩 생성( 사진 추가 )  API
     @Multipart
     @POST("/photoAlbum/add")
     Call<Result> photoAlbumAdd (@Header("Authorization") String token,
@@ -34,6 +35,11 @@ public interface PhotoAlbumApi {
                                 @Part("title") RequestBody title,
                                 @Part("contents") RequestBody contents,
                                 @Part MultipartBody.Part photoUrl);
+
+
+    // 사진첩 글 아이디 생성 API
+    @POST("/photoAlbum/addId")
+    Call<Result> photoAlbumAddId (@Header("Authorization") String token, @Body PhotoAlbumId photoAlbumId);
 
 
 }

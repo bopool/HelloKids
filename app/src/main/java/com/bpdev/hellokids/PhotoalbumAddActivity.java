@@ -46,6 +46,7 @@ import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
+import com.bpdev.hellokids.model.PhotoAlbumId;
 import com.bpdev.hellokids.model.Result;
 
 
@@ -77,6 +78,7 @@ import android.widget.Toast;
 
 import com.bpdev.hellokids.adapter.PhotoAddAdapter;
 import com.google.android.gms.common.util.IOUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class PhotoalbumAddActivity extends AppCompatActivity {
@@ -104,6 +106,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     EditText textInputContents;
     ImageView imgPhotoAdd;
     Button btnPhotoAdd;
+    Button btnTextAdd;
 
 
     // 리사이클러뷰
@@ -121,6 +124,9 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     File photoUrl;
     File photoFile;
     int classIdTemp;
+
+    // 글 아이디 생성 위한 세팅
+    int totalAlbumNum = 0;
 
 
     // 스피너, 반 이름
@@ -168,7 +174,9 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         btnRekog = findViewById(R.id.btnRekog);
         imgPhotoAdd = findViewById(R.id.imgPhotoAdd);
         btnPhotoAdd = findViewById(R.id.btnPhotoAdd);
+        btnTextAdd = findViewById(R.id.btnTextAdd);
 
+        // 리사이클러 뷰
         photoRecyclerView = findViewById(R.id.photoRecyclerView);
 
         // 스피너 연결
@@ -218,6 +226,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
         spinnerClass.setSelection(0);
 
+
+
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -227,7 +237,11 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
                 classId1 = map.get(spinnerValue);
 
+                //String.valueOf(classId1);
+
+
                 Log.i("classId", classId1 + "");
+
 
 //                // 반별 일정표 리스트 조회  ------>>> 여기서부터 반 목록 가져오는걸로 바꾸면 된다.
 //                Retrofit retrofit1 = NetworkClient.getRetrofitClient(PhotoalbumAddActivity.this);
@@ -320,6 +334,9 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
+                
+                
                 Intent intent = new Intent(PhotoalbumAddActivity.this,PhotoalbumListActivity.class);
                 startActivity(intent);
             }
@@ -375,6 +392,67 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
             }
         });
+        
+        
+
+
+        
+        
+        // 제목과 내용 입력 완료 버튼
+        btnTextAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                // 레트로핏으로 포토앨범 테이블에 한 줄 추가
+                Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumAddActivity.this);
+                PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+
+                // 인증 토큰 가져오기
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+                // 메모 만들기
+                PhotoAlbumId photoAlbumId = new PhotoAlbumId( totalAlbumNum );
+
+                Call<Result> call = photoAlbumApi.photoAlbumAddId("Bearer " + token, photoAlbumId);
+
+                // 다이얼로그 띄우기
+                showProgress();
+
+                //
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+
+                        // 다이얼로그 없애기
+                        dismissProgress();
+
+                        //
+                        if(response.isSuccessful()){
+
+                        }else {
+                            Snackbar.make(btnTextAdd,
+                                    "서버에 문제가 있습니다.",
+                                    Snackbar.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                        // 다이얼로그 없애기
+                        dismissProgress();
+
+                        Snackbar.make(btnTextAdd,
+                                "서버와 통신이 되지 않습니다.",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });
+
 
 
 

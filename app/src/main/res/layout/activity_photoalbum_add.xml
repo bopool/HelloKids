@@ -116,18 +116,19 @@
                     android:text="등록하기"
                     app:cornerRadius="8dp" />
 
+                <TextView
+                    android:id="@+id/textView20"
+                    style="@style/text_input_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="반 선택"
+                    android:textStyle="bold" />
+
                 <Spinner
                     android:id="@+id/spinnerClass"
                     style="@style/btn_select_form1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="반 선택"
-                    app:cornerRadius="8dp"
-                    app:iconGravity="end" />
-
-                <Button
-                    android:id="@+id/btnSelectClass"
-                    style="@style/btn_select_form1"
                     android:text="반 선택"
                     app:cornerRadius="8dp"
                     app:iconGravity="end" />
@@ -139,10 +140,19 @@
                     app:cornerRadius="8dp"
                     app:iconGravity="end" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/text_input_title"
-                    android:text="제목 입력" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/text_input_title"
+                        android:layout_width="wrap_content"
+                        android:text="제목 입력" />
+
+                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     style="@style/text_input_frame_cardview"
@@ -192,10 +202,25 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <Button
+                    android:id="@+id/btnTextAdd"
+                    style="@style/btn_detail_green_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:backgroundTint="#32B568"
+                    android:foregroundGravity="right"
+                    android:text="제목과 내용 입력확인"
+                    android:textSize="14sp"
+                    app:cornerRadius="8dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="left"
                     android:orientation="horizontal">
 
@@ -282,14 +307,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="40dp"
                 android:backgroundTint="#8D96FC"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="원아별 사진 폴더 생성 및 자동분류"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
 
 
         </LinearLayout>
