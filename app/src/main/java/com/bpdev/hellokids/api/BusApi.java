@@ -15,6 +15,7 @@ import com.bpdev.hellokids.model.UserRes;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -30,6 +31,9 @@ public interface BusApi {
 
     @GET("/schoolbus/nursery")
     Call<BusInfoList>busInfoList(@Header("Authorization") String token); // 차량 정보 리스트 조회
+
+    @DELETE("/schoolbus/{id}")
+    Call<BusRes> busInfoDelete(@Path("id") int id); // 차량 정보 삭제
 
     @GET("/schoolbus/drive")
     Call<BusDailyRecordList>busList(); // 차량 운행 기록 리스트 조회

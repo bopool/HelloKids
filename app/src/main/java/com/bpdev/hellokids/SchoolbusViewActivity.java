@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bpdev.hellokids.model.BusInfo;
+
 public class SchoolbusViewActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
@@ -25,18 +27,21 @@ public class SchoolbusViewActivity extends AppCompatActivity {
 
     // 메인 파트 버튼
 
+    TextView textBusName;
+    TextView textBusNum;
+    TextView textBusTime;
+    TextView textDriverName;
+    TextView textDriverNum;
 
-
-
-
-
-
+    BusInfo busInfo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolbus_view);
+
+        busInfo = (BusInfo) getIntent().getSerializableExtra("busInfo");
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -52,9 +57,20 @@ public class SchoolbusViewActivity extends AppCompatActivity {
 
         // 메인 파트 화면 연결
 
+        textBusName = findViewById(R.id.textBusName);
+        textBusNum = findViewById(R.id.textBusNum);
+        textBusTime = findViewById(R.id.textBusTime);
+        textDriverName = findViewById(R.id.textDriverName);
+        textDriverNum = findViewById(R.id.textDriverNum);
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
 
 
-
+        textBusName.setText(busInfo.getShuttleName());
+        textBusNum.setText(busInfo.getShuttleNum());
+        textBusTime.setText(busInfo.getShuttleTime().substring(11,13)+"시"+busInfo.getShuttleTime().substring(14,16)+"분");
+        textDriverName.setText(busInfo.getShuttleDriver());
+        textDriverNum.setText( busInfo.getShuttleDriverNum());
 
 
         // -- -- 최상단 헤더 버튼 -- -- //
@@ -141,13 +157,6 @@ public class SchoolbusViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
-
 
 
 

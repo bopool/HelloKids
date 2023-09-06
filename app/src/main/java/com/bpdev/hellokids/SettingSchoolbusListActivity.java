@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,6 +32,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class SettingSchoolbusListActivity extends AppCompatActivity {
+
+    //public static Context mContext; // Context 변수 선언
+    //public String token; // Adapter 로 전달할 변수 선언
+
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -92,9 +97,9 @@ public class SettingSchoolbusListActivity extends AppCompatActivity {
         BusApi api1 = retrofit1.create(BusApi.class);
 
         SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+        String token = sp1.getString(Config.ACCESS_TOKEN, "");
 
-        Call<BusInfoList> call1 = api1.busInfoList( "Bearer " + token1);
+        Call<BusInfoList> call1 = api1.busInfoList( "Bearer " + token);
         call1.enqueue(new Callback<BusInfoList>() {
             @Override
             public void onResponse(Call<BusInfoList> call, Response<BusInfoList> response) {
