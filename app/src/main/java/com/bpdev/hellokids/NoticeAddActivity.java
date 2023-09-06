@@ -2,8 +2,10 @@ package com.bpdev.hellokids;
 
 import static android.content.ContentValues.TAG;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,12 +28,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bpdev.hellokids.adapter.PhotoAddAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.NoticeApi;
+import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.Notice;
+import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.Result;
-import com.bpdev.hellokids.model.UserRes;
+import com.bpdev.hellokids.utils.PathUtils;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,17 +49,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class NoticeAddActivity extends AppCompatActivity {
-
-
-    String[] classNameList = {"꽃잎반","씨앗반"}; // 일단 에러나지말라고 {} 써줌
-    Spinner spinnerSelect;
-
-
-    // api호출 시 들어갈 데이터
-    private int classId = 5; // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서)
-
-    private String date = "2023-09-30";  // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서) 근데 데이터베이스에 0000-00-00으로 들어감!!!
-    public int selectIcon = 0; // 아이콘 선택
 
 
 
@@ -79,6 +78,22 @@ public class NoticeAddActivity extends AppCompatActivity {
     int isPublish = 0;
 
 
+    Spinner spinnerClass;
+    List<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
+    ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
+    ArrayAdapter<String> arrayAdapter;
+
+    int classId;
+
+    HashMap<String, Integer> map = new HashMap<>();
+
+    // api호출 시 들어갈 데이터
+    private String date = "2023-09-30";
+    Context mContext;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +112,7 @@ public class NoticeAddActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
-        spinnerSelect = findViewById(R.id.spinnerSelect);
+        spinnerClass = findViewById(R.id.spinnerSelect);
         noticeContent = findViewById(R.id.editInputContents);
         noticeTitle = findViewById(R.id.editInputTitle);
         btnPreCreate = findViewById(R.id.btnPreCreate);
@@ -107,27 +122,84 @@ public class NoticeAddActivity extends AppCompatActivity {
 
 
 
-
-
-
         // 스피너
-        ArrayAdapter<String> classArrayAdapter = new ArrayAdapter<String>(NoticeAddActivity.this,
-                android.R.layout.simple_spinner_dropdown_item,
-                classNameList);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinnerSelect.setAdapter(classArrayAdapter);
-        spinnerSelect.setSelection(0);
+        // 스피너에 반 이름 가져오기
+        Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeAddActivity.this);
+        SettingApi api = retrofit.create(SettingApi.class);
 
-        spinnerSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<ClassList> call = api.classListView("Bearer " + token);
+        call.enqueue(new Callback<ClassList>() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),classNameList[i]+"이 선택되었습니다.",
-                        Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
+                if (response.isSuccessful()) {
+                    ClassList classList = response.body();
+                    classArrayList.addAll(classList.getItems());
+                    for (int i = 0; i < classArrayList.size(); i++) {
+                        classNameArrayList.add(classArrayList.get(i).getClassName());
+                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onFailure(Call<ClassList> call, Throwable t) {
             }
         });
+
+        spinnerClass.setAdapter(arrayAdapter);
+        spinnerClass.setSelection(0,false);
+
+        spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+               String spinnerValue = adapterView.getItemAtPosition(i).toString();
+               spinnerClass.setSelection(i);
+               Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
+
+               classId = map.get(spinnerValue);
+
+               Log.i("classId", classId + "");
+
+//               // 반별 리스트 조회
+//               Retrofit retrofit1 = NetworkClient.getRetrofitClient(NoticeListActivity.this);
+//               ScheduleApi api1 = retrofit1.create(ScheduleApi.class);
+//               SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//               String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+//               Log.i("token1", token1);
+//               Call<ScheduleList> call1 = api1.scheduleClassList(classId, "Bearer " + token1);
+//               call1.enqueue(new Callback<ScheduleList>() {
+//                   @Override
+//                   public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+//                       if (response.isSuccessful()) {
+//                           NoticeList noticeList1 = response.body();
+//
+//                           noticeArrayList.addAll(noticeList1.getItems());
+//
+//                           //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+//                           adapter = new NoticeAdapter(NoticeListActivity.this, noticeArrayList);
+//                           recyclerView.setAdapter(adapter);
+//                           noticeArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
+//
+//
+//                       } else {
+//
+//                       }
+                   }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+
+        });
+
 
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -137,10 +209,14 @@ public class NoticeAddActivity extends AppCompatActivity {
                 String contents = noticeContent.getText().toString();
                 isPublish = 1;
 
+                noticePhotoUrl = new String[uriList.size()];
                 for (int i=0; i< uriList.size(); i++){
-                    String url = String.valueOf(uriList.get(i));
-                    noticePhotoUrl = url.split(", ");
-                    }
+//                    String realUrl = uriList.get(i).toString();
+//                    noticePhotoUrl[i] = realUrl;
+                    String realUrl = getPathFromUri(uriList.get(i)).toString();
+                    noticePhotoUrl[i] = realUrl;
+                }
+                Log.i("NoticeAddActivity PhotoUrlList", ""+noticePhotoUrl);
 
                 // API호출
                 Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeAddActivity.this);
@@ -149,38 +225,38 @@ public class NoticeAddActivity extends AppCompatActivity {
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
                 Notice notice = new Notice(title, contents, noticePhotoUrl, isPublish);
                 Call<Result> call = api.noticeAdd("Bearer "+token, notice);
-//
-//                return call.enqueue(new Callback<UserRes>() {
-//                    @Override
-//                    public void onResponse(Call<UserRes> call, Response<UserRes> response) {
-//                        if (response.isSuccessful()) {
-//                            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sp.edit();
-//                            UserRes res = response.body();
-//                            editor.putString(Config.ACCESS_TOKEN, res.getAccess_token());
-//                            editor.apply();
-//                            Intent intent = new Intent(NoticeAddActivity.this, NoticeListActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        } else if (response.code() == 400) {
-//
-//                        } else if (response.code() == 401) {
-//
-//                        } else if (response.code() == 404) {
-//
-//                        } else if (response.code() == 500) {
-//
-//                        } else {
-//                            // 200OK 아닌경우
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserRes> call, Throwable t) {
-//                        return;
-//                    }
-//                };
-            };
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        if (response.isSuccessful()) {
+                            // SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                            // SharedPreferences.Editor editor = sp.edit();
+                            // Result result = response.body();
+                            // editor.putString(Config.ACCESS_TOKEN, result.getAccess_token());
+                            // editor.apply();
+                            Intent intent = new Intent(NoticeAddActivity.this, NoticeListActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (response.code() == 400) {
+
+                        } else if (response.code() == 401) {
+
+                        } else if (response.code() == 404) {
+
+                        } else if (response.code() == 500) {
+
+                        } else {
+                            // 200OK 아닌경우
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                        return;
+                    }
+                });
+            }
         });
 
 
@@ -303,6 +379,7 @@ public class NoticeAddActivity extends AppCompatActivity {
                 if(data.getClipData() == null){     // 이미지를 하나만 선택한 경우
                     Log.e("single choice: ", String.valueOf(data.getData()));
                     Uri imageUri = data.getData();
+
                     uriList.add(imageUri);
                     photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
                     photoRecyclerView.setAdapter(photoAddAdapter);
@@ -340,6 +417,13 @@ public class NoticeAddActivity extends AppCompatActivity {
             }
         }
 
+    }
+    public String getPathFromUri(Uri uri){
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToNext();
+        String path = cursor.getString( cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+        cursor.close();
+        return path;
     }
 
 

@@ -1,7 +1,6 @@
 package com.bpdev.hellokids.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Notice implements Serializable {
 
