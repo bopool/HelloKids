@@ -42,6 +42,32 @@
             android:id="@+id/textPageContents"
             style="@style/text_title_sub"
             android:text="알림장 내용 상세 보기" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="#A9CB35"
+                android:text="수정하기" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:backgroundTint="#4B7FBD"
+                android:text="삭제하기" />
+        </LinearLayout>
     </LinearLayout>
 
     <ScrollView

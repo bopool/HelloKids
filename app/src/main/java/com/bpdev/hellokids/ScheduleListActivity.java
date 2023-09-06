@@ -41,22 +41,22 @@ import retrofit2.Retrofit;
 public class ScheduleListActivity extends AppCompatActivity {
 
     // 메인 기능
-    Spinner spinnerClass;
+    Spinner spinnerClass; // 스피너
     List<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
-    ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
-    ArrayAdapter<String> arrayAdapter;
+    ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // 반 목록 조회 api에 쓸 것
+    ArrayAdapter<String> arrayAdapter; // 스피너에 연결할 어댑터
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView; // 목록 보여주는 리사이클러뷰
 
-    ScheduleAdapter adapter;
+    ScheduleAdapter adapter; // 리사이클러뷰에 row 연결할 어댑터
 
-    ArrayList<ScheduleRes> scheduleArrayList = new ArrayList<>();
+    ArrayList<ScheduleRes> scheduleArrayList = new ArrayList<>(); // 반별 일정표 리스트 조회 api에 쓸 것
 
-    int classId;
+    int classId; // 반별 조회시 사용할 반 id
 
-    HashMap<String, Integer> map = new HashMap<>();
+    HashMap<String, Integer> map = new HashMap<>(); // 스피너에 들어가있는 반이름을 클릭하면 그 반이름을 가진 반 데이터의 id를 반환할 때 사용
 
-
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -77,16 +77,18 @@ public class ScheduleListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_list);
-
+        
+        // 리사이클러뷰 화면 연결, 리사이클러뷰 설정
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         //layoutManager: recyclerview에 listview 객체를 하나씩 띄움
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
+        
+        // 스피너 화면 연결
         spinnerClass = findViewById(R.id.spinnerClass);
 
-        // 스피너
+        // 스피너에 연결해줄 어댑터 생성
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -119,12 +121,15 @@ public class ScheduleListActivity extends AppCompatActivity {
             }
         });
 
+        // 스피너에 어댑터 연결
         spinnerClass.setAdapter(arrayAdapter);
 
+        // 스피너 초기화
         spinnerClass.setSelection(0,false);
 
+        // 스피너 클릭 이벤트 리스너
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
+            // 하나 선택했을 때
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String spinnerValue = adapterView.getItemAtPosition(i).toString();
                 spinnerClass.setSelection(i);
@@ -172,8 +177,8 @@ public class ScheduleListActivity extends AppCompatActivity {
 
             }
 
-
-            public void onNothingSelected(AdapterView<?> adapterView) { // 아무것도 선택하지 않았을 때 실행되는건데 자동으로 선택이 되기때문에 이 코드가 실행되지 않는다
+            // 아무것도 선택 안했을 때 근데 onCreate()가 실행되면서 자동으로 선택이 되기때문에 이 코드가 실행되지 않는다 -> 이 부분이 필요하면 방법을 찾아야한다 
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
                 Retrofit retrofit2 = NetworkClient.getRetrofitClient(ScheduleListActivity.this);
 
