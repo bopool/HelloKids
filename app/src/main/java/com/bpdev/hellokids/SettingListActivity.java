@@ -25,9 +25,10 @@ public class SettingListActivity extends AppCompatActivity {
 
     // 메인 파트 버튼
 
-
-
-
+    TextView textNurserySetting;
+    TextView textKidsSetting;
+    TextView textParentApprove;
+    TextView textSchoolbusSetting;
 
 
 
@@ -52,12 +53,38 @@ public class SettingListActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+        textNurserySetting = findViewById(R.id.textNurserySetting);
+        textKidsSetting = findViewById(R.id.textKidsSetting);
+        textParentApprove = findViewById(R.id.textParentApprove);
+        textSchoolbusSetting = findViewById(R.id.textSchoolbusSetting);
 
+        // -- -- -- 메인 파트 동작 -- -- -- //
+        textNurserySetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
+        textKidsSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
+        textParentApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
-
+        textSchoolbusSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingListActivity.this,SettingSchoolbusListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼
@@ -146,12 +173,6 @@ public class SettingListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
 
 
 

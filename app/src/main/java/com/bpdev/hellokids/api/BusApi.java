@@ -3,10 +3,13 @@ package com.bpdev.hellokids.api;
 import com.bpdev.hellokids.model.Bus;
 import com.bpdev.hellokids.model.BusDailyRecord;
 import com.bpdev.hellokids.model.BusDailyRecordList;
+import com.bpdev.hellokids.model.BusInfoList;
 import com.bpdev.hellokids.model.BusList;
 import com.bpdev.hellokids.model.BusRes;
+import com.bpdev.hellokids.model.DailyNote;
 import com.bpdev.hellokids.model.Location;
 import com.bpdev.hellokids.model.LocationList;
+import com.bpdev.hellokids.model.Result;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.UserRes;
 
@@ -15,11 +18,18 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface BusApi {
     @POST("/schoolbus")
-    Call<BusRes>busAdd(@Body Bus bus); // 차량 정보 등록
+    Call<BusRes>busAdd(@Header("Authorization") String token,@Body Bus bus); // 차량 정보 등록
+
+    @PUT("/schoolbus/{id}")
+    Call<BusRes> busEdit(@Path("id") int id, @Header("Authorization") String token, @Body Bus bus); // 차량 정보 수정
+
+    @GET("/schoolbus/nursery")
+    Call<BusInfoList>busInfoList(@Header("Authorization") String token); // 차량 정보 리스트 조회
 
     @GET("/schoolbus/drive")
     Call<BusDailyRecordList>busList(); // 차량 운행 기록 리스트 조회

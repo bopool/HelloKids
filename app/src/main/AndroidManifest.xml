@@ -55,6 +55,9 @@
             android:name=".SettingSchoolbusListActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingSchoolbusAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".SchoolbusEditActivity"
             android:exported="false" />
         <activity
