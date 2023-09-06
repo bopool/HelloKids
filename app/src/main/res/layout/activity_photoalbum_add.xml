@@ -117,7 +117,7 @@
                     app:cornerRadius="8dp" />
 
                 <Spinner
-                    android:id="@+id/spinnerSelectClass"
+                    android:id="@+id/spinnerClass"
                     style="@style/btn_select_form1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -224,6 +224,19 @@
                         android:foregroundGravity="right"
                         android:text="파일 선택 하기"
                         android:textSize="10sp"
+                        android:visibility="visible"
+                        app:cornerRadius="8dp" />
+
+                    <Button
+                        android:id="@+id/btnPhotoAdd"
+                        style="@style/btn_detail_green_left"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginRight="20dp"
+                        android:foregroundGravity="right"
+                        android:text="추가"
+                        android:textSize="10sp"
                         app:cornerRadius="8dp" />
 
                 </LinearLayout>
@@ -245,10 +258,18 @@
                         android:minHeight="120dp"
                         android:orientation="horizontal">
 
+                        <ImageView
+                            android:id="@+id/imgPhotoAdd"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/photoRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             app:reverseLayout="false" />
                     </LinearLayout>
 

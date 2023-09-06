@@ -11,6 +11,15 @@
 
 
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,6 +32,7 @@
         android:theme="@style/Theme.HelloKids"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".DailyNoteParentsEditActivity"
             android:exported="false" />
@@ -182,6 +192,17 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.bpdev.hellokids"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

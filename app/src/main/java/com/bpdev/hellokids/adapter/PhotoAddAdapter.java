@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.R;
+import com.bpdev.hellokids.model.PhotoAlbum;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -22,10 +23,19 @@ public class PhotoAddAdapter extends RecyclerView.Adapter<PhotoAddAdapter.ViewHo
     public ArrayList<Uri> mData;
     public Context context;
 
+
+
+
+ //-- 사진 여러장 리사이클러뷰에 표시할 때 사용
     public PhotoAddAdapter(ArrayList<Uri> mData, Context context) {
         this.mData = mData;
         this.context = context;
     }
+
+
+
+
+
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     // LayoutInflater - XML에 정의된 Resource(자원) 들을 View의 형태로 반환.
@@ -38,6 +48,8 @@ public class PhotoAddAdapter extends RecyclerView.Adapter<PhotoAddAdapter.ViewHo
         return vh ;
     }
 
+
+
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(PhotoAddAdapter.ViewHolder holder, int position) {
@@ -47,6 +59,8 @@ public class PhotoAddAdapter extends RecyclerView.Adapter<PhotoAddAdapter.ViewHo
                 .load(image_uri)
                 .into(holder.photoContent);
     }
+
+
 
     // getItemCount() - 전체 데이터 갯수 리턴.
     @Override
@@ -61,12 +75,33 @@ public class PhotoAddAdapter extends RecyclerView.Adapter<PhotoAddAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView photoContent;
+//        ImageView imgPhotoAdd;
+//        ImageView imgPhotoAdd1;
+//        ImageView imgPhotoAdd2;
+//        ImageView imgPhotoAdd3;
+//        ImageView imgPhotoAdd4;
+//        ImageView imgPhotoAdd5;
+//        ImageView imgPhotoAdd6;
+//        ImageView imgPhotoAdd7;
+//        ImageView imgPhotoAdd8;
+//        ImageView imgPhotoAdd9;
 
         ViewHolder(View itemView) {
             super(itemView) ;
 
             // 뷰 객체에 대한 참조.
             photoContent = itemView.findViewById(R.id.photoContent);
+//            imgPhotoAdd = itemView.findViewById(R.id.imgPhotoAdd);
+//            imgPhotoAdd1 = itemView.findViewById(R.id.imgPhotoAdd1);
+//            imgPhotoAdd2 = itemView.findViewById(R.id.imgPhotoAdd2);
+//            imgPhotoAdd3 = itemView.findViewById(R.id.imgPhotoAdd3);
+//            imgPhotoAdd4 = itemView.findViewById(R.id.imgPhotoAdd4);
+//            imgPhotoAdd5 = itemView.findViewById(R.id.imgPhotoAdd5);
+//            imgPhotoAdd6 = itemView.findViewById(R.id.imgPhotoAdd6);
+//            imgPhotoAdd7 = itemView.findViewById(R.id.imgPhotoAdd7);
+//            imgPhotoAdd8 = itemView.findViewById(R.id.imgPhotoAdd8);
+//            imgPhotoAdd9 = itemView.findViewById(R.id.imgPhotoAdd9);
+
         }
     }
 }
