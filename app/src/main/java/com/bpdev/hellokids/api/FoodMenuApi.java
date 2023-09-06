@@ -4,19 +4,28 @@ import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.FoodMenuList;
 import com.bpdev.hellokids.model.Result;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface FoodMenuApi {
-
+    @Multipart
     @POST("/menu/add")
-    Call<Result> foodMenuAdd(@Header("Authorization") String token, @Body FoodMenu foodMenu); // 개별 메뉴 입력
+    Call<Result> foodMenuAdd(@Header("Authorization") String token,
+                             @Part("mealDate") RequestBody mealDate,
+                             @Part MultipartBody.Part mealPhotoUrl,
+                             @Part("mealContent") RequestBody mealContent,
+                             @Part("mealType") RequestBody mealType); // mealDate, mealPhotoUrl, mealContent, mealType
 
     @GET("/menu/{nurseryId}/list")
     Call<FoodMenuList>foodMenuList(@Path("nurseryId") int nurseryId); // 원 별 메뉴 목록

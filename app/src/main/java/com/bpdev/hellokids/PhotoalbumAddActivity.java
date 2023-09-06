@@ -836,8 +836,8 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                 photoFile = getPhotoFile(fileName);
 
                 Uri fileProvider = FileProvider.getUriForFile(PhotoalbumAddActivity.this,
-                        // todo : 메니페스트파일에서 안드로이드:어쏘리티즈(authorities) = '' 의 내용과 아래 "" 부분이 같아야 함.
-                        "com.hyeeyh.postingapp.fileprovider", photoFile);
+                        // todo : 메니페스트파일에서 안드로이드:어쏘리티즈(authorities) = '' 의 내용과 아래 "" 부분이 같아야 함. + 추가함(김하연)
+                        "com.bpdev.hellokids.fileprovider", photoFile);
                 i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
                 startActivityForResult(i, 100);
 
@@ -1053,9 +1053,6 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
-
 
 
 
