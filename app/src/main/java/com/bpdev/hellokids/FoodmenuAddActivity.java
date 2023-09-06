@@ -1,10 +1,9 @@
 package com.bpdev.hellokids;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,21 +14,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bpdev.hellokids.adapter.PhotoAddAdapter;
+import com.bpdev.hellokids.api.FoodMenuApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
+import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.NurseryClass;
+import com.bpdev.hellokids.model.Result;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -61,18 +62,19 @@ public class FoodmenuAddActivity extends AppCompatActivity {
     // 메인 파트 버튼
     Button btnAdd;
     Button btnSelectDate;
-    Button btnSelectFoodMenu;
-    EditText textInputTitle;
-    EditText textInputContents;
+    Button btnSelectPhoto;
+    EditText textContents;
+    EditText textCategory;
 
 
-    // 이미지 uri를 담을 ArrayList 객체
-    ArrayList<Uri> uriList = new ArrayList<>();
-
-    // 사진 리사이클러뷰
-    RecyclerView photoRecyclerView;
-    // 리사이클러뷰에 적용시킬 어댑터
-    PhotoAddAdapter photoAddAdapter;
+    // 이미지 uri를 담을 객체
+    ImageView mealPhoto;
+    String mealPhotoUrl;
+    String photoUrl;
+    String mealDate;
+    String mealContent;
+    String mealType;
+    Uri imgUri;
 
 
     // startActivityForResult 대신할 런처
@@ -123,10 +125,10 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         // 메인 파트 화면 연결
         btnAdd = findViewById(R.id.btnCreate);
         btnSelectDate = findViewById(R.id.btnSelectDate);
-        textInputTitle = findViewById(R.id.textInputTitle);
-        textInputContents = findViewById(R.id.textInputCategory);
-        btnSelectFoodMenu = findViewById(R.id.btnSelectPhoto);
-        photoRecyclerView = findViewById(R.id.photoRecyclerView);
+        textContents = findViewById(R.id.textInputTitle);
+        textCategory = findViewById(R.id.textInputCategory);
+        btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
+        mealPhoto = findViewById(R.id.mealPhoto);
 
 
         // 스피너에 반 이름 가져오기
@@ -135,26 +137,26 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         SettingApi api = retrofit.create(SettingApi.class);
 
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5MzgxNjQ0MywianRpIjoiODdlMDkwMWUtMzg4ZC00ZmNiLTkxOGMtMmE2MDM2NDNiNmM5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjkzODE2NDQzfQ.wjE72DyE4C-0BqL6LFr5CS-FEg-w5rN-Vvpq3wA2ZRg");
+        String token = sp.getString(Config.ACCESS_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5MzgxNjQ0MywianRpIjoiODdlMDkwMWUtMzg4ZC00ZmNiLTkxOGMtMmE2MDM2NDNiNmM5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjkzODE2NDQzfQ.wjE72DyE4C-0BqL6LFr5CS-FEg-w5rN-Vvpq3wA2ZRg");
 
-        Call<ClassList> call = api.classListView("Bearer "+token);
+        Call<ClassList> call = api.classListView("Bearer " + token);
         call.enqueue(new Callback<ClassList>() {
             @Override
             public void onResponse(Call<ClassList> call, Response<ClassList> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ClassList classLists = response.body();
-                    classArrayList.addAll( classLists.getItems() );
-                    Log.i("classArrayList", classArrayList+"");
+                    classArrayList.addAll(classLists.getItems());
+                    Log.i("classArrayList", classArrayList + "");
 
-                    classNameList  = new String[classArrayList.size()];
-                    for (int i = 0; i <classArrayList.size(); i++) {
+                    classNameList = new String[classArrayList.size()];
+                    for (int i = 0; i < classArrayList.size(); i++) {
                         classNameList[i] = classArrayList.get(i).getClassName();
                     }
-                    Log.i(" classNameList", classNameList+"");
-                    }
-                else{
+                    Log.i(" classNameList", classNameList + "");
+                } else {
                 }
             }
+
             @Override
             public void onFailure(Call<ClassList> call, Throwable t) {
             }
@@ -171,9 +173,10 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         spinnerSelectClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),classArrayList.get(i)+"가 선택되었습니다.",
+                Toast.makeText(getApplicationContext(), classArrayList.get(i) + "가 선택되었습니다.",
                         Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -195,14 +198,12 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuAddActivity.this,LoginActivity.class);
+                Intent intent = new Intent(FoodmenuAddActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
 
         // 번역 버튼
-
-
 
 
         // 하단 바로가기 메뉴 버튼
@@ -262,9 +263,6 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         });
 
 
-
-
-
         // -- -- -- 메인 파트 동작 -- -- -- //
 
         // 등록하기 버튼
@@ -279,9 +277,8 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         });
 
 
-
         // 파일 선택하기 버튼
-        btnSelectFoodMenu.setOnClickListener(new View.OnClickListener() {
+        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -291,65 +288,98 @@ public class FoodmenuAddActivity extends AppCompatActivity {
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 2222);
                 // setResult(1111, intent);
-
                 // launcher.launch(intent);
             }
         });
-    }
 
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mealContent = textContents.getText().toString().trim();
+                mealType = textCategory.getText().toString().trim();
+                mealPhotoUrl = photoUrl.toString();
+                mealDate = "2023-09-06";
+
+
+                // API호출
+                Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuAddActivity.this);
+                FoodMenuApi api = retrofit.create(FoodMenuApi.class);
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN,"");
+                FoodMenu foodMenu = new FoodMenu(mealDate, mealPhotoUrl, mealContent, mealType);
+                Call<Result> call = api.foodMenuAdd("Bearer "+token, foodMenu);
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        if (response.isSuccessful()) {
+                            Intent intent = new Intent(FoodmenuAddActivity.this, FoodmenuListActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (response.code() == 400) {
+
+                        } else if (response.code() == 401) {
+
+                        } else if (response.code() == 404) {
+
+                        } else if (response.code() == 500) {
+
+                        } else {
+                            // 200OK 아닌경우
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                        return;
+                    }
+                });
+            }
+        });
+
+        // 파일 선택하기 버튼
+        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 2222);
+                // launcher.launch(intent);
+            }
+        });
+
+
+    }
 
     // 파일 선택 후 앨범에서 액티비티로 돌아온 후 실행되는 메서드
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         Log.i("data : ", String.valueOf(data));
 
-        if(requestCode == 2222){
-            if(data == null){   // 어떤 이미지도 선택하지 않은 경우
+        if (requestCode == 2222) {
+            if (data == null) {
                 Toast.makeText(getApplicationContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
-            }
-            else{   // 이미지를 하나라도 선택한 경우
-                if(data.getClipData() == null){     // 이미지를 하나만 선택한 경우
-                    Log.e("single choice: ", String.valueOf(data.getData()));
-                    Uri imageUri = data.getData();
-                    uriList.add(imageUri);
+            } else {
+                Uri imageUri = data.getData();
+                Glide.with(FoodmenuAddActivity.this)
+                        .load(imageUri)
+                        .into(mealPhoto);
+                Log.e("single choice: ",""+data.getData());
 
-                    photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
-                    photoRecyclerView.setAdapter(photoAddAdapter);
-                    photoRecyclerView.setLayoutManager(new LinearLayoutManager(FoodmenuAddActivity.this, LinearLayoutManager.HORIZONTAL, true));
+//                File imgFile = new File(photoUrl);
+//                if (imgFile.exists()) {
+//                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//                    mealPhoto.setImageBitmap(myBitmap);
                 }
-                else{      // 이미지를 여러장 선택한 경우
-                    ClipData clipData = data.getClipData();
-                    Log.e("clipData", String.valueOf(clipData.getItemCount()));
 
-                    if(clipData.getItemCount() > 20){   // 선택한 이미지가 21장 이상인 경우
-                        Toast.makeText(getApplicationContext(), "사진은 20장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
-                    }
-                    else{   // 선택한 이미지가 1장 이상 20장 이하인 경우
-                        Log.e(TAG, "multiple choice");
-
-                        for (int i = 0; i < clipData.getItemCount(); i++){
-                            Uri imageUri = clipData.getItemAt(i).getUri();
-                            Log.i(TAG, "msg : "+clipData);
-                            Log.i(TAG, "msg : "+imageUri);
-
-                            // 선택한 이미지들의 uri를 가져온다.
-                            try {
-                                uriList.add(imageUri);  //uri를 list에 담는다.
-
-                            } catch (Exception e) {
-                                Log.e(TAG, "File select error", e);
-                            }
-                        }
-
-                        photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
-                        photoRecyclerView.setAdapter(photoAddAdapter); // 리사이클러뷰에 어댑터 세팅
-                        photoRecyclerView.setLayoutManager(new LinearLayoutManager(FoodmenuAddActivity.this, LinearLayoutManager.HORIZONTAL, true));     // 리사이클러뷰 수평 스크롤 적용
-                    }
-                }
             }
-        }
+
 
     }
 }
+
+

@@ -211,8 +211,10 @@ public class NoticeAddActivity extends AppCompatActivity {
 
                 noticePhotoUrl = new String[uriList.size()];
                 for (int i=0; i< uriList.size(); i++){
-//                    String realUrl = uriList.get(i).toString();
-//                    noticePhotoUrl[i] = realUrl;
+                    //                    String realUrl = uriList.get(i).toString();
+                    //                    noticePhotoUrl[i] = realUrl;
+                    //                    String realUrl = getPathFromUri(uriList.get(i)).toString();
+                    //                    noticePhotoUrl[i] = realUrl;
                     String realUrl = getPathFromUri(uriList.get(i)).toString();
                     noticePhotoUrl[i] = realUrl;
                 }
@@ -230,11 +232,6 @@ public class NoticeAddActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
                         if (response.isSuccessful()) {
-                            // SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                            // SharedPreferences.Editor editor = sp.edit();
-                            // Result result = response.body();
-                            // editor.putString(Config.ACCESS_TOKEN, result.getAccess_token());
-                            // editor.apply();
                             Intent intent = new Intent(NoticeAddActivity.this, NoticeListActivity.class);
                             startActivity(intent);
                             finish();
@@ -379,8 +376,30 @@ public class NoticeAddActivity extends AppCompatActivity {
                 if(data.getClipData() == null){     // 이미지를 하나만 선택한 경우
                     Log.e("single choice: ", String.valueOf(data.getData()));
                     Uri imageUri = data.getData();
-
                     uriList.add(imageUri);
+
+
+//
+//                    file을 담는 List<MultipartBody.Part>는 다음과 같이 만들 수 있다.
+//
+//// 여러 file들을 담아줄 ArrayList
+//                            ArrayList<MultipartBody.Part> files = new ArrayList<>();
+//
+//// 파일 경로들을 가지고있는 `ArrayList<Uri> filePathList`가 있다고 칩시다...
+//                    for (int i = 0; i < filePathList.size(); ++i) {
+//                        // Uri 타입의 파일경로를 가지는 RequestBody 객체 생성
+//                        RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpeg"), filePathList.get(i));
+//
+//                        // 사진 파일 이름
+//                        String fileName = "photo" + i + ".jpg";
+//                        // RequestBody로 Multipart.Part 객체 생성
+//                        MultipartBody.part filePart = Multipart.Part.createFormData("photo", fileName, fileBody);
+//
+//                        // 추가
+//                        files.add(filePart);
+//                    }
+
+
                     photoAddAdapter = new PhotoAddAdapter(uriList, getApplicationContext());
                     photoRecyclerView.setAdapter(photoAddAdapter);
                     photoRecyclerView.setLayoutManager(new LinearLayoutManager(NoticeAddActivity.this, LinearLayoutManager.HORIZONTAL, true));
@@ -421,7 +440,7 @@ public class NoticeAddActivity extends AppCompatActivity {
     public String getPathFromUri(Uri uri){
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         cursor.moveToNext();
-        String path = cursor.getString( cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+        String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
         cursor.close();
         return path;
     }

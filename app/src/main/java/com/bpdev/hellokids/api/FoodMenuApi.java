@@ -2,11 +2,13 @@ package com.bpdev.hellokids.api;
 
 import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.FoodMenuList;
+import com.bpdev.hellokids.model.Result;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -14,7 +16,7 @@ import retrofit2.http.Path;
 public interface FoodMenuApi {
 
     @POST("/menu/add")
-    Call<FoodMenu>foodMenuAdd(@Body FoodMenu foodMenu); // 개별 메뉴 입력
+    Call<Result> foodMenuAdd(@Header("Authorization") String token, @Body FoodMenu foodMenu); // 개별 메뉴 입력
 
     @GET("/menu/{nurseryId}/list")
     Call<FoodMenuList>foodMenuList(@Path("nurseryId") int nurseryId); // 원 별 메뉴 목록
@@ -26,9 +28,9 @@ public interface FoodMenuApi {
     Call<FoodMenu>foodMenuView(@Path("id") int id);; // 개별 메뉴 정보 보기
 
     @PUT("/menu/{id}")
-    Call<FoodMenu>foodMenuEdit(@Path("id") int id); // 개별 메뉴 정보 수정
+    Call<FoodMenu>foodMenuEdit(@Header("Authorization") String token, @Path("id") int id); // 개별 메뉴 정보 수정
 
     @DELETE("/menu/{id}")
-    Call<FoodMenu>foodMenuDelete(@Path("id") int id); // 개별 메뉴 삭제
+    Call<FoodMenu>foodMenuDelete(@Header("Authorization") String token, @Path("id") int id); // 개별 메뉴 삭제
 
 }
