@@ -24,6 +24,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DailyNoteParentsEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DailyNoteParentsAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DailyNoteParentsListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScheduleViewParentsActivity"
             android:exported="false" />
         <activity

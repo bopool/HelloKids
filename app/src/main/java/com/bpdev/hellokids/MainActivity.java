@@ -123,8 +123,12 @@ public class MainActivity extends AppCompatActivity {
         btnDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 선생님 화면
                 Intent intent = new Intent(MainActivity.this,DailynoteListActivity.class);
                 startActivity(intent);
+                // 학부모 화면
+//                Intent intent = new Intent(MainActivity.this,DailyNoteParentsListActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -226,8 +230,10 @@ public class MainActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 선생님 화면
                 Intent intent = new Intent(MainActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
+
             }
         });
 

@@ -1,5 +1,6 @@
 package com.bpdev.hellokids;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,6 +59,13 @@ public class DailynoteListActivity extends AppCompatActivity {
 
     int childId;
 
+    public static Context mContext; // Context 변수 선언
+
+    public String childName; // Adapter 로 전달할 변수 선언
+
+
+
+
     HashMap<String, Integer> map = new HashMap<>();
 
     // 최상단 헤더의 버튼
@@ -79,6 +87,8 @@ public class DailynoteListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dailynote_list);
+
+        mContext = this; // oncreate 에 this(는 액티비티 클래스 자체를 의미) 할당
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -130,6 +140,7 @@ public class DailynoteListActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String spinnerValue = adapterView.getItemAtPosition(i).toString();
                 spinnerChild.setSelection(i);
+                childName = spinnerValue;
                 Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
 
                 childId = map.get(spinnerValue);
@@ -283,11 +294,6 @@ public class DailynoteListActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
 
 
 

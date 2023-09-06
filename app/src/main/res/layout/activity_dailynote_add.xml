@@ -41,12 +41,10 @@
             android:text="알림장 작성하기"
             app:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnSelectClass"
-            style="@style/btn_select_form1"
-            android:text="원아 선택"
-            app:cornerRadius="8dp"
-            app:iconGravity="end" />
+        <Spinner
+            android:id="@+id/spinnerChild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <ScrollView
             android:layout_width="match_parent"

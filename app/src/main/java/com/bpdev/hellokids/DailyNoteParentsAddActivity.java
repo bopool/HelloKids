@@ -1,5 +1,7 @@
 package com.bpdev.hellokids;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,20 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bpdev.hellokids.adapter.DailyNoteAdapter;
 import com.bpdev.hellokids.api.DailyNoteApi;
 import com.bpdev.hellokids.api.NetworkClient;
-import com.bpdev.hellokids.api.ScheduleApi;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.Child;
 import com.bpdev.hellokids.model.ChildList;
 import com.bpdev.hellokids.model.DailyNote;
-import com.bpdev.hellokids.model.DailyNoteRowList;
 import com.bpdev.hellokids.model.Result;
-import com.bpdev.hellokids.model.Schedule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,10 +35,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class DailynoteAddActivity extends AppCompatActivity {
+public class DailyNoteParentsAddActivity extends AppCompatActivity {
 
-    private int teacherId = 0;
-    private int childId = 4; // 스피너 구현 아직 안했으니 디폴트값 넣어줌 (테스트위해서)
+    private int childId = 4;
     private String title;
     private String contents;
     private String dailyTemperCheck;
@@ -50,8 +45,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
     private String dailyNapCheck;
     private String dailyPooCheck;
 
-    Spinner spinnerChild;
-    List<String> childNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 원아 목록
+
     ArrayList<Child> childArrayList = new ArrayList<>(); // api에 쓸 것
     ArrayAdapter<String> arrayAdapter;
     HashMap<String, Integer> map = new HashMap<>();
@@ -97,15 +91,10 @@ public class DailynoteAddActivity extends AppCompatActivity {
     RadioButton radioPooBig;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dailynote_add);
-
+        setContentView(R.layout.activity_daily_note_parents_add);
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
@@ -137,61 +126,6 @@ public class DailynoteAddActivity extends AppCompatActivity {
         radioPooSmall = findViewById(R.id.radioPooSmall);
         radioPooMiddle = findViewById(R.id.radioNapMiddle);
         radioPooBig = findViewById(R.id.radioPooBig);
-
-        spinnerChild = findViewById(R.id.spinnerChild);
-
-        // 스피너
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, childNameArrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // 스피너에 원아 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(DailynoteAddActivity.this);
-        SettingApi api = retrofit.create(SettingApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN, "");
-
-        Call<ChildList> call = api.childListView("Bearer " + token);
-        call.enqueue(new Callback<ChildList>() {
-            @Override
-            public void onResponse(Call<ChildList> call, Response<ChildList> response) {
-                if (response.isSuccessful()) {
-                    ChildList childList = response.body();
-                    childArrayList.addAll(childList.getItems());
-
-                    for (int i = 0; i < childArrayList.size(); i++) {
-                        childNameArrayList.add(childArrayList.get(i).getChildName());
-                        map.put(childArrayList.get(i).getChildName(), childArrayList.get(i).getId());
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ChildList> call, Throwable t) {
-            }
-        });
-
-        spinnerChild.setAdapter(arrayAdapter);
-
-        spinnerChild.setSelection(0,false);
-
-        spinnerChild.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String spinnerValue = adapterView.getItemAtPosition(i).toString();
-                spinnerChild.setSelection(i);
-                Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
-
-                childId = map.get(spinnerValue);
-
-            }
-
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
         radioGroupMeal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -245,7 +179,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
                 // API 를 호출한다.
 
                 // 1. 레트로핏 변수 생성
-                Retrofit retrofit = NetworkClient.getRetrofitClient(DailynoteAddActivity.this);
+                Retrofit retrofit = NetworkClient.getRetrofitClient(DailyNoteParentsAddActivity.this);
 
                 // 2. api 패키지의 인터페이스 생성.
                 //    => api 폴더로 이동해서, api 인터페이스 작성해 준다!!!!
@@ -259,7 +193,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
                 // 3. 보낼 데이터를 준비한다.
                 DailyNote dailyNote = new DailyNote(title,contents,dailyTemperCheck,dailyMealCheck,dailyNapCheck,dailyPooCheck);
 
-                Call<Result> call = api.dailyNoteAdd(childId,"Bearer "+token,dailyNote);
+                Call<Result> call = api.dailyNoteParentsAdd("Bearer "+token,dailyNote);
 
                 call.enqueue(new Callback<Result>() { // 받아왔을때 처리하는 코드
                     @Override
@@ -283,7 +217,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
                             // 회원가입이 정상적으로 끝났으니까,
                             // 메인 액티비티를 실행하고,
                             // 이 액티비티는 종료해야 한다.
-                            Intent intent = new Intent(DailynoteAddActivity.this, DailynoteListActivity.class);
+                            Intent intent = new Intent(DailyNoteParentsAddActivity.this,DailyNoteParentsListActivity.class);
                             startActivity(intent);
 
                             finish();
@@ -318,7 +252,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DailynoteAddActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -328,7 +262,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DailynoteAddActivity.this,LoginActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -341,7 +275,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DailynoteAddActivity.this, MainActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -351,7 +285,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DailynoteAddActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -361,7 +295,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DailynoteAddActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -373,7 +307,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 선생님화면
-                Intent intent = new Intent(DailynoteAddActivity.this, SchoolbusListActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this, SchoolbusListActivity.class);
                 startActivity(intent);
 
                 // 학부모화면
@@ -388,7 +322,7 @@ public class DailynoteAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(DailynoteAddActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(DailyNoteParentsAddActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });

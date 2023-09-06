@@ -166,7 +166,7 @@
                                 android:text="온도 체크" />
 
                             <TextView
-                                android:id="@+id/textView20"
+                                android:id="@+id/textTemp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -185,7 +185,7 @@
                                 android:text="식사량 체크" />
 
                             <TextView
-                                android:id="@+id/textView20"
+                                android:id="@+id/textMeal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -204,7 +204,7 @@
                                 android:text="낮잠 체크" />
 
                             <TextView
-                                android:id="@+id/textView20"
+                                android:id="@+id/textNap"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -223,7 +223,7 @@
                                 android:text="배변량 체크" />
 
                             <TextView
-                                android:id="@+id/textView20"
+                                android:id="@+id/textPoo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
