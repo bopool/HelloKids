@@ -4,6 +4,7 @@ package com.bpdev.hellokids.api;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.User1;
 import com.bpdev.hellokids.model.UserRes;
+import com.bpdev.hellokids.model.TeacherRes;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,11 +21,11 @@ public interface UserApi {
     @POST("/user/register/teacher")
     Call<UserRes> register(@Body User user);
 
-    @PUT("/user/teacher/<int:id>")
-    Call<UserRes> update(@Path("teacherId") int Id, @Body User user);
+    @PUT("/user/teacher/{id}")
+    Call<UserRes> update(@Path("id") int Id, @Body User user);
 
-//    @GET("/user/teacher/<int:id>")
-//    Call<UserRes> view(@Path("teacherId") int Id);
+    @GET("/user/teacher/{id}")
+    Call<TeacherRes> teacherView(@Path("id") int Id,@Header("Authorization") String token);
 //
 //    @DELETE("/user/teacher/<int:id>")
 //    Call<UserRes> delete(@Path("teacherId") int Id);
@@ -38,7 +39,7 @@ public interface UserApi {
     Call<UserRes> update(@Path("parentId") int id, @Body User1 user);
 
     @GET("/user/parent/<int:id>")
-    Call<UserRes> view(@Path("parentId") int id);
+    Call<UserRes> parentsView(@Path("parentId") int id);
 
     @DELETE("/user/parent/<int:id>")
     Call<UserRes> delete(@Path("parentId") int id);

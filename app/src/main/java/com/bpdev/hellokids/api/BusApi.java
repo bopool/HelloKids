@@ -51,6 +51,10 @@ public interface BusApi {
     @GET("/schoolbus/drive/{id}")
     Call<BusList>busInfoView(@Path("id") int id, @Header("Authorization") String token); // 차량 운행 기록 상세 조회 (이거 좀 이상하게 씀)
 
+    @PUT("/schoolbus/drive/{id}")
+    Call<BusRes> putShuttleTime(@Path("id") int id, @Header("Authorization") String token, @Body BusDailyRecord busDailyRecord); // 차량 정보 수정
+
+
     @GET("/schoolbus/drive/{id}/location")
     Call<LocationList>busLocation(@Path("id") int id); // 가장 최근 위치 조회
 

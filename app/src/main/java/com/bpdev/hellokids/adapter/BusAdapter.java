@@ -2,6 +2,7 @@ package com.bpdev.hellokids.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
     int busId = 0; //버스 정보 id
 
+    int teacherId = 0; // 인솔교사 id
+
 
     public BusAdapter(Context context, ArrayList<BusDailyRecord> busArrayList) {
         this.context = context;
@@ -86,10 +89,16 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
                 //mCheckBoxClickListener.onClickCheckBox(1, position);
                 id = bus.getId(); // 선택한 운행 기록 id
                 busId = bus.getSchoolbusId();
+                teacherId = bus.getShuttleTeacherId();
+
+                Log.i("id",id+"");
+                Log.i("busId",busId+"");
+                Log.i("teacherId",teacherId+"");
 
                 Intent intent = new Intent(context,SchoolbusInfoActivity.class);
                 intent.putExtra("id",id);
                 intent.putExtra("busId",busId);
+                intent.putExtra("teacherId",teacherId);
                 context.startActivity(intent);
             }
             else {
