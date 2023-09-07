@@ -159,7 +159,7 @@
                         app:cardElevation="4dp">
 
                         <TextView
-                            android:id="@+id/textBusName"
+                            android:id="@+id/textBigBusName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -222,7 +222,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textDate"
+                                android:id="@+id/textTeacherName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -304,7 +304,7 @@
                                     android:padding="15dp">
 
                                     <TextView
-                                        android:id="@+id/textBusName"
+                                        android:id="@+id/textSmallBusName"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"

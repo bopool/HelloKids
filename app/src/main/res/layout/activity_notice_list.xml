@@ -100,12 +100,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSelectClass"
-                style="@style/btn_select_form1"
-                android:text="전체반 선택"
-                app:cornerRadius="8dp" />
-
-            <Button
                 android:id="@+id/btnSelectDate"
                 style="@style/btn_date_select"
                 app:cornerRadius="8dp" />

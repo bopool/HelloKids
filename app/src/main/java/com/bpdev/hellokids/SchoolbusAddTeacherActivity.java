@@ -1,15 +1,36 @@
 package com.bpdev.hellokids;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bpdev.hellokids.adapter.BusAdapter;
+import com.bpdev.hellokids.adapter.SchoolBusTeacherAdapter;
+import com.bpdev.hellokids.api.BusApi;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.Bus;
+import com.bpdev.hellokids.model.BusDailyRecordList;
+import com.bpdev.hellokids.model.Teacher;
+import com.bpdev.hellokids.model.TeacherList;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class SchoolbusAddTeacherActivity extends AppCompatActivity {
+
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -24,15 +45,13 @@ public class SchoolbusAddTeacherActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    Button btnSave;
 
+    // 메인 기능
+    RecyclerView recyclerView;
+    SchoolBusTeacherAdapter adapter;
 
-
-
-
-
-
-
-
+    ArrayList<Teacher> teacherArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +71,47 @@ public class SchoolbusAddTeacherActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+        btnSave = findViewById(R.id.btnSave);
 
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        //layoutManager: recyclerview에 listview 객체를 하나씩 띄움
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
+        // -- -- -- 메인 파트 동작 -- -- -- //
+        Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusAddTeacherActivity.this);
 
+        BusApi api = retrofit.create(BusApi.class);
+
+        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp1.getString(Config.ACCESS_TOKEN, "");
+
+        Call<TeacherList> call = api.teacherList("Bearer " + token);
+        call.enqueue(new Callback<TeacherList>() {
+            @Override
+            public void onResponse(Call<TeacherList> call, Response<TeacherList> response) {
+                if(response.isSuccessful()){
+                    TeacherList teacherList= response.body();
+
+                    teacherArrayList.addAll( teacherList.getItems() );
+
+                    //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+                    adapter = new SchoolBusTeacherAdapter(SchoolbusAddTeacherActivity.this, teacherArrayList);
+
+                    recyclerView.setAdapter(adapter);
+                }
+
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TeacherList> call, Throwable t) {
+
+            }
+        });
 
 
 
@@ -146,14 +203,6 @@ public class SchoolbusAddTeacherActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
-
-
 
 
     }

@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class BusDailyRecord implements Serializable {
 
     private int id;
+
+    private int shuttleTeacherId;
+    private int schoolbusId;
     private String shuttleName;
     private String shuttleStart;
     private String shuttleStop;
@@ -14,6 +17,11 @@ public class BusDailyRecord implements Serializable {
         this.shuttleName = shuttleName;
         this.shuttleStart = shuttleStart;
         this.shuttleStop = shuttleStop;
+    }
+
+    public BusDailyRecord(int shuttleTeacherId, int schoolbusId) {
+        this.shuttleTeacherId = shuttleTeacherId;
+        this.schoolbusId = schoolbusId;
     }
 
     public int getId() {
@@ -48,5 +56,19 @@ public class BusDailyRecord implements Serializable {
         this.shuttleStop = shuttleStop;
     }
 
+    public int getShuttleTeacherId() {
+        return shuttleTeacherId;
+    }
 
+    public void setShuttleTeacherId(int shuttleTeacherId) {
+        this.shuttleTeacherId = shuttleTeacherId;
+    }
+
+    public int getSchoolbusId() {
+        return schoolbusId;
+    }
+
+    public void setSchoolbusId(int schoolbusId) {
+        this.schoolbusId = schoolbusId;
+    }
 }

@@ -78,7 +78,7 @@ public class NoticeAddActivity extends AppCompatActivity {
     int isPublish = 0;
 
 
-    Spinner spinnerClass;
+    //Spinner spinnerClass;
     List<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
     ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
     ArrayAdapter<String> arrayAdapter;
@@ -112,7 +112,7 @@ public class NoticeAddActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
-        spinnerClass = findViewById(R.id.spinnerSelect);
+        //spinnerClass = findViewById(R.id.spinnerSelect);
         noticeContent = findViewById(R.id.editInputContents);
         noticeTitle = findViewById(R.id.editInputTitle);
         btnPreCreate = findViewById(R.id.btnPreCreate);
@@ -121,84 +121,83 @@ public class NoticeAddActivity extends AppCompatActivity {
         photoRecyclerView = findViewById(R.id.photoRecyclerView);
 
 
-
-        // 스피너
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // 스피너에 반 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeAddActivity.this);
-        SettingApi api = retrofit.create(SettingApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN, "");
-
-        Call<ClassList> call = api.classListView("Bearer " + token);
-        call.enqueue(new Callback<ClassList>() {
-            @Override
-            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
-                if (response.isSuccessful()) {
-                    ClassList classList = response.body();
-                    classArrayList.addAll(classList.getItems());
-                    for (int i = 0; i < classArrayList.size(); i++) {
-                        classNameArrayList.add(classArrayList.get(i).getClassName());
-                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ClassList> call, Throwable t) {
-            }
-        });
-
-        spinnerClass.setAdapter(arrayAdapter);
-        spinnerClass.setSelection(0,false);
-
-        spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               String spinnerValue = adapterView.getItemAtPosition(i).toString();
-               spinnerClass.setSelection(i);
-               Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
-
-               classId = map.get(spinnerValue);
-
-               Log.i("classId", classId + "");
-
-//               // 반별 리스트 조회
-//               Retrofit retrofit1 = NetworkClient.getRetrofitClient(NoticeListActivity.this);
-//               ScheduleApi api1 = retrofit1.create(ScheduleApi.class);
-//               SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-//               String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
-//               Log.i("token1", token1);
-//               Call<ScheduleList> call1 = api1.scheduleClassList(classId, "Bearer " + token1);
-//               call1.enqueue(new Callback<ScheduleList>() {
-//                   @Override
-//                   public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
-//                       if (response.isSuccessful()) {
-//                           NoticeList noticeList1 = response.body();
+        //       스피너
+//        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
+//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //
-//                           noticeArrayList.addAll(noticeList1.getItems());
+//        // 스피너에 반 이름 가져오기
+//        Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeAddActivity.this);
+//        SettingApi api = retrofit.create(SettingApi.class);
 //
-//                           //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
-//                           adapter = new NoticeAdapter(NoticeListActivity.this, noticeArrayList);
-//                           recyclerView.setAdapter(adapter);
-//                           noticeArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
+//        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//        String token = sp.getString(Config.ACCESS_TOKEN, "");
 //
+//        Call<ClassList> call = api.classListView("Bearer " + token);
+//        call.enqueue(new Callback<ClassList>() {
+//            @Override
+//            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
+//                if (response.isSuccessful()) {
+//                    ClassList classList = response.body();
+//                    classArrayList.addAll(classList.getItems());
+//                    for (int i = 0; i < classArrayList.size(); i++) {
+//                        classNameArrayList.add(classArrayList.get(i).getClassName());
+//                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
+//                        arrayAdapter.notifyDataSetChanged();
+//                    }
+//                } else {
+//                }
+//            }
 //
-//                       } else {
+//            @Override
+//            public void onFailure(Call<ClassList> call, Throwable t) {
+//            }
+//        });
 //
-//                       }
-                   }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-
-        });
+//        spinnerClass.setAdapter(arrayAdapter);
+//        spinnerClass.setSelection(0,false);
+//
+//        spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//               String spinnerValue = adapterView.getItemAtPosition(i).toString();
+//               spinnerClass.setSelection(i);
+//               Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
+//
+//               classId = map.get(spinnerValue);
+//
+//               Log.i("classId", classId + "");
+//
+////               // 반별 리스트 조회
+////               Retrofit retrofit1 = NetworkClient.getRetrofitClient(NoticeListActivity.this);
+////               ScheduleApi api1 = retrofit1.create(ScheduleApi.class);
+////               SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+////               String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+////               Log.i("token1", token1);
+////               Call<ScheduleList> call1 = api1.scheduleClassList(classId, "Bearer " + token1);
+////               call1.enqueue(new Callback<ScheduleList>() {
+////                   @Override
+////                   public void onResponse(Call<ScheduleList> call, Response<ScheduleList> response) {
+////                       if (response.isSuccessful()) {
+////                           NoticeList noticeList1 = response.body();
+////
+////                           noticeArrayList.addAll(noticeList1.getItems());
+////
+////                           //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+////                           adapter = new NoticeAdapter(NoticeListActivity.this, noticeArrayList);
+////                           recyclerView.setAdapter(adapter);
+////                           noticeArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
+////
+////
+////                       } else {
+////
+////                       }
+//                   }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//
+//        });
 
 
 

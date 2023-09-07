@@ -179,7 +179,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/btnCreate2"
+                            android:id="@+id/btnSelectTeacher"
                             style="@style/btn_move_half_right"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"

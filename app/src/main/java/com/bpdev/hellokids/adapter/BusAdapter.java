@@ -45,6 +45,9 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
 
     int id = 0;
 
+    int busId = 0; //버스 정보 id
+
+
     public BusAdapter(Context context, ArrayList<BusDailyRecord> busArrayList) {
         this.context = context;
         this.busArrayList = busArrayList;
@@ -63,8 +66,10 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
         BusDailyRecord bus = busArrayList.get(position); // position는 해당 위치를 나타낸다
 
         holder.textBusName.setText(bus.getShuttleName());
-        holder.textDriveStart.setText(bus.getShuttleStart());
-        holder.textDriveEnd.setText(bus.getShuttleStop());
+
+
+        holder.textDriveStart.setText(bus.getShuttleStart().substring(11,13)+"시"+bus.getShuttleStart().substring(14,16)+"분");
+        holder.textDriveEnd.setText(bus.getShuttleStop().substring(11,13)+"시"+bus.getShuttleStop().substring(14,16)+"분");
 
         holder.btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +85,11 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
                 // 체크가 되어 있음
                 //mCheckBoxClickListener.onClickCheckBox(1, position);
                 id = bus.getId(); // 선택한 운행 기록 id
-                String strId = Integer.toString(id);
+                busId = bus.getSchoolbusId();
+
                 Intent intent = new Intent(context,SchoolbusInfoActivity.class);
-                intent.putExtra("strId",strId);
+                intent.putExtra("id",id);
+                intent.putExtra("busId",busId);
                 context.startActivity(intent);
             }
             else {
@@ -132,7 +139,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder>{
             textBusNum = itemView.findViewById(R.id.txtBusNum);
             textDriveStart = itemView.findViewById(R.id.txtDriveStart);
             textDriveEnd = itemView.findViewById(R.id.txtDriveEnd);
-            textDriveOk = itemView.findViewById(R.id.txtDriveOk);
 
             imgBus = itemView.findViewById(R.id.imgBus);
             btnLocation = itemView.findViewById(R.id.btnLocation);
