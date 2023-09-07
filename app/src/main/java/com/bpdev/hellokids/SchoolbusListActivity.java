@@ -79,6 +79,9 @@ public class SchoolbusListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
+        // -- -- -- 메인 파트 동작 -- -- -- //
+
+
 
 
 
@@ -169,10 +172,6 @@ public class SchoolbusListActivity extends AppCompatActivity {
         });
 
 
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

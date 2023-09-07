@@ -2,6 +2,7 @@ package com.bpdev.hellokids;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,9 +22,17 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.bpdev.hellokids.adapter.BusAdapter;
+import com.bpdev.hellokids.adapter.BusInfoAdapter;
 import com.bpdev.hellokids.api.BusApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.UserApi;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.Bus;
+import com.bpdev.hellokids.model.BusDailyRecordList;
+import com.bpdev.hellokids.model.BusInfo;
+import com.bpdev.hellokids.model.BusInfoList;
+import com.bpdev.hellokids.model.BusList;
 import com.bpdev.hellokids.model.BusRes;
 import com.bpdev.hellokids.model.Location;
 import com.bpdev.hellokids.model.User;
@@ -63,7 +72,12 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class SchoolbusInfoActivity extends AppCompatActivity {
+
+    int id; // 차량 운행 기록 id
+    int busId; // 해당 차량 운행 기록에 들어간 버스 id
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -77,7 +91,7 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
-    // 메인 파트 버튼
+    // 메인 기능
     LocationManager locationManager;
     LocationListener locationListener;
 
@@ -87,9 +101,19 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
     Button btnEnd;
 
     Location location1 = new Location(0,0);
+    
+    TextView textToday;
+    TextView textBigBusName;
+    TextView textBusType;
+    
+    TextView textTeacherName;
+    
+    TextView textSmallBusName;
+    TextView textBusNum;
+    TextView textDriverName;
+    TextView textDriverNum;
 
-
-
+    ArrayList<Bus> busArrayList = new ArrayList<>();
 
 
 
@@ -97,6 +121,9 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolbus_info);
+
+        id = getIntent().getIntExtra("id",0);
+        busId = getIntent().getIntExtra("busId",0);
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -114,6 +141,16 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStart);
         btnEnd = findViewById(R.id.btnEnd);
 
+        // 메인 기능 연결
+
+        textToday = findViewById(R.id.textToday);
+        textBigBusName = findViewById(R.id.textBigBusName);
+        textBusType = findViewById(R.id.textBusType);
+        textTeacherName = findViewById(R.id.textTeacherName);
+        textSmallBusName = findViewById(R.id.textSmallBusName);
+        textBusNum = findViewById(R.id.textBusNum);
+        textDriverName = findViewById(R.id.textDriverName);
+        textDriverNum = findViewById(R.id.textDriverNum);
 
 
 
@@ -203,13 +240,7 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
         });
 
 
-
-
-
         // -- -- -- 메인 파트 동작 -- -- -- //
-
-        String strId = getIntent().getStringExtra("strId");
-        int id = Integer.parseInt(strId);
 
         // 1. 레트로핏 변수 생성
         Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusInfoActivity.this);
@@ -333,6 +364,48 @@ public class SchoolbusInfoActivity extends AppCompatActivity {
                 locationManager.removeUpdates(locationListener);
             }
         });
+
+        Retrofit retrofit1 = NetworkClient.getRetrofitClient(SchoolbusInfoActivity.this);
+
+        BusApi api1 = retrofit1.create(BusApi.class);
+
+        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+
+        Call<BusList> call1 = api1.busView(busId, "Bearer " + token1);
+        call1.enqueue(new Callback<BusList>() {
+            @Override
+            public void onResponse(Call<BusList> call, Response<BusList> response) {
+                if(response.isSuccessful()){
+                    BusList busList = response.body();
+
+                    busArrayList.addAll( busList.getItems() );
+                    if( busArrayList.size()!=0) {
+                        textBigBusName.setText(busArrayList.get(0).getShuttleName());
+                        textSmallBusName.setText(busArrayList.get(0).getShuttleName());
+                        textBusNum.setText(busArrayList.get(0).getShuttleNum());
+                        int hour = Integer.parseInt(busArrayList.get(0).getShuttleTime().substring(11, 12));
+                        if (hour == 0) {
+                            textBusType.setText("등원");
+                        } else {
+                            textBusType.setText("하원");
+                        }
+                        textDriverName.setText(busArrayList.get(0).getShuttleDriver());
+                        textDriverNum.setText(busArrayList.get(0).getShuttleDriverNum());
+                    }
+                }
+
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BusList> call, Throwable t) {
+
+            }
+        });
+
 
 
     }

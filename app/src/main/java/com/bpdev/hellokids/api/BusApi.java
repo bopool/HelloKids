@@ -10,6 +10,7 @@ import com.bpdev.hellokids.model.DailyNote;
 import com.bpdev.hellokids.model.Location;
 import com.bpdev.hellokids.model.LocationList;
 import com.bpdev.hellokids.model.Result;
+import com.bpdev.hellokids.model.TeacherList;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.UserRes;
 
@@ -32,6 +33,9 @@ public interface BusApi {
     @GET("/schoolbus/nursery")
     Call<BusInfoList>busInfoList(@Header("Authorization") String token); // 차량 정보 리스트 조회
 
+    @GET("/schoolbus/{id}")
+    Call<BusList>busView(@Path("id") int id, @Header("Authorization") String token); // 차량 정보 상세 조회
+
     @DELETE("/schoolbus/{id}")
     Call<BusRes> busInfoDelete(@Path("id") int id); // 차량 정보 삭제
 
@@ -41,10 +45,16 @@ public interface BusApi {
     @POST("/schoolbus/drive/{id}/location")
     Call<BusRes>addLocation(@Path("id") int id, @Body Location location); // 인솔교사의 현재 위치 테이블에 저장
 
-    @POST("/schoolbus/drive/{id}")
-    Call<BusRes>addBusDailyRecord(@Body BusDailyRecord busDailyRecord); // 차량 운행 등록
+    @POST("/schoolbus/drive")
+    Call<BusRes>addBusDailyRecord(@Header("Authorization") String token,@Body BusDailyRecord busDailyRecord); // 차량 운행 기록 등록
+
+    @GET("/schoolbus/drive/{id}")
+    Call<BusList>busInfoView(@Path("id") int id, @Header("Authorization") String token); // 차량 운행 기록 상세 조회 (이거 좀 이상하게 씀)
 
     @GET("/schoolbus/drive/{id}/location")
     Call<LocationList>busLocation(@Path("id") int id); // 가장 최근 위치 조회
+
+    @GET("/schoolbus/teacher")
+    Call<TeacherList>teacherList(@Header("Authorization") String token); // 선생님 목록 불러오는 api
 
 }

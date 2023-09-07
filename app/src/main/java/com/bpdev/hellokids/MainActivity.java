@@ -114,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
+        btnTranslate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+
+
+            }
+        });
 
 
 
