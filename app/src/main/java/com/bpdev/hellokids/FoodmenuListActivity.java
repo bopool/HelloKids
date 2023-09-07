@@ -104,6 +104,8 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnBottomDailyNote = findViewById(R.id.btnBottomDailynote);
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+
 
         mContext = this; // oncreate 에 this(는 액티비티 클래스 자체를 의미) 할당
 
@@ -111,7 +113,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        btnSelectDate = findViewById(R.id.btnSelectDate);
+
 
         btnCreate = findViewById(R.id.btnCreate);
         btnCreate.setOnClickListener(new View.OnClickListener() {

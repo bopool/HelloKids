@@ -1,47 +1,133 @@
-//package com.bpdev.hellokids.adapter;
+package com.bpdev.hellokids.adapter;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bpdev.hellokids.R;
+import com.bpdev.hellokids.model.FoodMenu;
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class FoodMenuDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    Context context;
+    ArrayList<FoodMenu> foodMenuArrayList;
+    LayoutInflater inflater;
+
+    public FoodMenuDayAdapter(Context context, ArrayList<FoodMenu> foodMenuArrayList, LayoutInflater inflater) {
+        this.context = context;
+        this.foodMenuArrayList = foodMenuArrayList;
+        this.inflater = inflater;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
 //
-//import android.util.Log;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.TextView;
+//    @NonNull
+//    @Override
+//    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        View view;
 //
-//import androidx.annotation.NonNull;
-//import androidx.recyclerview.widget.RecyclerView;
+//        if (viewType == Constant.CHAPTER_VIEW) {
+//            view = inflater.inflate(R.layout.single_subject, parent, false);
+//            return new HorizonViewHolder(view);
+//        } else {
+//            view = inflater.inflate(R.layout.single_subject, parent, false);
+//            return new GridViewHolder(view);
+//        }
 //
-//import com.bpdev.hellokids.R;
-//import com.bpdev.hellokids.model.FoodMenu;
-//import com.bumptech.glide.Glide;
-//
-//import java.util.List;
+//    }
 //
 //
+//    @Override
+//    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+//        if (holder instanceof HorizonViewHolder)
+//        {
+//            ((HorizonViewHolder) holder).recyclerView.setAdapter(new FoodMenuAllAdapter(context, subjects.get(position).chapters));
+//            ((HorizonViewHolder) holder).recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+//            ((HorizonViewHolder) holder).recyclerView.setHasFixedSize(true);
+//            ((HorizonViewHolder) holder).tvSubjectName.setText(subjects.get(position).subjectName);
+//        }
+//        else
+//        {
+//            ((GridViewHolder) holder).recyclerView.setAdapter(new ChapterAdapter(context, subjects.get(position).chapters));
+//            ((GridViewHolder) holder).recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+//            ((GridViewHolder) holder).recyclerView.setHasFixedSize(true);
+//            ((GridViewHolder) holder).tvSubjectName.setText(subjects.get(position).subjectName);
+//        }
 //
-//// 자식 어답터
-//public class FoodMenuDayAdapter extends RecyclerView.Adapter<FoodMenuDayAdapter.SubItemViewHolder> {
+//    @Override
+//    public int getItemCount() {
+//        return subItemList.size();
+//    }
+
+
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textDate;
+        RecyclerView subRecyclerView;
+
+        public CustomViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textDate = itemView.findViewById(R.id.textDate);
+            subRecyclerView = itemView.findViewById(R.id.subRecyclerView);
+
+
+        }
+    }
+}
+
+
+
+
+
 //
-//    private List<FoodMenu> subFoodMenuList;
 //
-//    public FoodMenuDayAdapter(String subFoodMenuList) {
-//        this.subFoodMenuList = subFoodMenuList;
+//public class FoodMenuDayAdapter {
+//
+//    private List<FoodMenu> subItemList;
+//
+//    FoodMenuDayAdapter(List<FoodMenu> subItemList) {
+//        this.subItemList = subItemList;
 //    }
 //
 //    @NonNull
 //    @Override
-//    public SubItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+//    public FoodMenuViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 //        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_foodmenu, viewGroup, false);
-//        return new SubItemViewHolder(view);
+//        return new FoodMenuViewHolder(view);
 //    }
 //
 //    @Override
-//    public void onBindViewHolder(@NonNull SubItemViewHolder subItemViewHolder, int i) {
-//        FoodMenu foodMenu = foodMenuArrayList.get(position);
-//        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" + foodMenu.getMealPhotoUrl());
-//        holder.textTitle.setText(foodMenu.getMealContent() );
-//        holder.textType.setText(foodMenu.getMealType());
-//        Glide.with(context)
-//                .load(foodMenu.getMealPhotoUrl())
-//                .into(holder.photoContent);
+//    public void onBindViewHolder(@NonNull FoodMenuViewHolder subItemViewHolder, int i) {
+//        FoodMenu subItem = subItemList.get(i);
+//        subItemViewHolder.tvFoodMenuTitle.setText(subItem.getFoodMenuTitle());
 //    }
 //
 //    @Override
@@ -49,103 +135,60 @@
 //        return subItemList.size();
 //    }
 //
-//    class SubItemViewHolder extends RecyclerView.ViewHolder {
-//        TextView tvSubItemTitle;
+//    class FoodMenuViewHolder extends RecyclerView.ViewHolder {
+//        TextView tvFoodMenuTitle;
 //
-//        SubItemViewHolder(View itemView) {
+//        FoodMenuViewHolder(View itemView) {
 //            super(itemView);
-//            tvSubItemTitle = itemView.findViewById(R.id.tv_sub_item_title);
+//            tvFoodMenuTitle = itemView.findViewById(R.id.tv_sub_item_title);
 //        }
 //    }
 //}
+
 //
+//    Context context;
+//    ArrayList<FoodMenuDayList> foodMenuDayListArrayList;
 //
+//    public FoodMenuDayAdapter(Context context, ArrayList<FoodMenuDayList> foodMenuDayListArrayList) {
+//        this.context = context;
+//        this.foodMenuDayListArrayList = foodMenuDayListArrayList;
+//    }
 //
-//
-//
-//
-////
-////
-////public class FoodMenuDayAdapter {
-////
-////    private List<FoodMenu> subItemList;
-////
-////    FoodMenuDayAdapter(List<FoodMenu> subItemList) {
-////        this.subItemList = subItemList;
-////    }
 ////
 ////    @NonNull
 ////    @Override
-////    public FoodMenuViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-////        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_foodmenu, viewGroup, false);
-////        return new FoodMenuViewHolder(view);
+////    public FoodMenuDayAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+////        View view = LayoutInflater.from(parent.getContext())
+////                .inflate(R.layout.row_subrecyclerview, parent, false);
+////        return new FoodMenuDayAdapter.ViewHolder(view);
 ////    }
 ////
 ////    @Override
-////    public void onBindViewHolder(@NonNull FoodMenuViewHolder subItemViewHolder, int i) {
-////        FoodMenu subItem = subItemList.get(i);
-////        subItemViewHolder.tvFoodMenuTitle.setText(subItem.getFoodMenuTitle());
+////    public void onBindViewHolder(@NonNull FoodMenuDayAdapter.ViewHolder holder, int position) {
+////        FoodMenuDayList foodMenuDayList = foodMenuDayListArrayList.get(position);
+//////        holder.textDate.setText(foodMenuDayListArrayList.textDate);
+////
+//////        holder.recyclerViewH.(foodMenu.getMealType());
 ////    }
 ////
 ////    @Override
 ////    public int getItemCount() {
-////        return subItemList.size();
+////        return foodMenuDayListArrayList.size();
 ////    }
-////
-////    class FoodMenuViewHolder extends RecyclerView.ViewHolder {
-////        TextView tvFoodMenuTitle;
-////
-////        FoodMenuViewHolder(View itemView) {
-////            super(itemView);
-////            tvFoodMenuTitle = itemView.findViewById(R.id.tv_sub_item_title);
-////        }
-////    }
-////}
 //
-////
-////    Context context;
-////    ArrayList<FoodMenuDayList> foodMenuDayListArrayList;
-////
-////    public FoodMenuDayAdapter(Context context, ArrayList<FoodMenuDayList> foodMenuDayListArrayList) {
-////        this.context = context;
-////        this.foodMenuDayListArrayList = foodMenuDayListArrayList;
-////    }
-////
-//////
-//////    @NonNull
-//////    @Override
-//////    public FoodMenuDayAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//////        View view = LayoutInflater.from(parent.getContext())
-//////                .inflate(R.layout.row_subrecyclerview, parent, false);
-//////        return new FoodMenuDayAdapter.ViewHolder(view);
-//////    }
-//////
-//////    @Override
-//////    public void onBindViewHolder(@NonNull FoodMenuDayAdapter.ViewHolder holder, int position) {
-//////        FoodMenuDayList foodMenuDayList = foodMenuDayListArrayList.get(position);
-////////        holder.textDate.setText(foodMenuDayListArrayList.textDate);
-//////
-////////        holder.recyclerViewH.(foodMenu.getMealType());
-//////    }
-//////
-//////    @Override
-//////    public int getItemCount() {
-//////        return foodMenuDayListArrayList.size();
-//////    }
-////
-////    public class ViewHolder extends RecyclerView.ViewHolder {
-////
-////
-////        TextView textDate;
-////        RecyclerView recyclerViewH;
-////
-////        public ViewHolder(@NonNull View itemView) {
-////            super(itemView);
-////
-////            textDate = itemView.findViewById(R.id.textDate);
-////            recyclerViewH = itemView.findViewById(R.id.recyclerViewH);
-////
-////
-////        }
-////    }
-////}
+//    public class ViewHolder extends RecyclerView.ViewHolder {
+//
+//
+//        TextView textDate;
+//        RecyclerView recyclerViewH;
+//
+//        public ViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//
+//            textDate = itemView.findViewById(R.id.textDate);
+//            recyclerViewH = itemView.findViewById(R.id.recyclerViewH);
+//
+//
+//        }
+//    }
+//}
