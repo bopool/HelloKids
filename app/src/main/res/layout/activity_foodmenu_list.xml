@@ -65,7 +65,7 @@
                 style="@style/top_button1" />
 
             <TextView
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnRegister1"
                 style="@style/top_button2"/>
 
             <ImageButton
@@ -92,12 +92,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSelectClass"
-                android:text="전체반 선택"
-                app:cornerRadius="8dp"
-                style="@style/btn_select_form1"/>
-
-            <Button
                 android:id="@+id/btnSelectDate"
                 app:cornerRadius="8dp"
                 style="@style/btn_date_select"/>
@@ -111,7 +105,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
 

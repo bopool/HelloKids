@@ -1,18 +1,57 @@
 package com.bpdev.hellokids;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bpdev.hellokids.adapter.FoodMenuAdapter;
+import com.bpdev.hellokids.adapter.Item;
+import com.bpdev.hellokids.adapter.ItemAdapter;
+import com.bpdev.hellokids.api.FoodMenuApi;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.FoodMenuList;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FoodmenuListActivity extends AppCompatActivity {
 
+    // 메인 기능
+    DatePickerDialog datePickerDialog;
+    String date1;
+    Button btnSelectDate;
+
+
+    RecyclerView recyclerView;
+    FoodMenuAdapter foodMenuAdapter;
+    ArrayList<FoodMenu> foodMenuArrayList = new ArrayList<>();
+    int childId;
+    public static Context mContext; // Context 변수 선언
+
+
     // 최상단 헤더의 버튼
-    TextView btnRegister;
+    TextView btnRegister1;
     TextView btnLogin;
     ImageButton btnTranslate;
 
@@ -23,12 +62,17 @@ public class FoodmenuListActivity extends AppCompatActivity {
     Button btnBottomSchoolbus;
     Button btnBottomSetting;
 
-    // 메인 파트 버튼
+    // 화면 이동
     Button btnCreate;
 
+    // 페이징 처리
+    int offset = 0;
+    int limit = 10;
+    int count = 0;
+    String token;
 
 
-
+    List<FoodMenu> subItemList;
 
 
 
@@ -37,11 +81,20 @@ public class FoodmenuListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodmenu_list);
 
+        // 억세스토큰이 있는지를 확인
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        token = sp.getString(Config.ACCESS_TOKEN, "");
 
-        // 화면 연결 //
+        if (token.isEmpty()) {
+            Intent intent = new Intent(FoodmenuListActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+            finish();
+            return;
+        }
 
         // 최상단 헤더 버튼 화면 연결
-        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister1 = findViewById(R.id.btnRegister1);
         btnLogin = findViewById(R.id.btnLogin);
         btnTranslate = findViewById(R.id.btnTranslate);
 
@@ -52,32 +105,96 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnBottomSchoolbus = findViewById(R.id.btnBottomSchoolbus);
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
-        //
+        mContext = this; // oncreate 에 this(는 액티비티 클래스 자체를 의미) 할당
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+
         btnCreate = findViewById(R.id.btnCreate);
-
-
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuListActivity.this,FoodmenuAddActivity.class);
+                Intent intent = new Intent(FoodmenuListActivity.this, FoodmenuAddActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // 달력
+        btnSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar calendar = Calendar.getInstance();
+                int year1 = calendar.get(Calendar.YEAR);
+                int month1 = calendar.get(Calendar.MONTH);
+                int day1 = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(FoodmenuListActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year1, int month1, int day1) {
+
+                                // 1월부터 시작하는데 시작이 0이므로 +1 해준다
+                                month1 = month1 + 1;
+
+                                // 10 이하의 날짜가 03 이런식으로 나오게 표시 방법 바꾸기
+                                String month;
+                                if (month1 < 10) {
+                                    month = "0" + month1;
+                                } else {
+                                    month = "" + month1; // 문자열로 만들기
+                                }
+
+                                String day;
+                                if (day1 < 10) {
+                                    day = "0" + day1;
+                                } else {
+                                    day = "" + day1; // 문자열로 만들기
+                                }
+
+                                date1 = "" + year1 + "-" + month + "-" + day;
+
+                                btnSelectDate.setText(date1);
+                            }
+                        },
+                        year1, month1, day1);
+                datePickerDialog.show();
+
+            }
+
+
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int totalCount = recyclerView.getAdapter().getItemCount();
+
+                if (lastPosition + 1 == totalCount) {
+
+                    // 데이터 추가 호출
+                    if (count == limit) {
+                        addNetworkData();
+                    }
+                }
             }
         });
 
 
 
 
-
-
-
-
-
-        // 최상단 헤더 버튼 //
+        // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnRegister1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuListActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(FoodmenuListActivity.this, RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -87,17 +204,12 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuListActivity.this,LoginActivity.class);
+                Intent intent = new Intent(FoodmenuListActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
 
         // 번역 버튼
-
-
-
-
-
 
 
         // -- -- 하단 바로가기 메뉴 버튼 -- -- //
@@ -125,7 +237,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodmenuListActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(FoodmenuListActivity.this, FoodmenuListActivity.class);
                 startActivity(intent);
             }
         });
@@ -157,6 +269,116 @@ public class FoodmenuListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addNetworkData() {
+//        progressBar.setVisibility(View.VISIBLE);
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuListActivity.this);
+        FoodMenuApi foodMenuApi = retrofit.create(FoodMenuApi.class);
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<FoodMenuList> call = foodMenuApi.foodMenuListAll("Bearer " + token, offset, limit, count);
+        call.enqueue(new Callback<FoodMenuList>() {
+            @Override
+            public void onResponse(Call<FoodMenuList> call, Response<FoodMenuList> response) {
+//                progressBar.setVisibility(View.GONE);
+
+                if (response.isSuccessful()) {
+                    FoodMenuList foodMenuList = response.body();
+                    // 페이징 위한 변수 처리
+                    count = foodMenuList.getCount();
+                    offset = offset + count;
+                    foodMenuArrayList.addAll(foodMenuList.getItems());
+                    foodMenuAdapter.notifyDataSetChanged();
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoodMenuList> call, Throwable t) {
+//                progressBar.setVisibility(View.GONE);
+            }
+        });
+
 
     }
+
+    private void getNetworkData() {
+//        progressBar.setVisibility(View.VISIBLE);
+        foodMenuArrayList.clear();
+        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuListActivity.this);
+        FoodMenuApi foodMenuApi = retrofit.create(FoodMenuApi.class);
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN, "");
+        Call<FoodMenuList> call = foodMenuApi.foodMenuListAll("Bearer " + token, offset, limit, count);
+        call.enqueue(new Callback<FoodMenuList>() {
+            @Override
+            public void onResponse(Call<FoodMenuList> call, Response<FoodMenuList> response) {
+//                progressBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+
+                    Log.i("식단표 제대로 되나요 : ", "성공");
+
+                    FoodMenuList foodMenuList = response.body();
+                    count = foodMenuList.getCount();
+                    offset = offset + count;
+                    foodMenuArrayList.addAll(foodMenuList.getItems());
+//                    foodMenuAdapter = new FoodMenuAdapter(FoodmenuListActivity.this, foodMenuArrayList);
+//                    recyclerView.setAdapter(foodMenuAdapter);
+
+
+
+                    // 상위 리사이클러뷰 설정
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
+                    ItemAdapter itemAdapter = new ItemAdapter(buildItemList());
+                    recyclerView.setAdapter(itemAdapter);
+                    recyclerView.setLayoutManager(layoutManager);
+
+                    Log.i("식단표 제대로 되나요 : ", "count: " + count + "offset: " + offset);
+
+
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<FoodMenuList> call, Throwable t) {
+//                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    // 상위아이템 큰박스 아이템을 10개 만듭니다.
+    private List<Item> buildItemList() {
+        List<Item> itemList = new ArrayList<>();
+        for (int i=0; i<10; i++) {
+            Item item = new Item("Item "+i, buildSubItemList());
+            itemList.add(item);
+        }
+        return itemList;
+    }
+    // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
+    private List<FoodMenu> buildSubItemList() {
+        subItemList = new ArrayList<>();
+        for (int i=0; i<3; i++) {
+            FoodMenu foodMenu = new FoodMenu("ㅇㅇ"+i, "Description "+i);
+            subItemList.add(foodMenu);
+        }
+        return subItemList;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        offset = 0;
+        getNetworkData();
+    }
+
 }

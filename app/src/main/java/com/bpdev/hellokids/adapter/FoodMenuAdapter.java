@@ -1,6 +1,8 @@
 package com.bpdev.hellokids.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bpdev.hellokids.FoodmenuEditActivity;
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.model.FoodMenu;
 import com.bumptech.glide.Glide;
@@ -27,6 +31,29 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
     }
 
 
+//    public ActivityResultLauncher<Intent> launcher =
+//            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+//                    new ActivityResultCallback<ActivityResult>() {
+//                        @Override // ActivityResult가 있다면 동작하라.
+//                        public void onActivityResult(ActivityResult result) {
+//
+//                            // Add Activity로 부터 데이터를 받는 경우
+//                            if( result.getResultCode() == 1 ){
+//
+//                                Employee employee = (Employee) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
+//                                employeeArrayList.add(0, employee); // 목록에 추가
+//                                adapter.notifyDataSetChanged(); // 화면 갱신
+//
+//                            } else if( result.getResultCode() == 2 ){
+//                                Employee employee = (Employee) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
+//                                int index = result.getData().getIntExtra("index", 0); // 보낸 인덱스 데이터도 불러오기
+//                                employeeArrayList.set(index, employee); // 이 인덱스 데이터 업데이트 해주세요!
+//                                adapter.notifyDataSetChanged(); // 화면 갱신
+//
+//                            }
+//                        }
+//                    });
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,13 +65,12 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FoodMenu foodMenu = foodMenuArrayList.get(position);
-
+        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" + foodMenu.getMealPhotoUrl());
+        holder.textTitle.setText(foodMenu.getMealContent() );
+        holder.textType.setText(foodMenu.getMealType());
         Glide.with(context)
                 .load(foodMenu.getMealPhotoUrl())
                 .into(holder.photoContent);
-
-        holder.textTitle.setText(foodMenu.getMealContent() );
-        holder.textType.setText(foodMenu.getMealType());
     }
 
     @Override
@@ -57,6 +83,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
         ImageView photoContent;
         TextView textTitle;
         TextView textType;
+        CardView foodCardView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -65,9 +92,25 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
             photoContent = itemView.findViewById(R.id.photoContent);
             textTitle = itemView.findViewById(R.id.textTitle);
             textType = itemView.findViewById(R.id.textType);
+            foodCardView = itemView.findViewById(R.id.foodCardView);
+
+            foodCardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int index = getAdapterPosition();
+
+                        FoodMenu foodMenu = foodMenuArrayList.get(index);
+                        Intent intent = new Intent(context, FoodmenuEditActivity.class);
+                        intent.putExtra("index", index);
+
+                        // context가 메인액티비티라고 알려주고, 메인액티비티에서 launcher는 public으로 세팅해 준다.
+//                        ((FoodmenuListActivity)context).launcher.launch(intent);
 
 
 
+                    }
+                }
+            );
 
         }
     }
