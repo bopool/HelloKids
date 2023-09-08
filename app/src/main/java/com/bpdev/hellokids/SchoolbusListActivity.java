@@ -46,7 +46,6 @@ public class SchoolbusListActivity extends AppCompatActivity {
     ArrayList<BusDailyRecord> busArrayList = new ArrayList<>();
 
     Button btnAdd;
-    Button btnInfo;
 
 
 
@@ -71,7 +70,6 @@ public class SchoolbusListActivity extends AppCompatActivity {
 
         // 메인 파트 화면 연결
         btnAdd = findViewById(R.id.btnAdd);
-        btnInfo = findViewById(R.id.btnInfo);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         //layoutManager: recyclerview에 listview 객체를 하나씩 띄움
@@ -177,14 +175,6 @@ public class SchoolbusListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SchoolbusListActivity.this,  SchoolbusAddActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SchoolbusListActivity.this, SchoolbusInfoActivity.class);
                 startActivity(intent);
             }
         });

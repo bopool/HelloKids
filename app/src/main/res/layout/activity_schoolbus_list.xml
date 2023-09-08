@@ -116,20 +116,10 @@
                     android:layout_margin="0dp"
                     android:padding="7dp"
                     android:text="차량운행 등록"
+                    android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     app:cornerRadius="8dp" />
 
-                <Button
-                    android:id="@+id/btnInfo"
-                    style="@style/btn_move_half_left"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:padding="7dp"
-                    android:text="차량 운행 일지 시작 및 종료"
-                    android:textSize="15sp"
-                    app:cornerRadius="8dp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

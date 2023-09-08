@@ -10,6 +10,7 @@ public class BusInfo implements Serializable {
     private String shuttleDriver;
     private String shuttleDriverNum;
 
+
     public BusInfo(int id, String shuttleName, String shuttleNum, String shuttleTime, String shuttleDriver, String shuttleDriverNum) {
         this.id = id;
         this.shuttleName = shuttleName;
@@ -66,4 +67,5 @@ public class BusInfo implements Serializable {
     public void setShuttleDriverNum(String shuttleDriverNum) {
         this.shuttleDriverNum = shuttleDriverNum;
     }
+
 }

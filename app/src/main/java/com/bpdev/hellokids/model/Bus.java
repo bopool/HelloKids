@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Bus implements Serializable {
 
+    private int id; // 버스 운행기록 id
     private String shuttleName;
     private String shuttleNum;
     private String shuttleTime;
@@ -56,5 +57,13 @@ public class Bus implements Serializable {
 
     public void setShuttleDriverNum(String shuttleDriverNum) {
         this.shuttleDriverNum = shuttleDriverNum;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

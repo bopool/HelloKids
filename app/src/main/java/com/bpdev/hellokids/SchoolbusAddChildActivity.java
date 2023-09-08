@@ -1,13 +1,31 @@
 package com.bpdev.hellokids;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.bpdev.hellokids.adapter.ChildAdapter;
+import com.bpdev.hellokids.adapter.ChildTimeAdapter;
+import com.bpdev.hellokids.api.BusApi;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.Child;
+import com.bpdev.hellokids.model.ChildList;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SchoolbusAddChildActivity extends AppCompatActivity {
 
@@ -24,19 +42,23 @@ public class SchoolbusAddChildActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    Button btnSave;
+    // 메인 기능
+    RecyclerView recyclerView;
 
+    int id; // 차량 운행 기록 id
 
+    ArrayList<Child> childArrayList = new ArrayList<>();
 
-
-
-
-
+    ChildTimeAdapter adapter1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolbus_add_child);
+
+        id = getIntent().getIntExtra("id",0);
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -51,7 +73,44 @@ public class SchoolbusAddChildActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+        btnSave = findViewById(R.id.btnSave);
 
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        //layoutManager: recyclerview에 listview 객체를 하나씩 띄움
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // -- -- -- 메인 파트 동작 -- -- -- //
+        Retrofit retrofit = NetworkClient.getRetrofitClient(SchoolbusAddChildActivity.this);
+
+        BusApi api = retrofit.create(BusApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<ChildList> call = api.busBoardingList(id,"Bearer "+ token);
+        call.enqueue(new Callback<ChildList>() {
+            @Override
+            public void onResponse(Call<ChildList> call, Response<ChildList> response) {
+                if (response.isSuccessful()) {
+                    ChildList childList = response.body();
+
+                    childArrayList.addAll(childList.getItems());
+
+                    //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+                    adapter1 = new ChildTimeAdapter(SchoolbusAddChildActivity.this, childArrayList);
+
+                    recyclerView.setAdapter(adapter1);
+                } else {
+
+                }
+            }
+                @Override
+                public void onFailure(Call<ChildList> call, Throwable t) {
+
+                }
+            });
 
 
 
@@ -79,13 +138,6 @@ public class SchoolbusAddChildActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
-
-
-
-
-
 
 
 
@@ -145,13 +197,6 @@ public class SchoolbusAddChildActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        // -- -- -- 메인 파트 동작 -- -- -- //
-
 
 
 

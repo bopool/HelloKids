@@ -204,12 +204,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 선생님 화면
-                Intent intent = new Intent(MainActivity.this,SchoolbusListActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this,SchoolbusListActivity.class);
+//                startActivity(intent);
 
                 // 학부모 화면
-//                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
+                startActivity(intent);
             }
         });
 
