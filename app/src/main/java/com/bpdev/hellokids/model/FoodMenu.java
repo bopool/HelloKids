@@ -9,7 +9,7 @@ public class FoodMenu implements Serializable {
     private String mealContent;
     private String mealType;
 
-    public FoodMenu(String mealDate, String mealPhotoUrl) {
+    public FoodMenu(String mealDate, String mealPhotoUrl, String mealContent, String mealType) {
         this.mealDate = mealDate;
         this.mealPhotoUrl = mealPhotoUrl;
         this.mealContent = mealContent;

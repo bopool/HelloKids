@@ -1,23 +1,33 @@
 package com.bpdev.hellokids;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bpdev.hellokids.adapter.BusAdapter;
+import com.bpdev.hellokids.adapter.FoodMenuAdapter;
 import com.bpdev.hellokids.api.BusApi;
 import com.bpdev.hellokids.api.FoodMenuApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.model.BusDailyRecordList;
 import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.FoodMenuList;
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -44,7 +54,37 @@ public class FoodmenuViewActivity extends AppCompatActivity {
     ImageView photoContent;
     TextView textContent;
     TextView contentType;
-    ArrayList<FoodMenu> foodMenuArrayList = new ArrayList<>();
+    Button btnEdit;
+
+    FoodMenu foodMenu;
+    int index;
+    ArrayList<FoodMenu> foodMenuArrayList;
+    FoodMenuAdapter foodMenuAdapter;
+
+
+
+
+    public ActivityResultLauncher<Intent> launcher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override // ActivityResult가 있다면 동작하라.
+                        public void onActivityResult(ActivityResult result) {
+
+                            if( result.getResultCode() == 1 ){
+                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("foodMenu"); // 보낸 데이터들 불러오기
+                                foodMenuArrayList.add(0, foodMenu); // 목록에 추가
+                                foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
+
+                            } else if( result.getResultCode() == 2 ){
+                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
+                                int index = result.getData().getIntExtra("index", 0); // 보낸 인덱스 데이터도 불러오기
+                                foodMenuArrayList.set(index, foodMenu); // 이 인덱스 데이터 업데이트 해주세요!
+                                foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
+
+                            }
+                        }
+                    });
+
 
 
 
@@ -72,50 +112,34 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         photoContent = findViewById(R.id.photoContent);
         textContent = findViewById(R.id.textContent);
         contentType = findViewById(R.id.contentType);
-
+        btnEdit = findViewById(R.id.btnEdit);
 
 
         // 메인 파트 동작 //
-        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
-        FoodMenuApi api = retrofit.create(FoodMenuApi.class);
-        Call<FoodMenu> call = api.foodMenuView(1);
-        call.enqueue(new Callback<FoodMenu>() {
+        foodMenu = (FoodMenu) getIntent().getSerializableExtra("foodMenu");
+        index = getIntent().getIntExtra("index", 0);
+
+        textDate.setText(foodMenu.getMealDate());
+        textContent.setText(foodMenu.getMealContent());
+        contentType.setText(foodMenu.getMealType());
+        Glide.with(FoodmenuViewActivity.this)
+                .load(foodMenu.getMealPhotoUrl())
+                .into(photoContent);
+
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<FoodMenu> call, Response<FoodMenu> response) {
-                if(response.isSuccessful()){
+            public void onClick(View view) {
 
-                    FoodMenu foodMenu = response.body();
-
-                    textDate.setText(foodMenu.getMealDate());
-                    textContent.setText(foodMenu.getMealContent());
-                    contentType.setText(foodMenu.getMealType());
-                    Glide.with(FoodmenuViewActivity.this)
-                            .load(foodMenu.getMealPhotoUrl())
-                            .into(photoContent);
-                    }
-
-                else{
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<FoodMenu> call, Throwable t) {
+                Intent intent = new Intent(FoodmenuViewActivity.this, FoodmenuEditActivity.class);
+                intent.putExtra("foodMenu",foodMenu);
+                intent.putExtra("index",index);
+                Log.i("scheduleId",foodMenu.getMealDate()+"");
+                Log.i("index",index+"");
+                startActivity(intent);
 
             }
-
         });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -208,4 +232,45 @@ public class FoodmenuViewActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
+        FoodMenuApi api = retrofit.create(FoodMenuApi.class);
+        Call<FoodMenu> call = api.foodMenuView(index);
+        call.enqueue(new Callback<FoodMenu>() {
+            @Override
+            public void onResponse(Call<FoodMenu> call, Response<FoodMenu> response) {
+                if(response.isSuccessful()){
+
+                    FoodMenu foodMenu = response.body();
+
+                    textDate.setText(foodMenu.getMealDate());
+                    textContent.setText(foodMenu.getMealContent());
+                    contentType.setText(foodMenu.getMealType());
+                    Glide.with(FoodmenuViewActivity.this)
+                            .load(foodMenu.getMealPhotoUrl())
+                            .into(photoContent);
+
+                }
+
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoodMenu> call, Throwable t) {
+
+            }
+
+        });
+
+
+    }
+
+
 }

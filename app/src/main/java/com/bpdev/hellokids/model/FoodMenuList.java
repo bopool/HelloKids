@@ -1,8 +1,6 @@
 package com.bpdev.hellokids.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 public class FoodMenuList {
 
     private String result;

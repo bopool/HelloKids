@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bpdev.hellokids.FoodmenuEditActivity;
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.FoodMenuDayList;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -26,10 +27,10 @@ public class FoodMenuAllAdapter extends RecyclerView.Adapter<FoodMenuAllAdapter.
     ArrayList<FoodMenu> foodMenuArrayList;
     LayoutInflater inflater;
 
-    public FoodMenuAllAdapter(Context context, ArrayList<FoodMenu> foodMenuArrayList, LayoutInflater inflater) {
+    public FoodMenuAllAdapter(Context context, ArrayList<FoodMenu> foodMenuArrayList) {
         this.context = context;
         this.foodMenuArrayList = foodMenuArrayList;
-        this.inflater = inflater;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @NonNull
@@ -38,7 +39,6 @@ public class FoodMenuAllAdapter extends RecyclerView.Adapter<FoodMenuAllAdapter.
         View view;
         view = inflater.inflate(R.layout.row_foodmenu, parent, false);
         return new FoodMenuViewHolder(view);
-
     }
 
      @Override

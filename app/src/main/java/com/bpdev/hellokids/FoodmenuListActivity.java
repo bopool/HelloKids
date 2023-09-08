@@ -1,5 +1,7 @@
 package com.bpdev.hellokids;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +14,17 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.adapter.FoodMenuAdapter;
-import com.bpdev.hellokids.adapter.Item;
-import com.bpdev.hellokids.adapter.ItemAdapter;
 import com.bpdev.hellokids.api.FoodMenuApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.config.Config;
@@ -28,8 +33,6 @@ import com.bpdev.hellokids.model.FoodMenuList;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,7 +75,28 @@ public class FoodmenuListActivity extends AppCompatActivity {
     String token;
 
 
-    List<FoodMenu> subItemList;
+    public ActivityResultLauncher<Intent> launcher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override // ActivityResult가 있다면 동작하라.
+                        public void onActivityResult(ActivityResult result) {
+
+                            // Add Activity로 부터 데이터를 받는 경우
+                            if( result.getResultCode() == 1 ){
+                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("foodMenu"); // 보낸 데이터들 불러오기
+                                foodMenuArrayList.add(0, foodMenu); // 목록에 추가
+                                foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
+
+                            } else if( result.getResultCode() == 2 ){
+                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
+                                int index = result.getData().getIntExtra("index", 0); // 보낸 인덱스 데이터도 불러오기
+                                foodMenuArrayList.set(index, foodMenu); // 이 인덱스 데이터 업데이트 해주세요!
+                                foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
+
+                            }
+                        }
+                    });
+
 
 
 
@@ -110,9 +134,9 @@ public class FoodmenuListActivity extends AppCompatActivity {
         mContext = this; // oncreate 에 this(는 액티비티 클래스 자체를 의미) 할당
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
-        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setHasFixedSize(true);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
+//        recyclerView.setLayoutManager(layoutManager);
 
 
         btnCreate = findViewById(R.id.btnCreate);
@@ -294,6 +318,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
                     offset = offset + count;
                     foodMenuArrayList.addAll(foodMenuList.getItems());
                     foodMenuAdapter.notifyDataSetChanged();
+                    foodMenuAdapter.notifyDataSetChanged();
 
                 } else {
 
@@ -325,22 +350,17 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
                     Log.i("식단표 제대로 되나요 : ", "성공");
 
+
                     FoodMenuList foodMenuList = response.body();
                     count = foodMenuList.getCount();
                     offset = offset + count;
                     foodMenuArrayList.addAll(foodMenuList.getItems());
-//                    foodMenuAdapter = new FoodMenuAdapter(FoodmenuListActivity.this, foodMenuArrayList);
-//                    recyclerView.setAdapter(foodMenuAdapter);
-
-
-
-                    // 상위 리사이클러뷰 설정
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
-                    ItemAdapter itemAdapter = new ItemAdapter(buildItemList());
-                    recyclerView.setAdapter(itemAdapter);
-                    recyclerView.setLayoutManager(layoutManager);
+                    foodMenuAdapter = new FoodMenuAdapter(FoodmenuListActivity.this, foodMenuArrayList);
+                    recyclerView.setLayoutManager(new GridLayoutManager(FoodmenuListActivity.this,3));
+                    recyclerView.setAdapter(foodMenuAdapter);
 
                     Log.i("식단표 제대로 되나요 : ", "count: " + count + "offset: " + offset);
+
 
 
                 } else {
@@ -357,24 +377,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
     }
 
-    // 상위아이템 큰박스 아이템을 10개 만듭니다.
-    private List<Item> buildItemList() {
-        List<Item> itemList = new ArrayList<>();
-        for (int i=0; i<10; i++) {
-            Item item = new Item("Item "+i, buildSubItemList());
-            itemList.add(item);
-        }
-        return itemList;
-    }
-    // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
-    private List<FoodMenu> buildSubItemList() {
-        subItemList = new ArrayList<>();
-        for (int i=0; i<3; i++) {
-            FoodMenu foodMenu = new FoodMenu("ㅇㅇ"+i, "Description "+i);
-            subItemList.add(foodMenu);
-        }
-        return subItemList;
-    }
+
 
     @Override
     protected void onResume() {
@@ -382,5 +385,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
         offset = 0;
         getNetworkData();
     }
+
 
 }

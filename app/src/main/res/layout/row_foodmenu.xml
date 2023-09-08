@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="152dp"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -9,9 +9,9 @@
         android:id="@+id/foodCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="3dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#ffffff"
         android:padding="15dp"
@@ -39,7 +39,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:text="사과와 삶은 계란"
                 android:textColor="#222222"
                 android:textSize="14sp"
@@ -51,6 +51,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="20dp"
+                android:gravity="bottom"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -58,6 +59,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginTop="2dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/baseline_expand_circle_down_24" />
 

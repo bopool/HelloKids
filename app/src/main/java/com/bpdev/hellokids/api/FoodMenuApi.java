@@ -36,10 +36,11 @@ public interface FoodMenuApi {
     Call<FoodMenuList>foodMenuListDay(@Path("nurseryId") int nurseryId, @Path("mealDate") String mealDate); // 하루 메뉴 목록 /menu/2023-09-01
 
     @GET("/menu/{id}")
-    Call<FoodMenu>foodMenuView(@Path("id") int id);; // 개별 메뉴 정보 보기
+    Call<FoodMenu>foodMenuView(@Path("id") int id); // 개별 메뉴 정보 보기
 
+    @Multipart
     @PUT("/menu/{id}")
-    Call<Result> foodMenuAdd(@Header("Authorization") String token,
+    Call<Result> foodMenuEdit(@Header("Authorization") String token,
                              @Path("id") int id,
                              @Part("mealDate") RequestBody mealDate,
                              @Part MultipartBody.Part mealPhotoUrl,

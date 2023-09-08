@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.FoodMenuDayList;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -20,32 +21,38 @@ import java.util.List;
 
 
 
-public class FoodMenuDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FoodMenuDayAdapter extends RecyclerView.Adapter<FoodMenuDayAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<FoodMenu> foodMenuArrayList;
-    LayoutInflater inflater;
+    ArrayList<FoodMenuDayList> foodMenuDayList;
+    LayoutInflater layoutInflater;
 
-    public FoodMenuDayAdapter(Context context, ArrayList<FoodMenu> foodMenuArrayList, LayoutInflater inflater) {
+    public FoodMenuDayAdapter(Context context, ArrayList<FoodMenuDayList> foodMenuDayList) {
         this.context = context;
-        this.foodMenuArrayList = foodMenuArrayList;
-        this.inflater = inflater;
+        this.foodMenuDayList = foodMenuDayList;
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        view = layoutInflater.inflate(R.layout.row_subrecyclerview, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.subRecyclerView.setAdapter(new FoodMenuAllAdapter(context, foodMenuDayList.get(position).foodMenuArrayList));
+        holder.subRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.subRecyclerView.setHasFixedSize(true);
+        holder.textDate.setText(foodMenuDayList.get(position).TextDate);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return foodMenuDayList.size();
     }
 //
 //    @NonNull
@@ -87,16 +94,18 @@ public class FoodMenuDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //    }
 
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textDate;
         RecyclerView subRecyclerView;
 
-        public CustomViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textDate = itemView.findViewById(R.id.textDate);
             subRecyclerView = itemView.findViewById(R.id.subRecyclerView);
+
+            textDate.setText("날짜");
 
 
         }

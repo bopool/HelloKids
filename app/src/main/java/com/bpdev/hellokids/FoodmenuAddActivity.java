@@ -133,72 +133,14 @@ public class FoodmenuAddActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
-        btnAdd = findViewById(R.id.btnCreate);
+        btnAdd = findViewById(R.id.btnMealAdd);
         btnSelectDate = findViewById(R.id.btnSelectDate);
         textContents = findViewById(R.id.textInputTitle);
         textCategory = findViewById(R.id.textInputCategory);
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
-        mealPhoto = findViewById(R.id.mealPhoto);
-        spinnerSelectClass = findViewById(R.id.spinnerSelectClass);
+        mealPhoto = findViewById(R.id.mealPhotoSelect);
 
 
-        // 스피너
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // 스피너에 반 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuAddActivity.this);
-        SettingApi api = retrofit.create(SettingApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN, "");
-
-        Call<ClassList> call = api.classListView("Bearer " + token);
-        call.enqueue(new Callback<ClassList>() {
-            @Override
-            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
-                if (response.isSuccessful()) {
-                    ClassList classList = response.body();
-                    classArrayList.addAll(classList.getItems());
-
-                    for (int i = 0; i < classArrayList.size(); i++) {
-                        classNameArrayList.add(classArrayList.get(i).getClassName());
-                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ClassList> call, Throwable t) {
-            }
-        });
-
-        spinnerSelectClass.setAdapter(arrayAdapter);
-        spinnerSelectClass.setSelection(0);
-
-
-        spinnerSelectClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String spinnerValue = adapterView.getItemAtPosition(i).toString();
-                spinnerSelectClass.setSelection(i);
-                Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
-
-                classId1 = map.get(spinnerValue);
-
-                //String.valueOf(classId1);
-
-
-                Log.i("classId", classId1 + "");
-
-            }
-
-            public void onNothingSelected(AdapterView<?> adapterView) { // 아무것도 선택하지 않았을 때 실행되는건데 자동으로 선택이 되기때문에 이 코드가 실행되지 않는다
-
-            }
-        });
 
 
         // 달력
@@ -345,7 +287,7 @@ public class FoodmenuAddActivity extends AppCompatActivity {
             public void onClick(View view) {
                 foodContent = textContents.getText().toString().trim();
                 foodType = textCategory.getText().toString().trim();
-                foodDate = "2023-09-06";
+                foodDate = date1;
 
                 // API호출
                 Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuAddActivity.this);

@@ -14,8 +14,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.FoodmenuEditActivity;
+import com.bpdev.hellokids.FoodmenuListActivity;
+import com.bpdev.hellokids.FoodmenuViewActivity;
 import com.bpdev.hellokids.R;
+import com.bpdev.hellokids.ScheduleViewActivity;
 import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.ScheduleRes;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
 
     Context context;
     ArrayList<FoodMenu> foodMenuArrayList;
+
 
     public FoodMenuAdapter(Context context, ArrayList<FoodMenu> foodMenuArrayList) {
         this.context = context;
@@ -97,15 +102,16 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
             foodCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int index = getAdapterPosition();
-
-                        FoodMenu foodMenu = foodMenuArrayList.get(index);
-                        Intent intent = new Intent(context, FoodmenuEditActivity.class);
-                        intent.putExtra("index", index);
-
-                        // context가 메인액티비티라고 알려주고, 메인액티비티에서 launcher는 public으로 세팅해 준다.
 //                        ((FoodmenuListActivity)context).launcher.launch(intent);
 
+                        int index = getAdapterPosition();
+                        FoodMenu foodMenu = foodMenuArrayList.get(index);
+                        Intent intent = new Intent(context, FoodmenuViewActivity.class);
+                        intent.putExtra("foodMenu",foodMenu);
+                        intent.putExtra("index",index);
+                        Log.i("scheduleId",foodMenu.getMealDate()+"");
+                        Log.i("index",index+"");
+                        context.startActivity(intent);
 
 
                     }

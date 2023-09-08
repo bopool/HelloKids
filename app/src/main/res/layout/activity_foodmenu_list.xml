@@ -14,33 +14,32 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            style="@style/bottom_menu_layout">
+        <LinearLayout style="@style/bottom_menu_layout">
 
             <Button
                 android:id="@+id/btnBottomHome"
-                app:iconPadding="0dp"
-                style="@style/btn_bottom_menu1" />
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomNotice"
                 style="@style/btn_bottom_menu2"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomDailynote"
                 style="@style/btn_bottom_menu3"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSchoolbus"
                 style="@style/btn_bottom_menu4"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
             <Button
                 android:id="@+id/btnBottomSetting"
                 style="@style/btn_bottom_menu5"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp" />
 
         </LinearLayout>
 
@@ -57,8 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            style="@style/top_image_layout">
+        <LinearLayout style="@style/top_image_layout">
 
             <TextView
                 android:id="@+id/btnLogin"
@@ -66,46 +64,51 @@
 
             <TextView
                 android:id="@+id/btnRegister1"
-                style="@style/top_button2"/>
+                style="@style/top_button2" />
 
             <ImageButton
                 android:id="@+id/btnTranslate"
-                style="@style/top_button3"/>
+                style="@style/top_button3" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/textPageTitle"
-            android:text="식단표"
-            style="@style/text_title" />
+            style="@style/text_title"
+            android:text="식단표" />
 
         <TextView
             android:id="@+id/textView4"
-            android:text="우리 아이들의 식단을 확인합니다."
-            style="@style/text_title_sub" />
+            style="@style/text_title_sub"
+            android:text="우리 아이들의 식단을 확인합니다." />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnSelectDate"
-                app:cornerRadius="8dp"
-                style="@style/btn_date_select"/>
+                style="@style/btn_date_select"
+                app:cornerRadius="8dp" />
 
             <Button
                 android:id="@+id/btnCreate"
-                app:cornerRadius="8dp"
+                style="@style/btn_move_activity"
                 android:text="식단표 작성하기"
-                style="@style/btn_move_activity"/>
+                app:cornerRadius="8dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </HorizontalScrollView>
+
         </LinearLayout>
 
 

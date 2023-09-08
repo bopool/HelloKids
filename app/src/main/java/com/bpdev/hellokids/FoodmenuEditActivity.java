@@ -51,7 +51,9 @@ import com.bpdev.hellokids.model.DailyNoteRow;
 import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.Result;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.util.IOUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -97,7 +99,7 @@ public class FoodmenuEditActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
-    Button btnAdd;
+    Button btnEdit;
     Button btnSelectDate;
     Button btnSelectPhoto;
     EditText textContents;
@@ -120,7 +122,7 @@ public class FoodmenuEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_foodmenu_add);
+        setContentView(R.layout.activity_foodmenu_edit);
 
 
         // 최상단 헤더 버튼 화면 연결
@@ -136,127 +138,12 @@ public class FoodmenuEditActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
-        btnAdd = findViewById(R.id.btnCreate);
+        btnEdit = findViewById(R.id.btnEdit);
         btnSelectDate = findViewById(R.id.btnSelectDate);
         textContents = findViewById(R.id.textInputTitle);
         textCategory = findViewById(R.id.textInputCategory);
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
-        mealPhoto = findViewById(R.id.mealPhoto);
-        spinnerSelectClass = findViewById(R.id.spinnerSelectClass);
-
-
-        // 스피너
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // 스피너에 반 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuEditActivity.this);
-        SettingApi api = retrofit.create(SettingApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN, "");
-
-        Call<ClassList> call = api.classListView("Bearer " + token);
-        call.enqueue(new Callback<ClassList>() {
-            @Override
-            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
-                if (response.isSuccessful()) {
-                    ClassList classList = response.body();
-                    classArrayList.addAll(classList.getItems());
-
-                    for (int i = 0; i < classArrayList.size(); i++) {
-                        classNameArrayList.add(classArrayList.get(i).getClassName());
-                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ClassList> call, Throwable t) {
-            }
-        });
-
-        spinnerSelectClass.setAdapter(arrayAdapter);
-        spinnerSelectClass.setSelection(0);
-
-
-        spinnerSelectClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String spinnerValue = adapterView.getItemAtPosition(i).toString();
-                spinnerSelectClass.setSelection(i);
-                Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
-
-                classId1 = map.get(spinnerValue);
-
-                //String.valueOf(classId1);
-
-
-                Log.i("classId", classId1 + "");
-
-            }
-
-            public void onNothingSelected(AdapterView<?> adapterView) { // 아무것도 선택하지 않았을 때 실행되는건데 자동으로 선택이 되기때문에 이 코드가 실행되지 않는다
-
-            }
-        });
-
-
-        foodMenu = (FoodMenu) getIntent().getSerializableExtra("foodMenu");
-        index = getIntent().getIntExtra("index", 0);
-
-        textContents.setText(foodMenu.getMealContent()+"");
-        textCategory.setText(foodMenu.getMealType()+"");
-        btnSelectDate.setText(foodMenu.getMealDate()+"");
-
-
-
-        // 달력
-        btnSelectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calendar calendar = Calendar.getInstance();
-                int year1 = calendar.get(Calendar.YEAR);
-                int month1 = calendar.get(Calendar.MONTH);
-                int day1 = calendar.get(Calendar.DAY_OF_MONTH);
-
-                datePickerDialog = new DatePickerDialog(FoodmenuEditActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year1, int month1, int day1) {
-
-                                // 1월부터 시작하는데 시작이 0이므로 +1 해준다
-                                month1 = month1 +1;
-
-                                // 10 이하의 날짜가 03 이런식으로 나오게 표시 방법 바꾸기
-                                String month;
-                                if ( month1 < 10 ){
-                                    month = "0" + month1;
-                                }else{
-                                    month = "" + month1; // 문자열로 만들기
-                                }
-
-                                String day;
-                                if ( day1 < 10 ){
-                                    day = "0" + day1;
-                                }else{
-                                    day = "" + day1; // 문자열로 만들기
-                                }
-
-                                date1 = ""+ year1 + "-" + month + "-" + day;
-
-                                btnSelectDate.setText(date1);
-                            }
-                        },
-                        year1, month1, day1);
-                datePickerDialog.show();
-
-            }
-        });
-
+        mealPhoto = findViewById(R.id.mealPhotoEdit);
 
 
         // 최상단 헤더 버튼
@@ -351,19 +238,79 @@ public class FoodmenuEditActivity extends AppCompatActivity {
         });
 
 
+        foodMenu = (FoodMenu) getIntent().getSerializableExtra("foodMenu");
+        index = getIntent().getIntExtra("index", 0);
+        textContents.setText(foodMenu.getMealContent()+"");
+        textCategory.setText(foodMenu.getMealType()+"");
+        btnSelectDate.setText(foodMenu.getMealDate()+"");
+        Glide.with(FoodmenuEditActivity.this)
+                .load(foodMenu.getMealPhotoUrl())
+                .into(mealPhoto);
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+
+        // 달력
+        btnSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar calendar = Calendar.getInstance();
+                int year1 = calendar.get(Calendar.YEAR);
+                int month1 = calendar.get(Calendar.MONTH);
+                int day1 = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(FoodmenuEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year1, int month1, int day1) {
+
+                                // 1월부터 시작하는데 시작이 0이므로 +1 해준다
+                                month1 = month1 +1;
+
+                                // 10 이하의 날짜가 03 이런식으로 나오게 표시 방법 바꾸기
+                                String month;
+                                if ( month1 < 10 ){
+                                    month = "0" + month1;
+                                }else{
+                                    month = "" + month1; // 문자열로 만들기
+                                }
+
+                                String day;
+                                if ( day1 < 10 ){
+                                    day = "0" + day1;
+                                }else{
+                                    day = "" + day1; // 문자열로 만들기
+                                }
+
+                                date1 = ""+ year1 + "-" + month + "-" + day;
+
+                                btnSelectDate.setText(date1);
+                            }
+                        },
+                        year1, month1, day1);
+                datePickerDialog.show();
+
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 foodContent = textContents.getText().toString().trim();
                 foodType = textCategory.getText().toString().trim();
-                foodDate = "2023-09-06";
+                foodDate = date1;
+                int id = index;
+
+                if(foodContent.isEmpty() || foodType.isEmpty() || foodDate.isEmpty()){
+                    Snackbar.make(btnEdit, "필수항목을 모두 입력하세요.", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // API호출
                 Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuEditActivity.this);
                 FoodMenuApi foodMenuApi = retrofit.create(FoodMenuApi.class);
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
+
 
                 // 보낼 파일
                 RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/jpg"));
@@ -372,14 +319,15 @@ public class FoodmenuEditActivity extends AppCompatActivity {
                 RequestBody mealDate = RequestBody.create(foodDate, MediaType.parse("text/plain"));
                 RequestBody mealContent = RequestBody.create(foodContent, MediaType.parse("text/plain"));
                 RequestBody mealType = RequestBody.create(foodType, MediaType.parse("text/plain"));
-                Call<Result> call = foodMenuApi.foodMenuAdd("Bearer "+token, mealDate, mealPhotoUrl, mealContent, mealType);
+                Call<Result> call = foodMenuApi.foodMenuEdit("Bearer "+token, id, mealDate, mealPhotoUrl, mealContent, mealType);
 
 
                 call.enqueue(new Callback<Result>() {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
                         if (response.isSuccessful()) {
-                            Intent intent = new Intent(FoodmenuEditActivity.this, FoodmenuListActivity.class);
+                            Intent intent = new Intent(FoodmenuEditActivity.this, FoodmenuViewActivity.class);
+                            intent.putExtra("index",index);
                             startActivity(intent);
                             finish();
                         } else if (response.code() == 400) {
@@ -710,5 +658,4 @@ public class FoodmenuEditActivity extends AppCompatActivity {
 
 
 }
-
 
