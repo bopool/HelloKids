@@ -115,11 +115,29 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnSelectClass"
-                style="@style/btn_select_form1"
-                android:text="전체반 선택"
-                app:cornerRadius="8dp" />
+            <androidx.cardview.widget.CardView
+                style="@style/text_input_frame_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:id="@+id/textClassName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:text="반 이름"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/btnSelectDate"
@@ -134,7 +152,7 @@
                 <Button
                     android:id="@+id/btnCreate"
                     style="@style/btn_move_half_left"
-                    android:text="출석부 만들기"
+                    android:text="출석 체크"
                     app:cornerRadius="8dp" />
 
                 <Button
