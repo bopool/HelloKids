@@ -104,7 +104,6 @@ public class FoodmenuAddActivity extends AppCompatActivity {
 
 
     ImageView mealPhoto;
-    String foodPhotoUrl;
     String foodDate;
     String foodContent;
     String foodType;

@@ -4,16 +4,26 @@ import java.io.Serializable;
 
 public class Notice implements Serializable {
 
+    private String noticeDate;
     private String noticeTitle;
-    private String noticeContent;
-    private String[] noticePhotoUrl;
+    private String noticeContents;
+    private String noticePhotoUrl;
     private int isPublish;
 
-    public Notice(String noticeTitle, String noticeContent, String[] noticePhotoUrl, int isPublish) {
+    public Notice(String noticeDate, String noticeTitle, String noticeContents, String noticePhotoUrl, int isPublish) {
+        this.noticeDate = noticeDate;
         this.noticeTitle = noticeTitle;
-        this.noticeContent = noticeContent;
+        this.noticeContents = noticeContents;
         this.noticePhotoUrl = noticePhotoUrl;
         this.isPublish = isPublish;
+    }
+
+    public String getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(String noticeDate) {
+        this.noticeDate = noticeDate;
     }
 
     public String getNoticeTitle() {
@@ -24,19 +34,19 @@ public class Notice implements Serializable {
         this.noticeTitle = noticeTitle;
     }
 
-    public String getNoticeContent() {
-        return noticeContent;
+    public String getNoticeContents() {
+        return noticeContents;
     }
 
-    public void setNoticeContent(String noticeContent) {
-        this.noticeContent = noticeContent;
+    public void setNoticeContents(String noticeContents) {
+        this.noticeContents = noticeContents;
     }
 
-    public String[] getNoticePhotoUrl() {
+    public String getNoticePhotoUrl() {
         return noticePhotoUrl;
     }
 
-    public void setNoticePhotoUrl(String[] noticePhotoUrl) {
+    public void setNoticePhotoUrl(String noticePhotoUrl) {
         this.noticePhotoUrl = noticePhotoUrl;
     }
 

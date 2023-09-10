@@ -1,13 +1,38 @@
 package com.bpdev.hellokids;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bpdev.hellokids.adapter.NoticeAdapter;
+import com.bpdev.hellokids.api.NoticeApi;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.Notice;
+import com.bpdev.hellokids.model.NoticeRes;
+import com.bpdev.hellokids.model.Result;
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class NoticeViewActivity extends AppCompatActivity {
 
@@ -24,9 +49,18 @@ public class NoticeViewActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    TextView textDate;
+    ImageView photoContent;
+    TextView textContents;
+    TextView textTitle;
+    Button btnEdit;
+    Button btnDelete;
 
 
-
+    Notice notice;
+    int index;
+    ArrayList<Notice> noticeArrayList;
+    NoticeAdapter noticeAdapter;
 
 
 
@@ -48,6 +82,65 @@ public class NoticeViewActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+
+
+        // 메인파트
+        textDate = findViewById(R.id.textDate);
+        photoContent = findViewById(R.id.photoContent);
+        textContents = findViewById(R.id.textContents);
+        textTitle = findViewById(R.id.textTitle);
+        btnEdit = findViewById(R.id.btnEdit);
+        btnDelete = findViewById(R.id.btnDelete);
+
+
+        index = getIntent().getIntExtra("index", 0);
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeViewActivity.this);
+        NoticeApi noticeApi = retrofit.create(NoticeApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN,"");
+        Call<NoticeRes> call = noticeApi.noticeView("Bearer " + token, index);
+        call.enqueue(new Callback<NoticeRes>() {
+            @Override
+            public void onResponse(Call<NoticeRes> call, Response<NoticeRes> response) {
+                if(response.isSuccessful()){
+
+                    notice = response.body().getItems().get(0);
+                    Log.i("뷰액티비티 noticeArrayList", ""+noticeArrayList + ", " + notice);
+                    textDate.setText(notice.getNoticeDate());
+                    textContents.setText(notice.getNoticeContents());
+                    textTitle.setText(notice.getNoticePhotoUrl());
+                    textDate.setText(notice.getNoticeTitle());
+                    Glide.with(NoticeViewActivity.this)
+                            .load(notice.getNoticePhotoUrl())
+                            .into(photoContent);
+                }
+
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoticeRes> call, Throwable t) {
+
+            }
+
+        });
+
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(NoticeViewActivity.this, NoticeEditActivity.class);
+                intent.putExtra("noticeArrayList",noticeArrayList);
+                intent.putExtra("index",index);
+                startActivity(intent);
+
+            }
+        });
 
 
 
@@ -76,8 +169,6 @@ public class NoticeViewActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
 
 
 
@@ -143,14 +234,84 @@ public class NoticeViewActivity extends AppCompatActivity {
             }
         });
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
 
 
+    }
 
 
-        // -- -- -- 메인 파트 동작 -- -- -- //
+    void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("삭제");
+        builder.setMessage("정말 삭제하시겠습니까?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                showProgress();
+                index = getIntent().getIntExtra("index", 0);
+
+                Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeViewActivity.this);
+
+                NoticeApi api = retrofit.create(NoticeApi.class);
+
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN,"");
+
+                Call<Result> call = api.noticeDelete("Bearer " + token, index);
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        dismissProgress();
+
+                        if(response.isSuccessful()){
+
+                            // 선생님일 때
+//                            Intent intent = new Intent(DailynoteViewActivity.this, DailynoteListActivity .class);
+//                            startActivity(intent);
+                            // 학부모일 때
+                            Intent intent = new Intent(NoticeViewActivity.this, NoticeListActivity .class);
+                            startActivity(intent);
+                            finish();
 
 
+                        }else{
+                            // 유저한테, 서버에 문제있다고 메시지 띄운다.
 
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
+
+            }
+        });
+        builder.setNegativeButton("NO",null);
+        builder.setCancelable(true);
+        builder.show();
+    }
+
+    Dialog dialog;
+
+    void showProgress(){
+        dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(new ProgressBar(this));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    void dismissProgress(){
+        dialog.dismiss();
     }
 }

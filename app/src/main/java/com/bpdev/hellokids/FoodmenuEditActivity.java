@@ -47,6 +47,7 @@ import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
+import com.bpdev.hellokids.model.DailyNote;
 import com.bpdev.hellokids.model.DailyNoteRow;
 import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.NurseryClass;
@@ -115,8 +116,10 @@ public class FoodmenuEditActivity extends AppCompatActivity {
     Uri imgUri;
     File photoFile;
     DatePickerDialog datePickerDialog;
-    String date1;
+    String date1 = "";
 
+    Call<Result> call;
+    ArrayList<FoodMenu> foodMenuArrayList;
 
 
     @Override
@@ -225,9 +228,6 @@ public class FoodmenuEditActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         // 메인 파트 동작
         btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,13 +238,13 @@ public class FoodmenuEditActivity extends AppCompatActivity {
         });
 
 
-        foodMenu = (FoodMenu) getIntent().getSerializableExtra("foodMenu");
+        foodMenuArrayList = (ArrayList<FoodMenu>) getIntent().getSerializableExtra("foodMenuArrayList");
         index = getIntent().getIntExtra("index", 0);
-        textContents.setText(foodMenu.getMealContent()+"");
-        textCategory.setText(foodMenu.getMealType()+"");
-        btnSelectDate.setText(foodMenu.getMealDate()+"");
+        textContents.setText(foodMenuArrayList.get(index).getMealContent()+"");
+        textCategory.setText(foodMenuArrayList.get(index).getMealType()+"");
+        btnSelectDate.setText(foodMenuArrayList.get(index).getMealDate()+"");
         Glide.with(FoodmenuEditActivity.this)
-                .load(foodMenu.getMealPhotoUrl())
+                .load(foodMenuArrayList.get(index).getMealPhotoUrl())
                 .into(mealPhoto);
 
 
@@ -297,9 +297,12 @@ public class FoodmenuEditActivity extends AppCompatActivity {
             public void onClick(View view) {
                 foodContent = textContents.getText().toString().trim();
                 foodType = textCategory.getText().toString().trim();
-                foodDate = date1;
+                if (date1 == null) {
+                    foodDate = foodMenu.getMealDate();
+                } else {
+                    foodDate = date1;
+                }
                 int id = index;
-
                 if(foodContent.isEmpty() || foodType.isEmpty() || foodDate.isEmpty()){
                     Snackbar.make(btnEdit, "필수항목을 모두 입력하세요.", Snackbar.LENGTH_SHORT).show();
                     return;
@@ -311,16 +314,23 @@ public class FoodmenuEditActivity extends AppCompatActivity {
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
 
-
-                // 보낼 파일
-                RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/jpg"));
-                // 용량이 큰 파일은 잘게 쪼개서 보내는 작업
-                MultipartBody.Part mealPhotoUrl = MultipartBody.Part.createFormData("mealPhotoUrl", photoFile.getName(), fileBody);
-                RequestBody mealDate = RequestBody.create(foodDate, MediaType.parse("text/plain"));
-                RequestBody mealContent = RequestBody.create(foodContent, MediaType.parse("text/plain"));
-                RequestBody mealType = RequestBody.create(foodType, MediaType.parse("text/plain"));
-                Call<Result> call = foodMenuApi.foodMenuEdit("Bearer "+token, id, mealDate, mealPhotoUrl, mealContent, mealType);
-
+                if (photoFile == null) {
+                    RequestBody mealDate = RequestBody.create(foodDate, MediaType.parse("text/plain"));
+                    RequestBody mealContent = RequestBody.create(foodContent, MediaType.parse("text/plain"));
+                    RequestBody mealType = RequestBody.create(foodType, MediaType.parse("text/plain"));
+                    Log.i("API호출 if (photoFile == null)", "Bearer " + token+", "+id+", "+mealDate+", "+mealContent+", "+mealType );
+                    call = foodMenuApi.foodMenuEdit2("Bearer " + token, id, mealDate, mealContent, mealType);
+                } else {
+                    // 보낼 파일
+                    RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/jpg"));
+                    // 용량이 큰 파일은 잘게 쪼개서 보내는 작업
+                    MultipartBody.Part mealPhotoUrl = MultipartBody.Part.createFormData("mealPhotoUrl", photoFile.getName(), fileBody);
+                    RequestBody mealDate = RequestBody.create(foodDate, MediaType.parse("text/plain"));
+                    RequestBody mealContent = RequestBody.create(foodContent, MediaType.parse("text/plain"));
+                    RequestBody mealType = RequestBody.create(foodType, MediaType.parse("text/plain"));
+                    Log.i("API호출 if (photoFile == null)", "Bearer " + token+", "+id+", "+mealDate+", "+ mealPhotoUrl+", "+mealContent+", "+mealType );
+                    call = foodMenuApi.foodMenuEdit("Bearer " + token, id, mealDate, mealPhotoUrl, mealContent, mealType);
+                }
 
                 call.enqueue(new Callback<Result>() {
                     @Override
@@ -328,6 +338,7 @@ public class FoodmenuEditActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Intent intent = new Intent(FoodmenuEditActivity.this, FoodmenuViewActivity.class);
                             intent.putExtra("index",index);
+                            intent.putExtra("foodMenuArrayList", foodMenuArrayList);
                             startActivity(intent);
                             finish();
                         } else if (response.code() == 400) {

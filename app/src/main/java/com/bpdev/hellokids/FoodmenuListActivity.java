@@ -49,8 +49,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FoodMenuAdapter foodMenuAdapter;
     ArrayList<FoodMenu> foodMenuArrayList = new ArrayList<>();
-    int childId;
-    public static Context mContext; // Context 변수 선언
 
 
     // 최상단 헤더의 버튼
@@ -70,7 +68,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
     // 페이징 처리
     int offset = 0;
-    int limit = 10;
+    int limit = 6;
     int count = 0;
     String token;
 
@@ -88,7 +86,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
                                 foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
 
                             } else if( result.getResultCode() == 2 ){
-                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
+                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("foodMenu"); // 보낸 데이터들 불러오기
                                 int index = result.getData().getIntExtra("index", 0); // 보낸 인덱스 데이터도 불러오기
                                 foodMenuArrayList.set(index, foodMenu); // 이 인덱스 데이터 업데이트 해주세요!
                                 foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
@@ -96,7 +94,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                             }
                         }
                     });
-
 
 
 
@@ -130,13 +127,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
         btnSelectDate = findViewById(R.id.btnSelectDate);
 
-
-        mContext = this; // oncreate 에 this(는 액티비티 클래스 자체를 의미) 할당
-
         recyclerView = findViewById(R.id.recyclerView);
-//        recyclerView.setHasFixedSize(true);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FoodmenuListActivity.this);
-//        recyclerView.setLayoutManager(layoutManager);
 
 
         btnCreate = findViewById(R.id.btnCreate);
@@ -193,6 +184,8 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
 
         });
+
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -299,7 +292,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
     private void addNetworkData() {
 //        progressBar.setVisibility(View.VISIBLE);
-
         Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuListActivity.this);
         FoodMenuApi foodMenuApi = retrofit.create(FoodMenuApi.class);
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -318,7 +310,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
                     offset = offset + count;
                     foodMenuArrayList.addAll(foodMenuList.getItems());
                     foodMenuAdapter.notifyDataSetChanged();
-                    foodMenuAdapter.notifyDataSetChanged();
+
 
                 } else {
 
@@ -335,12 +327,11 @@ public class FoodmenuListActivity extends AppCompatActivity {
     }
 
     private void getNetworkData() {
-//        progressBar.setVisibility(View.VISIBLE);
+//      progressBar.setVisibility(View.VISIBLE);
         foodMenuArrayList.clear();
         Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuListActivity.this);
         FoodMenuApi foodMenuApi = retrofit.create(FoodMenuApi.class);
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN, "");
+
         Call<FoodMenuList> call = foodMenuApi.foodMenuListAll("Bearer " + token, offset, limit, count);
         call.enqueue(new Callback<FoodMenuList>() {
             @Override
@@ -349,8 +340,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     Log.i("식단표 제대로 되나요 : ", "성공");
-
-
                     FoodMenuList foodMenuList = response.body();
                     count = foodMenuList.getCount();
                     offset = offset + count;
@@ -360,8 +349,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                     recyclerView.setAdapter(foodMenuAdapter);
 
                     Log.i("식단표 제대로 되나요 : ", "count: " + count + "offset: " + offset);
-
-
 
                 } else {
 
@@ -377,13 +364,12 @@ public class FoodmenuListActivity extends AppCompatActivity {
 
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
         offset = 0;
         getNetworkData();
+
     }
 
 

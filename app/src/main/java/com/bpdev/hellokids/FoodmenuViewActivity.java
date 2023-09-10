@@ -1,33 +1,37 @@
 package com.bpdev.hellokids;
 
-import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bpdev.hellokids.adapter.BusAdapter;
 import com.bpdev.hellokids.adapter.FoodMenuAdapter;
-import com.bpdev.hellokids.api.BusApi;
 import com.bpdev.hellokids.api.FoodMenuApi;
 import com.bpdev.hellokids.api.NetworkClient;
-import com.bpdev.hellokids.model.BusDailyRecordList;
+import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.FoodMenuList;
+import com.bpdev.hellokids.model.FoodMenuView;
+import com.bpdev.hellokids.model.Result;
 import com.bumptech.glide.Glide;
 
-import java.io.File;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -55,35 +59,12 @@ public class FoodmenuViewActivity extends AppCompatActivity {
     TextView textContent;
     TextView contentType;
     Button btnEdit;
+    Button btnDelete;
 
     FoodMenu foodMenu;
     int index;
     ArrayList<FoodMenu> foodMenuArrayList;
     FoodMenuAdapter foodMenuAdapter;
-
-
-
-
-    public ActivityResultLauncher<Intent> launcher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                    new ActivityResultCallback<ActivityResult>() {
-                        @Override // ActivityResult가 있다면 동작하라.
-                        public void onActivityResult(ActivityResult result) {
-
-                            if( result.getResultCode() == 1 ){
-                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("foodMenu"); // 보낸 데이터들 불러오기
-                                foodMenuArrayList.add(0, foodMenu); // 목록에 추가
-                                foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
-
-                            } else if( result.getResultCode() == 2 ){
-                                FoodMenu foodMenu = (FoodMenu) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
-                                int index = result.getData().getIntExtra("index", 0); // 보낸 인덱스 데이터도 불러오기
-                                foodMenuArrayList.set(index, foodMenu); // 이 인덱스 데이터 업데이트 해주세요!
-                                foodMenuAdapter.notifyDataSetChanged(); // 화면 갱신
-
-                            }
-                        }
-                    });
 
 
 
@@ -113,18 +94,46 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         textContent = findViewById(R.id.textContent);
         contentType = findViewById(R.id.contentType);
         btnEdit = findViewById(R.id.btnEdit);
+        btnDelete = findViewById(R.id.btnDelete);
 
 
-        // 메인 파트 동작 //
-        foodMenu = (FoodMenu) getIntent().getSerializableExtra("foodMenu");
         index = getIntent().getIntExtra("index", 0);
+        int id = index;
 
-        textDate.setText(foodMenu.getMealDate());
-        textContent.setText(foodMenu.getMealContent());
-        contentType.setText(foodMenu.getMealType());
-        Glide.with(FoodmenuViewActivity.this)
-                .load(foodMenu.getMealPhotoUrl())
-                .into(photoContent);
+        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
+        FoodMenuApi api = retrofit.create(FoodMenuApi.class);
+
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN,"");
+        Call<FoodMenuView> call = api.foodMenuView("Bearer " + token, id);
+        call.enqueue(new Callback<FoodMenuView>() {
+            @Override
+            public void onResponse(Call<FoodMenuView> call, Response<FoodMenuView> response) {
+                if(response.isSuccessful()){
+
+                    foodMenu = response.body().getItem();
+                    Log.i("뷰액티비티 foodMenuArrayList", ""+foodMenuArrayList);
+                    textDate.setText(foodMenu.getMealDate());
+                    textContent.setText(foodMenu.getMealContent());
+                    contentType.setText(foodMenu.getMealType());
+                    Glide.with(FoodmenuViewActivity.this)
+                            .load(foodMenu.getMealPhotoUrl())
+                            .into(photoContent);
+                }
+
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoodMenuView> call, Throwable t) {
+
+            }
+
+        });
+
+
 
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -132,10 +141,8 @@ public class FoodmenuViewActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FoodmenuViewActivity.this, FoodmenuEditActivity.class);
-                intent.putExtra("foodMenu",foodMenu);
+                intent.putExtra("foodMenuArrayList",foodMenuArrayList);
                 intent.putExtra("index",index);
-                Log.i("scheduleId",foodMenu.getMealDate()+"");
-                Log.i("index",index+"");
                 startActivity(intent);
 
             }
@@ -165,10 +172,6 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
-
-
 
 
 
@@ -229,6 +232,12 @@ public class FoodmenuViewActivity extends AppCompatActivity {
             }
         });
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
 
 
     }
@@ -238,39 +247,78 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         super.onResume();
 
 
-        Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
-        FoodMenuApi api = retrofit.create(FoodMenuApi.class);
-        Call<FoodMenu> call = api.foodMenuView(index);
-        call.enqueue(new Callback<FoodMenu>() {
-            @Override
-            public void onResponse(Call<FoodMenu> call, Response<FoodMenu> response) {
-                if(response.isSuccessful()){
-
-                    FoodMenu foodMenu = response.body();
-
-                    textDate.setText(foodMenu.getMealDate());
-                    textContent.setText(foodMenu.getMealContent());
-                    contentType.setText(foodMenu.getMealType());
-                    Glide.with(FoodmenuViewActivity.this)
-                            .load(foodMenu.getMealPhotoUrl())
-                            .into(photoContent);
-
-                }
-
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<FoodMenu> call, Throwable t) {
-
-            }
-
-        });
-
-
     }
+
+    void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("삭제");
+        builder.setMessage("정말 삭제하시겠습니까?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                showProgress();
+                index = getIntent().getIntExtra("index", 0);
+
+                Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
+
+                FoodMenuApi api = retrofit.create(FoodMenuApi.class);
+
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN,"");
+
+                Call<Result> call = api.foodMenuDelete("Bearer " + token, index);
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        dismissProgress();
+
+                        if(response.isSuccessful()){
+
+                            // 선생님일 때
+//                            Intent intent = new Intent(DailynoteViewActivity.this, DailynoteListActivity .class);
+//                            startActivity(intent);
+                            // 학부모일 때
+                            Intent intent = new Intent(FoodmenuViewActivity.this, FoodmenuListActivity .class);
+                            startActivity(intent);
+                            finish();
+
+
+                        }else{
+                            // 유저한테, 서버에 문제있다고 메시지 띄운다.
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
+
+            }
+        });
+        builder.setNegativeButton("NO",null);
+        builder.setCancelable(true);
+        builder.show();
+    }
+
+    Dialog dialog;
+
+    void showProgress(){
+        dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(new ProgressBar(this));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    void dismissProgress(){
+        dialog.dismiss();
+    }
+
 
 
 }

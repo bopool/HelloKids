@@ -138,6 +138,25 @@
                         android:layout_weight="1"
                         android:scaleType="centerCrop"
                         app:srcCompat="@drawable/a3717694133" />
+
+                    <LinearLayout
+                        android:id="@+id/teacherOnly"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnDelete"
+                            style="@style/btn_move_half_left"
+                            android:text="공지 삭제하기"
+                            app:cornerRadius="8dp" />
+
+                        <Button
+                            android:id="@+id/btnEdit"
+                            style="@style/btn_move_half_right"
+                            android:text="공지 수정하기"
+                            app:cornerRadius="8dp" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

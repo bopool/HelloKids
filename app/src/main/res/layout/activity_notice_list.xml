@@ -90,32 +90,35 @@
                 style="@style/text_title_sub"
                 android:layout_marginBottom="10dp"
                 android:text="우리 원의 중요한 소식을 알립니다." />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSelectDate"
-                style="@style/btn_date_select"
-                app:cornerRadius="8dp" />
-
-            <Button
-                android:id="@+id/btnCreate"
-                style="@style/btn_move_activity"
-                android:text="공지사항 작성하기"
-                app:cornerRadius="8dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnCreate"
+                    style="@style/btn_move_activity"
+                    android:text="공지사항 작성하기"
+                    app:cornerRadius="8dp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="70dp" />
+                </ScrollView>
+
+            </LinearLayout>
+
         </LinearLayout>
 
 

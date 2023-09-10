@@ -2,6 +2,7 @@ package com.bpdev.hellokids.api;
 
 import com.bpdev.hellokids.model.FoodMenu;
 import com.bpdev.hellokids.model.FoodMenuList;
+import com.bpdev.hellokids.model.FoodMenuView;
 import com.bpdev.hellokids.model.Result;
 
 import okhttp3.MultipartBody;
@@ -36,7 +37,7 @@ public interface FoodMenuApi {
     Call<FoodMenuList>foodMenuListDay(@Path("nurseryId") int nurseryId, @Path("mealDate") String mealDate); // 하루 메뉴 목록 /menu/2023-09-01
 
     @GET("/menu/{id}")
-    Call<FoodMenu>foodMenuView(@Path("id") int id); // 개별 메뉴 정보 보기
+    Call<FoodMenuView>foodMenuView(@Header("Authorization") String token, @Path("id") int id); // 개별 메뉴 정보 보기
 
     @Multipart
     @PUT("/menu/{id}")
@@ -47,8 +48,17 @@ public interface FoodMenuApi {
                              @Part("mealContent") RequestBody mealContent,
                              @Part("mealType") RequestBody mealType); // mealDate, mealPhotoUrl, mealContent, mealType
 
+    @Multipart
+    @PUT("/menu/{id}")
+    Call<Result> foodMenuEdit2(@Header("Authorization") String token,
+                              @Path("id") int id,
+                              @Part("mealDate") RequestBody mealDate,
+                              @Part("mealContent") RequestBody mealContent,
+                              @Part("mealType") RequestBody mealType); // mealDate, mealContent, mealType
+
+
 
     @DELETE("/menu/{id}")
-    Call<FoodMenu>foodMenuDelete(@Header("Authorization") String token, @Path("id") int id); // 개별 메뉴 삭제
+    Call<Result>foodMenuDelete(@Header("Authorization") String token, @Path("id") int id); // 개별 메뉴 삭제
 
 }

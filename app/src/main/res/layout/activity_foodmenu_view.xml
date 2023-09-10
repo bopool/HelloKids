@@ -180,11 +180,24 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnEdit"
-                style="@style/btn_move_activity"
-                android:text="식단 수정 하기"
-                app:cornerRadius="8dp"/>
+            <LinearLayout
+                android:id="@+id/teacherOnly"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    style="@style/btn_move_half_left"
+                    android:text="식단 삭제 하기"
+                    app:cornerRadius="8dp" />
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    style="@style/btn_move_half_right"
+                    android:text="식단 수정 하기"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
 
         </LinearLayout>
 

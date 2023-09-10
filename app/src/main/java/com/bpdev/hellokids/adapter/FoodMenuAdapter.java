@@ -2,6 +2,7 @@ package com.bpdev.hellokids.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.FoodmenuEditActivity;
@@ -18,11 +20,20 @@ import com.bpdev.hellokids.FoodmenuListActivity;
 import com.bpdev.hellokids.FoodmenuViewActivity;
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.ScheduleViewActivity;
+import com.bpdev.hellokids.api.FoodMenuApi;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.FoodMenuList;
 import com.bpdev.hellokids.model.ScheduleRes;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHolder> {
 
@@ -61,7 +72,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodMenuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_foodmenu, parent, false);
         return new FoodMenuAdapter.ViewHolder(view);
@@ -70,7 +81,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FoodMenu foodMenu = foodMenuArrayList.get(position);
-        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" + foodMenu.getMealPhotoUrl());
+        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" +position + ", " + foodMenu.getMealContent() +", "+ foodMenu.getMealDate() +", "+ foodMenu.getMealType());
         holder.textTitle.setText(foodMenu.getMealContent() );
         holder.textType.setText(foodMenu.getMealType());
         Glide.with(context)
@@ -105,12 +116,12 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
 //                        ((FoodmenuListActivity)context).launcher.launch(intent);
 
                         int index = getAdapterPosition();
+                        Log.i("어댑터 index" , ""+index);
                         FoodMenu foodMenu = foodMenuArrayList.get(index);
+
                         Intent intent = new Intent(context, FoodmenuViewActivity.class);
                         intent.putExtra("foodMenu",foodMenu);
                         intent.putExtra("index",index);
-                        Log.i("scheduleId",foodMenu.getMealDate()+"");
-                        Log.i("index",index+"");
                         context.startActivity(intent);
 
 
