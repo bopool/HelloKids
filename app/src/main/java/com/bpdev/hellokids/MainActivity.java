@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         btnAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,AttendanceListActivity.class);
+                Intent intent = new Intent(MainActivity.this,AttendanceParentsListActivity.class);
                 startActivity(intent);
             }
         });

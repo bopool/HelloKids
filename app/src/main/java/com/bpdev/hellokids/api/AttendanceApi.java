@@ -14,6 +14,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface AttendanceApi {
@@ -23,7 +24,13 @@ public interface AttendanceApi {
     @POST("/attendance/add/{childId}")
     Call<Result> attendanceAdd(@Path("childId") int childId, @Header("Authorization") String token, @Body Attendance attendance); // 출석 체크 생성
 
-    @GET("/attendance/class/{id}")
-    Call<AttendanceResList> attendanceList(@Path("id") int id, @Header("Authorization") String token); // 선생님이 속한 반의 반의 출석부 목록 조회
+    @GET("/attendance/teacher/class")
+    Call<AttendanceResList> attendanceList(@Header("Authorization") String token); // 선생님이 속한 반의 반의 출석부 목록 조회
+
+    @PUT("/attendance/edit/{id}")
+    Call<Result> attendanceEdit(@Path("id") int id, @Header("Authorization") String token, @Body AttendanceRes attendanceRes); // 차량 정보 수정
+
+    @GET("/attendance/parents/children")
+    Call<AttendanceResList> attendanceParentsList(@Header("Authorization") String token); // 학부모의 원아 출석부 목록 조히
 
 }

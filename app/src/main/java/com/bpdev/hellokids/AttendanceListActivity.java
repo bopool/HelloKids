@@ -64,7 +64,6 @@ public class AttendanceListActivity extends AppCompatActivity {
     int classId;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +99,6 @@ public class AttendanceListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-
         Retrofit retrofit = NetworkClient.getRetrofitClient(AttendanceListActivity.this);
         AttendanceApi api = retrofit.create(AttendanceApi.class);
 
@@ -135,8 +132,8 @@ public class AttendanceListActivity extends AppCompatActivity {
         SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
 
-        Log.i("classId1",classId+"");
-        Call<AttendanceResList> call1 = api1.attendanceList(classId,"Bearer " + token1);
+        // Log.i("classId1",classId+"");
+        Call<AttendanceResList> call1 = api1.attendanceList("Bearer " + token1);
         call1.enqueue(new Callback<AttendanceResList>() {
             @Override
             public void onResponse(Call<AttendanceResList> call, Response<AttendanceResList> response) {
@@ -157,6 +154,9 @@ public class AttendanceListActivity extends AppCompatActivity {
             public void onFailure(Call<AttendanceResList> call, Throwable t) {
             }
         });
+
+
+
 
 
         // 메인 버튼

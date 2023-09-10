@@ -151,12 +151,21 @@
                         </LinearLayout>
 
                         <Spinner
-                            android:id="@+id/CheckSpinner"
+                            android:id="@+id/checkSpinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
                     </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/editMemo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="메모를 입력하세요."
+                        android:inputType="textMultiLine" />
 
                 </LinearLayout>
 
