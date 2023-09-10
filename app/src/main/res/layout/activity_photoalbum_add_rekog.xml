@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".PhotoalbumAddActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/header"
+        style="@style/top_edit_layout"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/back_button_text_title"
+            android:text="사진첩 만들기" />
+
+        <TextView
+            android:id="@+id/btnLogin"
+            style="@style/top_button1" />
+
+        <TextView
+            android:id="@+id/btnRegister"
+            style="@style/top_button2" />
+
+        <ImageButton
+            android:id="@+id/btnTranslate"
+            style="@style/top_button3" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/menus"
+        style="@style/bottom_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout style="@style/bottom_menu_layout">
+
+            <Button
+                android:id="@+id/btnBottomHome"
+                style="@style/btn_bottom_menu1"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomNotice"
+                style="@style/btn_bottom_menu2"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomDailynote"
+                style="@style/btn_bottom_menu3"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSchoolbus"
+                style="@style/btn_bottom_menu4"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/btnBottomSetting"
+                style="@style/btn_bottom_menu5"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/menus"
+        android:layout_below="@id/header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    style="@style/btn_move_activity"
+                    android:text="등록하기"
+                    app:cornerRadius="8dp" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    style="@style/text_input_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="반 선택"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerClass"
+                    style="@style/btn_select_form1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="반 선택"
+                    app:cornerRadius="8dp"
+                    app:iconGravity="end" />
+
+                <Button
+                    android:id="@+id/btnSelectDate"
+                    style="@style/btn_date_select"
+                    android:text="작성일 선택"
+                    app:cornerRadius="8dp"
+                    app:iconGravity="end" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/text_input_title"
+                        android:layout_width="wrap_content"
+                        android:text="제목" />
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    style="@style/text_input_frame_cardview"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        style="@style/text_input_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="제목 가져와서 보여주기" />
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/text_input_title"
+                        android:layout_width="wrap_content"
+                        android:text="내용 " />
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    style="@style/text_input_frame_cardview"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        style="@style/text_input_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="10dp"
+                        android:text="내용 보여주기" />
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="6dp"
+                        android:text="사진 및 파일 선택"
+                        android:textColor="#222222"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="60dp"
+                    android:background="@drawable/baseline_add_photo_alternate_24"
+                    android:backgroundTint="#F4F4F4"
+                    android:padding="20dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|right"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imgPhotoAdd1"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                            <Button
+                                android:id="@+id/btnSelectPhoto"
+                                style="@style/btn_detail_green_left"
+                                android:layout_width="110dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="bottom|right"
+                                android:layout_marginRight="20dp"
+                                android:foregroundGravity="right"
+                                android:text="원아 프로필 선택"
+                                android:textSize="10sp"
+                                android:visibility="visible"
+                                app:cornerRadius="8dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_marginTop="20dp"
+                            android:minHeight="120dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imgPhotoAdd2"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                            <ImageView
+                                android:id="@+id/imgPhotoAdd3"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                            <ImageView
+                                android:id="@+id/imgPhotoAdd4"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                            <ImageView
+                                android:id="@+id/imgPhotoAdd5"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                            <ImageView
+                                android:id="@+id/imgPhotoAdd6"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/photoRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                app:reverseLayout="false" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnPhotoAdd"
+                            style="@style/btn_detail_green_left"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="bottom|right"
+                            android:layout_marginRight="20dp"
+                            android:foregroundGravity="right"
+                            android:text="사진 선택"
+                            android:textSize="10sp"
+                            app:cornerRadius="8dp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
