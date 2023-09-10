@@ -18,6 +18,11 @@ public class AttendanceRes implements Serializable {
         this.memo = memo;
     }
 
+    public AttendanceRes(String status, String memo) {
+        this.status = status;
+        this.memo = memo;
+    }
+
     public int getId() {
         return id;
     }
