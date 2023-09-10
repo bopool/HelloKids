@@ -27,8 +27,6 @@ import com.bpdev.hellokids.model.NoticeRes;
 import com.bpdev.hellokids.model.Result;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,7 +57,7 @@ public class NoticeViewActivity extends AppCompatActivity {
 
     Notice notice;
     int index;
-    ArrayList<Notice> noticeArrayList;
+    int noticeArrayList;
     NoticeAdapter noticeAdapter;
 
 
@@ -94,6 +92,7 @@ public class NoticeViewActivity extends AppCompatActivity {
 
 
         index = getIntent().getIntExtra("index", 0);
+//        Notice notice = getIntent().getSerializableExtra("notice", notice);
 
         Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeViewActivity.this);
         NoticeApi noticeApi = retrofit.create(NoticeApi.class);

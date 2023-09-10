@@ -84,7 +84,6 @@ import retrofit2.Retrofit;
 
 public class NoticeAddActivity extends AppCompatActivity {
 
-
     // 최상단 헤더의 버튼
     TextView btnRegister;
     TextView btnLogin;
@@ -115,14 +114,10 @@ public class NoticeAddActivity extends AppCompatActivity {
     String date1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_add);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN,"");
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -200,6 +195,8 @@ public class NoticeAddActivity extends AppCompatActivity {
                 // API호출
                 Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeAddActivity.this);
                 NoticeApi noticeApi = retrofit.create(NoticeApi.class);
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN,"");
 
                 // 보낼 파일
                 RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/jpg"));
@@ -327,18 +324,16 @@ public class NoticeAddActivity extends AppCompatActivity {
         btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 2222);
-                // setResult(1111, intent);
-
-                // launcher.launch(intent);
+                showDialog();
+//                Intent intent = new Intent(Intent.ACTION_PICK);
+//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(intent, 2222);
+//                // setResult(1111, intent);
+//                // launcher.launch(intent);
             }
         });
-
     }
 
 
@@ -413,7 +408,8 @@ public class NoticeAddActivity extends AppCompatActivity {
         if(checkPermission()){
             displayFileChoose();
         }else{
-            requestPermission();
+            displayFileChoose();
+//            requestPermission();
         }
     }
 
@@ -627,7 +623,6 @@ public class NoticeAddActivity extends AppCompatActivity {
         }
     }
 
-
     // 다이얼로그
     Dialog dialog;
     void showProgress(){
@@ -641,7 +636,6 @@ public class NoticeAddActivity extends AppCompatActivity {
     void dismissProgress(){
         dialog.dismiss();
     }
-
 
 
 }

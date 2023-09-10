@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.FoodmenuViewActivity;
+import com.bpdev.hellokids.NoticeViewActivity;
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.model.Notice;
 import com.bumptech.glide.Glide;
@@ -25,19 +26,23 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     Context context;
     ArrayList<Notice> noticeArrayList;
 
-
     public NoticeAdapter(Context context, ArrayList<Notice> noticeArrayList) {
         this.context = context;
         this.noticeArrayList = noticeArrayList;
     }
 
-
     @NonNull
     @Override
     public NoticeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view;
+        view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_notice_list, parent, false);
         return new NoticeAdapter.ViewHolder(view);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -57,6 +62,8 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         return noticeArrayList.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtDate;
@@ -75,22 +82,23 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             noticeListPhoto = itemView.findViewById(R.id.noticeListPhoto);
             noticeListCardView = itemView.findViewById(R.id.noticeListCardView);
 
+
+
             noticeListCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View itemView) {
 
                     int index = getAdapterPosition();
                     Log.i("어댑터 index" , ""+index);
                     Notice notice = noticeArrayList.get(index);
 
-                    Intent intent = new Intent(context, FoodmenuViewActivity.class);
-                    intent.putExtra("notice",notice);
-                    intent.putExtra("index",index);
+                    Intent intent = new Intent(context, NoticeViewActivity.class);
+                    intent.putExtra("notice", notice);
+                    intent.putExtra("index", index);
                     context.startActivity(intent);
 
                 }
-            }
-            );
+            });
 
         }
     }

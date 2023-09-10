@@ -131,7 +131,6 @@ public class NoticeListActivity extends AppCompatActivity {
 
                 int lastPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int totalCount = recyclerView.getAdapter().getItemCount();
-
                 if (lastPosition + 1 == totalCount) {
 
                     // 데이터 추가 호출
@@ -166,8 +165,6 @@ public class NoticeListActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
 
 
 
@@ -233,10 +230,6 @@ public class NoticeListActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
 
 
@@ -270,13 +263,12 @@ public class NoticeListActivity extends AppCompatActivity {
 //                progressBar.setVisibility(View.GONE);
             }
         });
-
-
     }
 
     private void getNetworkData() {
 //      progressBar.setVisibility(View.VISIBLE);
         noticeArrayList.clear();
+
         Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeListActivity.this);
         NoticeApi noticeApi = retrofit.create(NoticeApi.class);
         Log.i("리사이클러뷰 불러오기", "token : "+token + ", offset,limit,count"+ offset + limit + count);
@@ -295,6 +287,8 @@ public class NoticeListActivity extends AppCompatActivity {
                     noticeAdapter = new NoticeAdapter(NoticeListActivity.this, noticeArrayList);
                     recyclerView.setLayoutManager(new LinearLayoutManager(NoticeListActivity.this));
                     recyclerView.setAdapter(noticeAdapter);
+                    noticeAdapter.notifyDataSetChanged();
+
 
                     Log.i("식단표 제대로 되나요 : ", "count: " + count + "offset: " + offset);
 
@@ -315,6 +309,7 @@ public class NoticeListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        noticeArrayList.clear();
         offset = 0;
         getNetworkData();
 

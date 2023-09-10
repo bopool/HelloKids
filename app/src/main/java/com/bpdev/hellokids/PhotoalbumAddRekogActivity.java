@@ -292,25 +292,25 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
 
         // 파일 선택하기 버튼
-        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, 2222);
-
-                //setResult(1111, intent);
-
-                // launcher.launch(intent);
-
-
-                //함수 호출
-                showDialog();
-            }
-        });
+//        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                Intent intent = new Intent(Intent.ACTION_PICK);
+////                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+////                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+////                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+////                startActivityForResult(intent, 2222);
+//
+//                //setResult(1111, intent);
+//
+//                // launcher.launch(intent);
+//
+//
+//                //함수 호출
+//                showDialog();
+//            }
+//        });
 
 
 

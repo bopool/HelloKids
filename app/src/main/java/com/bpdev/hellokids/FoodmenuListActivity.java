@@ -45,7 +45,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
     String date1;
     Button btnSelectDate;
 
-
     RecyclerView recyclerView;
     FoodMenuAdapter foodMenuAdapter;
     ArrayList<FoodMenu> foodMenuArrayList = new ArrayList<>();
@@ -96,7 +95,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                     });
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,8 +126,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnSelectDate = findViewById(R.id.btnSelectDate);
 
         recyclerView = findViewById(R.id.recyclerView);
-
-
         btnCreate = findViewById(R.id.btnCreate);
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +139,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Calendar calendar = Calendar.getInstance();
                 int year1 = calendar.get(Calendar.YEAR);
                 int month1 = calendar.get(Calendar.MONTH);
@@ -171,9 +166,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
                                 } else {
                                     day = "" + day1; // 문자열로 만들기
                                 }
-
                                 date1 = "" + year1 + "-" + month + "-" + day;
-
                                 btnSelectDate.setText(date1);
                             }
                         },
@@ -181,8 +174,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 datePickerDialog.show();
 
             }
-
-
         });
 
 
@@ -204,7 +195,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
 
@@ -323,7 +313,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void getNetworkData() {
@@ -353,7 +342,6 @@ public class FoodmenuListActivity extends AppCompatActivity {
                 } else {
 
                 }
-
             }
 
             @Override

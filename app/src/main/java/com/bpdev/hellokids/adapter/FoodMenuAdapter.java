@@ -47,35 +47,18 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
     }
 
 
-//    public ActivityResultLauncher<Intent> launcher =
-//            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//                    new ActivityResultCallback<ActivityResult>() {
-//                        @Override // ActivityResult가 있다면 동작하라.
-//                        public void onActivityResult(ActivityResult result) {
-//
-//                            // Add Activity로 부터 데이터를 받는 경우
-//                            if( result.getResultCode() == 1 ){
-//
-//                                Employee employee = (Employee) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
-//                                employeeArrayList.add(0, employee); // 목록에 추가
-//                                adapter.notifyDataSetChanged(); // 화면 갱신
-//
-//                            } else if( result.getResultCode() == 2 ){
-//                                Employee employee = (Employee) result.getData().getSerializableExtra("employee"); // 보낸 데이터들 불러오기
-//                                int index = result.getData().getIntExtra("index", 0); // 보낸 인덱스 데이터도 불러오기
-//                                employeeArrayList.set(index, employee); // 이 인덱스 데이터 업데이트 해주세요!
-//                                adapter.notifyDataSetChanged(); // 화면 갱신
-//
-//                            }
-//                        }
-//                    });
-
     @NonNull
     @Override
     public FoodMenuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view;
+        view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_foodmenu, parent, false);
         return new FoodMenuAdapter.ViewHolder(view);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -113,7 +96,6 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
             foodCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        ((FoodmenuListActivity)context).launcher.launch(intent);
 
                         int index = getAdapterPosition();
                         Log.i("어댑터 index" , ""+index);

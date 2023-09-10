@@ -111,7 +111,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="28dp"
+                            android:layout_marginRight="27dp"
                             android:orientation="vertical">
 
                             <ImageButton
@@ -136,7 +136,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="28dp"
+                            android:layout_marginRight="27dp"
                             android:orientation="vertical">
 
                             <ImageButton
@@ -196,7 +196,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="28dp"
+                            android:layout_marginRight="27dp"
                             android:orientation="vertical">
 
                             <ImageButton
@@ -221,7 +221,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="28dp"
+                            android:layout_marginRight="27dp"
                             android:orientation="vertical">
 
                             <ImageButton
@@ -281,7 +281,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="28dp"
+                            android:layout_marginRight="27dp"
                             android:orientation="vertical">
 
                             <ImageButton
