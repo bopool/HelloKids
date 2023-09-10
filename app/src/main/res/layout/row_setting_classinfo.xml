@@ -1,64 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="5dp"
         android:backgroundTint="#FDDDA4"
-        android:padding="20dp">
+        android:padding="20dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="10"
                     android:paddingRight="5dp"
                     android:text="개나리 반"
                     android:textColor="#222222"
-                    android:textSize="17sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginLeft="200dp"
+                    android:layout_width="120dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
                     android:backgroundTint="#F3AF70"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
                     android:text="정보 수정"
                     android:textColor="#000000"
                     android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView31"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="운영  시간 :  "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView29"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="반 인원 수 :  "
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="오전반" />
+
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="10명" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,66 +121,41 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="운영  시간 :  " />
-
-                    <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="반 인원 수 :  " />
-
-                    <TextView
                         android:id="@+id/textView32"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:layout_marginBottom="4dp"
-                        android:text="담          임 :  " />
+                        android:text="담          임 :  "
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView33"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="부     담 임 :  " />
+                        android:layout_height="20dp"
+                        android:text="부     담 임 :  "
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView34"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="오전반" />
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="10명" />
-
-                    <TextView
                         android:id="@+id/textView36"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:layout_marginBottom="4dp"
                         android:text="김선생님" />
 
                     <TextView
                         android:id="@+id/textView37"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:text="최선생님" />
+
                 </LinearLayout>
             </LinearLayout>
 

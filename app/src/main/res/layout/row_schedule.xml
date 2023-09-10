@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="#D8E8DD"
         android:padding="20dp"
         app:cardCornerRadius="8dp"
@@ -39,7 +39,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="4"
                     android:orientation="vertical">
 
@@ -47,34 +47,31 @@
                         android:id="@+id/noticeDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="top|left"
                         android:layout_marginBottom="10dp"
                         android:text="날짜"
                         android:textColor="#9C9C9C"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/noticeTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginBottom="0dp"
                         android:text="여름휴가 공지"
                         android:textColor="#222222"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:translationY="-20dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/noticeContents"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginTop="3dp"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="본 원의 여름휴가는 8월17일부터 8월25일까지 입니다.  더보기"
+                        android:text="본 원의 여름휴가는 8월17일부터 8월 25일까지 입니다.  더보기"
                         android:textAlignment="viewStart"
                         android:textColor="#222222"
                         android:textSize="12sp"

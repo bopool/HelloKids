@@ -1,62 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingRight="10dp">
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="5dp"
         android:backgroundTint="#ffffff"
-        android:padding="20dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/imgTeacherProfile"
+                android:layout_width="76dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/teacher" />
+
+            <TextView
+                android:id="@+id/textTeacherName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="15dp">
+                android:layout_gravity="center"
+                android:layout_marginLeft="18dp"
+                android:text="김솔미 선생님"
+                android:textColor="#222222"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imgTeacherProfile"
-                    android:layout_width="76dp"
-                    android:layout_height="70dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/teacher" />
-
-                <TextView
-                    android:id="@+id/textTeacherName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:text="김솔미 선생님"
-                    android:textColor="#222222"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxAdd"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="70dp"
-                    android:gravity="center"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+            <CheckBox
+                android:id="@+id/checkBoxAdd"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="70dp"
+                android:gravity="center"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
