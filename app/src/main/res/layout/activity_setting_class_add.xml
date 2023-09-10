@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingClassInfoAddActivity">
-
+    tools:context=".SettingClassAddActivity">
 
     <RelativeLayout
         android:id="@+id/menus"
@@ -79,48 +78,21 @@
         <TextView
             android:id="@+id/textPageTitle"
             style="@style/text_title"
-            android:text="어린이집 · 반 등록" />
+            android:text="어린이집 등록" />
 
         <TextView
-            android:id="@+id/textView38"
-            style="@style/text_input_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="어린이집" />
-
-        <androidx.cardview.widget.CardView
-            style="@style/text_input_frame_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp">
-
-            <EditText
-                android:id="@+id/editNurseryName"
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#F4F4F4"
-                android:ems="10"
-                android:hint="어린이집 이름을 입력하세요"
-                android:inputType="text"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColorHint="#BBBBBB"
-                android:textSize="16sp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/btnNurseryCreate"
+            android:id="@+id/textView22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="#A9CB35"
-            android:text="어린이집 등록하기" />
+            android:text="어린이집 선택"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/classSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView39"
@@ -154,16 +126,6 @@
                 android:textSize="16sp" />
 
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:text="반이름 추가"
-            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btnClassCreate"

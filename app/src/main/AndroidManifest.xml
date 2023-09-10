@@ -29,6 +29,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SettingClassAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".AttendanceParentsListActivity"
             android:exported="false" />
 
@@ -103,7 +106,7 @@
             android:name=".SettingClassInfoEditActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingClassInfoAddActivity"
+            android:name=".SettingNurseryAddActivity"
             android:exported="false" />
         <activity
             android:name=".SettingClassinfoActivity"

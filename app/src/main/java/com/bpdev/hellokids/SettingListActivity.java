@@ -63,11 +63,16 @@ public class SettingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(SettingListActivity.this,SettingClassinfoActivity.class);
+                startActivity(intent);
             }
         });
         textKidsSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(SettingListActivity.this,SettingChildinfoActivity.class);
+                startActivity(intent);
 
             }
         });

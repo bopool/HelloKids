@@ -91,22 +91,27 @@
                 android:layout_marginTop="30dp"
                 android:text="반 선택" />
 
-            <Button
-                android:id="@+id/btnSelectClass2"
-                style="@style/btn_select_form1"
+            <Spinner
+                android:id="@+id/classSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="전체반 선택"
-                app:cornerRadius="8dp" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textView39"
                 style="@style/text_input_title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="170dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="원아정보 입력" />
+                android:text="프로필 사진" />
+
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="130dp"
+                app:srcCompat="@drawable/kidsicon" />
 
             <TextView
                 android:id="@+id/textView41"
@@ -196,14 +201,14 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/checkBox"
+                        android:id="@+id/checkBoxW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:text="여아" />
 
                     <CheckBox
-                        android:id="@+id/checkBox2"
+                        android:id="@+id/checkBoxM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
@@ -213,7 +218,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btnAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

@@ -59,16 +59,26 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textPageContents"
-                style="@style/text_title_sub"
-                android:layout_marginBottom="15dp"
-                android:text="반 목록 관리" />
-
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnEditAlbum"
+            android:id="@+id/btnAddNursery"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center|right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#A8CA35"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:text="어린이집 추가 하기"
+            android:textSize="18sp"
+            app:iconPadding="4dp" />
+
+        <Button
+            android:id="@+id/btnAddClass"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center|right"

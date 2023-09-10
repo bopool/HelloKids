@@ -3,14 +3,14 @@ package com.bpdev.hellokids.model;
 public class User {
     // 선생님 사용
     private String teacherName;
-    private String id;
+    private String teacherUserId;
     private String password;
     private String email;
     private String phone;
 
-    public User(String teacherName, String id, String password, String email, String phone) {
+    public User(String teacherName, String teacherUserId, String password, String email, String phone) {
         this.teacherName = teacherName;
-        this.id = id;
+        this.teacherUserId = teacherUserId;
         this.password = password;
         this.email = email;
         this.phone = phone;
@@ -29,12 +29,12 @@ public class User {
         this.teacherName = teacherName;
     }
 
-    public String getId() {
-        return id;
+    public String getTeacherUserId() {
+        return teacherUserId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTeacherUserId(String teacherUserId) {
+        this.teacherUserId = teacherUserId;
     }
 
     public String getPassword() {
