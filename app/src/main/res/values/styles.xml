@@ -136,17 +136,17 @@
         <item name = "android:layout_height">wrap_content</item>
         <item name = "android:layout_gravity">right|top</item>
         <item name = "android:letterSpacing">-0.03</item>
-        <item name = "android:paddingRight">15dp</item>
+        <item name = "android:paddingRight">10dp</item>
         <item name = "android:text">로그인</item>
         <item name = "android:textSize">14sp</item>
         <item name = "android:textStyle">bold</item>
-    </style>
+    </style>ㄴ
     <style name = "top_button2">
         <item name = "android:layout_width">wrap_content</item>
         <item name = "android:layout_height">wrap_content</item>
         <item name = "android:layout_gravity">right|top</item>
         <item name = "android:letterSpacing">-0.03</item>
-        <item name = "android:paddingRight">12dp</item>
+        <item name = "android:paddingRight">10dp</item>
         <item name = "android:text">회원가입</item>
         <item name = "android:textSize">14sp</item>
         <item name = "android:textStyle">bold</item>

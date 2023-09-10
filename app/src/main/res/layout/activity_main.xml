@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|top"
             android:letterSpacing="-0.03"
-            android:paddingRight="15dp"
+            android:paddingRight="10dp"
             android:text="로그인"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|top"
             android:letterSpacing="-0.03"
-            android:paddingRight="12dp"
+            android:paddingRight="10dp"
             android:text="회원가입"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -104,20 +104,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="28dp"
                         android:layout_marginRight="15dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="26dp"
+                            android:layout_marginRight="28dp"
                             android:orientation="vertical">
 
                             <ImageButton
                                 android:id="@+id/btnDailyNote"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
@@ -136,13 +136,13 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="26dp"
+                            android:layout_marginRight="28dp"
                             android:orientation="vertical">
 
                             <ImageButton
                                 android:id="@+id/btnNotice"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
@@ -165,8 +165,8 @@
 
                             <ImageButton
                                 android:id="@+id/btnPhotoAlbum"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
@@ -196,13 +196,13 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="26dp"
+                            android:layout_marginRight="28dp"
                             android:orientation="vertical">
 
                             <ImageButton
                                 android:id="@+id/btnSchedule"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
@@ -221,13 +221,13 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="26dp"
+                            android:layout_marginRight="28dp"
                             android:orientation="vertical">
 
                             <ImageButton
                                 android:id="@+id/btnFoodMenu"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
@@ -250,8 +250,8 @@
 
                             <ImageButton
                                 android:id="@+id/btnAttendance"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
@@ -281,13 +281,13 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="26dp"
+                            android:layout_marginRight="28dp"
                             android:orientation="vertical">
 
                             <ImageButton
                                 android:id="@+id/btnSchoolbus"
-                                android:layout_width="96dp"
-                                android:layout_height="96dp"
+                                android:layout_width="94dp"
+                                android:layout_height="94dp"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:scaleType="centerInside"
