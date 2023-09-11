@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
-    TextView btnLogin;
     ImageButton btnTranslate;
 
     // 하단 바로가기 메뉴 버튼
@@ -58,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
-        btnLogin = findViewById(R.id.btnLogin);
         btnTranslate = findViewById(R.id.btnTranslate);
 
         //
@@ -78,8 +76,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
-
         // -- -- 최상단 헤더 버튼 -- -- //
         // 회원가입 버튼
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -90,15 +86,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-        // 로그인 버튼
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
         // 번역 버튼
 

@@ -59,19 +59,20 @@
 
         <LinearLayout
             android:id="@+id/header"
-            style="@style/top_edit_layout">
+            style="@style/top_edit_layout"
+            android:layout_height="100dp"
+            android:background="@drawable/top_bg_a">
 
             <Button
                 android:id="@+id/btnBack"
-                style="@style/back_button_text_title" />
-
-            <TextView
-                android:id="@+id/btnLogin"
-                style="@style/top_button1" />
+                style="@style/back_button_text_title"
+                android:backgroundTint="#00ffffff"
+                android:gravity="left" />
 
             <TextView
                 android:id="@+id/btnRegister"
-                style="@style/top_button2" />
+                style="@style/top_button2"
+                android:layout_gravity="left" />
 
             <ImageButton
                 android:id="@+id/btnTranslate"
@@ -83,6 +84,7 @@
             android:id="@+id/pageTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <TextView
