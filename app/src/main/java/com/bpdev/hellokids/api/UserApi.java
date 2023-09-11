@@ -1,6 +1,8 @@
 package com.bpdev.hellokids.api;
 
 
+import com.bpdev.hellokids.model.TeacherAll;
+import com.bpdev.hellokids.model.TeacherAllList;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.User1;
 import com.bpdev.hellokids.model.UserRes;
@@ -26,6 +28,9 @@ public interface UserApi {
 
     @GET("/user/teacher/{id}")
     Call<TeacherRes> teacherView(@Path("id") int Id,@Header("Authorization") String token);
+
+    @GET("/user/teacher")
+    Call<TeacherAllList> teacherViewAll(@Header("Authorization") String token);
 //
 //    @DELETE("/user/teacher/<int:id>")
 //    Call<UserRes> delete(@Path("teacherId") int Id);

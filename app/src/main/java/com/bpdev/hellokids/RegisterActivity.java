@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     ImageButton btnTranslate;
     Button btnBack;
 
-    //
+    // 메인 기능
     EditText userName;
     EditText userId;
     EditText editPassword;

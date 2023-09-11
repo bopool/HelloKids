@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingMyInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegisterActivity">
+
+        <LinearLayout
+            android:id="@+id/header"
+            style="@style/top_edit_layout"
+            android:layout_alignParentTop="true">
+
+            <Button
+                android:id="@+id/btnBack"
+                style="@style/back_button_text_title" />
+
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/top_button1" />
+
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/top_button2" />
+
+            <ImageButton
+                android:id="@+id/btnTranslate"
+                style="@style/top_button3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pageTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
+                android:text="내 정보 수정" />
+
+            <TextView
+                android:id="@+id/textPageContents"
+                style="@style/text_title_sub"
+                android:text="어린이집과 담당 반을 등록하세요" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/menus"
+            android:layout_below="@id/pageTitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/container_linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/nurserySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp" />
+
+                        <Spinner
+                            android:id="@+id/classSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp" />
+
+                        <TextView
+                            android:id="@+id/textUserName"
+                            style="@style/text_input_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="이름" />
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/text_input_frame_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <EditText
+                                android:id="@+id/userName"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="#F4F4F4"
+                                android:ems="10"
+                                android:hint="이름을 입력하세요"
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textColorHint="#BBBBBB"
+                                android:textSize="16sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textUserId"
+                            style="@style/text_input_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="아이디" />
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/text_input_frame_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <EditText
+                                android:id="@+id/userId"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="#F4F4F4"
+                                android:ems="10"
+                                android:hint="아이디를 입력하세요"
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textColorHint="#BBBBBB"
+                                android:textSize="16sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textPassword"
+                            style="@style/text_input_title"
+                            android:text="비밀번호" />
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/text_input_frame_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <EditText
+                                android:id="@+id/editPassword"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="#F4F4F4"
+                                android:ems="10"
+                                android:hint="비밀번호를 확인해주세요."
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textColorHint="#BBBBBB"
+                                android:textSize="16sp" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textEmail"
+                            style="@style/text_input_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="이메일" />
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/text_input_frame_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <EditText
+                                android:id="@+id/editEmail"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="#F4F4F4"
+                                android:ems="10"
+                                android:hint="myemail@email.com"
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textColorHint="#BBBBBB"
+                                android:textSize="16sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textPhoneNumber"
+                            style="@style/text_input_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="전화번호" />
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/text_input_frame_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <EditText
+                                android:id="@+id/editPhoneNumber"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="#F4F4F4"
+                                android:ems="10"
+                                android:hint="010-1234-5678"
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textColorHint="#BBBBBB"
+                                android:textSize="16sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <Button
+                            android:id="@+id/btnEdit"
+                            style="@style/btn_move_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="수정하기"
+                            app:cornerRadius="8dp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/menus"
+            style="@style/bottom_menu_layout"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout style="@style/bottom_menu_layout">
+
+                <Button
+                    android:id="@+id/btnBottomHome"
+                    style="@style/btn_bottom_menu1"
+                    app:iconPadding="0dp" />
+
+                <Button
+                    android:id="@+id/btnBottomNotice"
+                    style="@style/btn_bottom_menu2"
+                    app:iconPadding="0dp" />
+
+                <Button
+                    android:id="@+id/btnBottomDailynote"
+                    style="@style/btn_bottom_menu3"
+                    app:iconPadding="0dp" />
+
+                <Button
+                    android:id="@+id/btnBottomSchoolbus"
+                    style="@style/btn_bottom_menu4"
+                    app:iconPadding="0dp" />
+
+                <Button
+                    android:id="@+id/btnBottomSetting"
+                    style="@style/btn_bottom_menu5"
+                    app:iconPadding="0dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

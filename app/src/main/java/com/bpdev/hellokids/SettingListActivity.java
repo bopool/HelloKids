@@ -29,6 +29,7 @@ public class SettingListActivity extends AppCompatActivity {
     TextView textKidsSetting;
     TextView textParentApprove;
     TextView textSchoolbusSetting;
+    TextView textMyInfoSetting;
 
 
 
@@ -57,6 +58,7 @@ public class SettingListActivity extends AppCompatActivity {
         textKidsSetting = findViewById(R.id.textKidsSetting);
         textParentApprove = findViewById(R.id.textParentApprove);
         textSchoolbusSetting = findViewById(R.id.textSchoolbusSetting);
+        textMyInfoSetting = findViewById(R.id.textMyInfoSetting);
 
         // -- -- -- 메인 파트 동작 -- -- -- //
         textNurserySetting.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +89,14 @@ public class SettingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingListActivity.this,SettingSchoolbusListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        textMyInfoSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingListActivity.this,SettingMyInfoActivity.class);
                 startActivity(intent);
             }
         });

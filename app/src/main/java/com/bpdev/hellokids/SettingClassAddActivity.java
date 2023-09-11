@@ -56,7 +56,7 @@ public class SettingClassAddActivity extends AppCompatActivity {
     Button btnClassCreate;
 
     List<String> nurseryNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 어린이집 이름 목록
-    ArrayList<NurseryRes> nurseryResArrayList = new ArrayList<>(); // 버스 목록 조회 api에 쓸 것
+    ArrayList<NurseryRes> nurseryResArrayList = new ArrayList<>(); // 어린이집 목록 조회 api에 쓸 것
 
     ArrayAdapter<String> arrayAdapter; // 스피너에 연결할 어댑터
 
@@ -118,6 +118,8 @@ public class SettingClassAddActivity extends AppCompatActivity {
             public void onFailure(Call<NurseryResList> call, Throwable t) {
             }
         });
+
+
 
         // 스피너에 어댑터 연결
         classSpinner.setAdapter(arrayAdapter);

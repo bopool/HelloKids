@@ -39,6 +39,9 @@ public interface SettingApi {
     @POST("/setting/class/{nurseryId}")
     Call<Result>classAdd(@Path("nurseryId") int nurseryId,@Header("Authorization") String token, @Body MyClass myClass); // 반 등록
 
+    @GET("/setting/class/list/{nurseryId}")
+    Call<ClassList> nurseryClassList(@Path("nurseryId") int nurseryId,@Header("Authorization") String token); // 선택한 어린이집 반 목록 조회
+
     @POST("/setting/child/add/{classId}")
     Call<Result>childAdd(@Path("classId") int classId,@Header("Authorization") String token, @Body ChildInfo childInfo); // 원아 등록
     @Multipart

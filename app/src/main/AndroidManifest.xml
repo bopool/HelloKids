@@ -29,6 +29,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SettingMyInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingChildProfileActivity"
             android:exported="false" />
         <activity
