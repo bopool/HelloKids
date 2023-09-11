@@ -16,4 +16,12 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+
+    <!-- Splash 화면 테마 -->
+    <style name="Theme.HelloKids.Splash">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">#f9f0e3</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">#f9f0e3</item>
+    </style>
 </resources>
