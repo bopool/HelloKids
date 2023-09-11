@@ -120,7 +120,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     String date1;
 
 
-    // 레트로핏 이미지 담기
+    // 앨범에서 사진 선택, 레트로핏 이미지 담기
     File photoUrl;
     File photoFile;
     int classIdTemp;
@@ -131,7 +131,6 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
     // 스피너, 반 이름
     Spinner spinnerClass;
-    ScheduleAdapter adapter;
     ArrayList<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
     ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
     ArrayAdapter<String> arrayAdapter;
@@ -334,9 +333,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                
-                
+
                 Intent intent = new Intent(PhotoalbumAddActivity.this,PhotoalbumListActivity.class);
                 startActivity(intent);
             }
@@ -398,7 +395,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
         
         
-        // 제목과 내용 입력 완료 버튼
+        // 제목과 내용 입력 완료 버튼 -> 클릭시 글 아이디 생성
         btnTextAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -411,7 +408,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String token = sp.getString(Config.ACCESS_TOKEN, "");
 
-                // 메모 만들기
+                // 클래스 만들기
                 PhotoAlbumId photoAlbumId = new PhotoAlbumId( totalAlbumNum );
 
                 Call<Result> call = photoAlbumApi.photoAlbumAddId("Bearer " + token, photoAlbumId);
@@ -464,6 +461,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // 방법 1.)
 //                Intent intent = new Intent(Intent.ACTION_PICK);
 //                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
 //                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -472,10 +470,11 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
                 //setResult(1111, intent);
 
+                // 방법 2.)
                 // launcher.launch(intent);
 
 
-                //함수 호출
+                // 방법 3.) 함수 호출
                 showDialog();
             }
         });
@@ -533,8 +532,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                 RequestBody title = RequestBody.create(title1, MediaType.parse("text/plain"));
                 RequestBody contents = RequestBody.create(contents1, MediaType.parse("text/plain"));
 
-
-
+                
                 //
                 Call<Result> call = photoAlbumApi.photoAlbumAdd("Bearer "+token, classId, date, title, contents, photoUrl);
 
@@ -669,6 +667,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
 
 
+    // 방법 1.) 선택시 실행해야 하는 코드
     // 파일 선택 후 앨범에서 액티비티로 돌아온 후 실행되는 메서드
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -726,6 +725,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 //    }
 
 
+    // 사진의 경로를 파악하기 위해 알아봤던 코드 --> 연결 되는 코드 없음.
 //    /* 이미지 파일을 복사한 후, 그 파일의 절대 경로 반환하는 메소드 */
 //    public String createCopyAndReturnRealPath(Uri uri, String fileName) {
 //        final ContentResolver contentResolver = getContentResolver();
@@ -755,9 +755,10 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 //        }
 //        return file.getAbsolutePath(); // 생성한 파일의 절대경로 반환
 //    }
-//
-//
-//
+
+
+
+    // 사진의 경로를 파악하기 위해 알아봤던 코드 --> 연결 되는 코드 없음.
 //    /* 전체 갤러리 이미지 Uri, 파일명 등을 반환하는 메소드 (권한 있어야 함)*/
 //    //ArrayList<PhotoAlbumUrlList> photoAlbumUrlList
 //    public void getGalleryImage(ArrayList<PhotoAlbumUrlList> photoAlbumUrlList) {
@@ -781,6 +782,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
 
 
+    // 방법 3.) 선택시 실행되는 코드 ----------------------------------------------------- 시작
     // 알러트 다이얼로그
     // alert_title 부분은 리소스폴더 - 벨류 - 스트링스 xml에서 복사해온다
     private void showDialog(){
@@ -1147,5 +1149,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
     void dismissProgress(){
         dialog.dismiss();
     }
+
+    // 방법 3.) 선택시 실행되는 코드 ----------------------------------------------------- 끝.
 
 }

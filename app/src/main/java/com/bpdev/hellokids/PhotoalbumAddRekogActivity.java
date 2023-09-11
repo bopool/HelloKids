@@ -1,11 +1,32 @@
 package com.bpdev.hellokids;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +36,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +47,17 @@ import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
+import com.google.android.gms.common.util.IOUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -53,10 +83,27 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     // 메인 파트 버튼
     Button btnAdd;
     Button btnSelectDate;
+    Button btnPhotoAdd;
+    Button btnSelectPhoto;
+    Button btnRekog1;
+    TextView textTitleShow;
+    TextView textContentShow;
+    ImageView imgPhotoAdd1;
+    ImageView imgPhotoAdd2;
+    ImageView imgPhotoAdd3;
+    ImageView imgPhotoAdd4;
+    ImageView imgPhotoAdd5;
+    ImageView imgPhotoAdd6;
+
 
     // 작성일 선택
     DatePickerDialog datePickerDialog;
     String date1;
+
+    // 앨범에서 사진 선택, 레트로핏 이미지 담기
+    File photoUrl;
+    File photoFile;
+    int classIdTemp;
 
 
     // 스피너, 반 이름
@@ -90,6 +137,19 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+        btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
+        btnPhotoAdd = findViewById(R.id.btnPhotoAdd);
+        btnRekog1 = findViewById(R.id.btnRekog1);
+        textTitleShow = findViewById(R.id.textTitleShow);
+        textContentShow = findViewById(R.id.textContentShow);
+        imgPhotoAdd1 = findViewById(R.id.imgPhotoAdd1);
+        imgPhotoAdd2 = findViewById(R.id.imgPhotoAdd2);
+        imgPhotoAdd3 = findViewById(R.id.imgPhotoAdd3);
+        imgPhotoAdd4 = findViewById(R.id.imgPhotoAdd4);
+        imgPhotoAdd5 = findViewById(R.id.imgPhotoAdd5);
+        imgPhotoAdd6 = findViewById(R.id.imgPhotoAdd6);
+
 
 
 
@@ -292,25 +352,38 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
 
         // 파일 선택하기 버튼
-//        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-////                Intent intent = new Intent(Intent.ACTION_PICK);
-////                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-////                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-////                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-////                startActivityForResult(intent, 2222);
-//
-//                //setResult(1111, intent);
-//
-//                // launcher.launch(intent);
-//
-//
-//                //함수 호출
-//                showDialog();
-//            }
-//        });
+        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent intent = new Intent(Intent.ACTION_PICK);
+//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(intent, 2222);
+
+                //setResult(1111, intent);
+
+                // launcher.launch(intent);
+
+
+                //함수 호출
+                showDialog();
+            }
+        });
+        
+        
+        
+        // 얼굴인식 실행하기 버튼
+        btnRekog1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+        
+        
+        
 
 
 
@@ -402,5 +475,377 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    // -- -- -- -- -- -- 앨범에서 사진 선택하기 위한 함수 -- -- -- -- -- -- //
+    // 알러트 다이얼로그
+    // alert_title 부분은 리소스폴더 - 벨류 - 스트링스 xml에서 복사해온다
+    private void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(PhotoalbumAddRekogActivity.this);
+        builder.setTitle(R.string.alert_title);
+        builder.setItems(R.array.alert_photo, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                if(i==0){
+                    // 첫번째 항목을 눌렀을 때
+                    // 카메라로 사진찍기 실행
+
+                    // 6.
+                    camera();
+
+                }else if(i==1){
+                    // 두번째 항목을 눌렀을 때
+                    // 앨범 선택 했을 때
+
+                    // 7.
+                    album();
+
+                }
+            }
+        });
+        builder.show();
+
+    }
+
+
+
+
+
+    // 카메라 함수
+    private void camera(){
+        int permissionCheck = ContextCompat.checkSelfPermission(
+                PhotoalbumAddRekogActivity.this, android.Manifest.permission.CAMERA);
+
+        if(permissionCheck != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(PhotoalbumAddRekogActivity.this,
+                    new String[]{android.Manifest.permission.CAMERA} ,
+                    1000);
+            Toast.makeText(PhotoalbumAddRekogActivity.this, "카메라 권한 필요합니다.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        } else { // 권한 허가했다면
+            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if(i.resolveActivity(PhotoalbumAddRekogActivity.this.getPackageManager())  != null  ){
+
+                // 사진의 파일명을 만들기
+                String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                photoFile = getPhotoFile(fileName);
+
+                Uri fileProvider = FileProvider.getUriForFile(PhotoalbumAddRekogActivity.this,
+                        // todo : 메니페스트파일에서 안드로이드:어쏘리티즈(authorities) = '' 의 내용과 아래 "" 부분이 같아야 함. + 추가함(김하연)
+                        "com.bpdev.hellokids.fileprovider", photoFile);
+                i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+                startActivityForResult(i, 100);
+
+            } else{ //카메라가 없다면
+                Toast.makeText(PhotoalbumAddRekogActivity.this, "카메라 앱이 없습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
+
+
+    // 사진 가져오는 함수
+    private File getPhotoFile(String fileName) {
+        File storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        try{
+            return File.createTempFile(fileName, ".jpg", storageDirectory);
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+    // 앨범 선택했을때 실행
+    // 체크 퍼미션 함수 가져오기
+    private void album(){
+        if(checkPermission()){
+            displayFileChoose();
+        }else{
+            requestPermission();
+        }
+    }
+
+
+
+
+
+
+    // 체크퍼미션 함수
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(PhotoalbumAddRekogActivity.this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(result == PackageManager.PERMISSION_DENIED){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+
+
+
+    // 리퀘스트 퍼미션
+    private void requestPermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(PhotoalbumAddRekogActivity.this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            Log.i("DEBUGGING5", "true");
+            Toast.makeText(PhotoalbumAddRekogActivity.this, "권한 수락이 필요합니다.",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            Log.i("DEBUGGING6", "false");
+            ActivityCompat.requestPermissions(PhotoalbumAddRekogActivity.this,
+                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 500);
+        }
+    }
+
+
+
+
+
+    private void displayFileChoose() {
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(i, "SELECT IMAGE"), 300);
+    }
+
+
+
+
+
+
+
+    // 권한 설정 알림창(권한 주겠습니까? 뜨는 창)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1000: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(PhotoalbumAddRekogActivity.this, "권한 허가 되었음",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PhotoalbumAddRekogActivity.this, "아직 승인하지 않았음",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+            case 500: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(PhotoalbumAddRekogActivity.this, "권한 허가 되었음",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PhotoalbumAddRekogActivity.this, "아직 승인하지 않았음",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        }
+    }
+
+
+
+
+    // 카메라앱을 실행했으면 카메라를, 또는 앨범을 선택했으면 앨범을 화면에 보여주기
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 100 && resultCode == RESULT_OK){
+
+            Bitmap photo = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+
+            ExifInterface exif = null;
+            try {
+                exif = new ExifInterface(photoFile.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
+            photo = rotateBitmap(photo, orientation);
+
+            // 압축시킨다. 해상도 낮춰서
+            OutputStream os;
+            try {
+                os = new FileOutputStream(photoFile);
+                photo.compress(Bitmap.CompressFormat.JPEG, 50, os);
+                os.flush();
+                os.close();
+            } catch (Exception e) {
+                Log.e(getClass().getSimpleName(), "Error writing bitmap", e);
+            }
+
+            photo = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+
+            imgPhotoAdd1.setImageBitmap(photo);
+            imgPhotoAdd1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            // 네트워크로 데이터 보낸다. ( -> 필요하면 이 자리에 쓴다)
+
+
+
+            // 앨범 선택하면 다음 else 코드 실행
+        }else if(requestCode == 300 && resultCode == RESULT_OK && data != null &&
+                data.getData() != null){
+
+            Uri albumUri = data.getData( );
+            String fileName = getFileName( albumUri );
+
+            try {
+
+                ParcelFileDescriptor parcelFileDescriptor = getContentResolver( ).openFileDescriptor( albumUri, "r" );
+                if ( parcelFileDescriptor == null ) return;
+
+                FileInputStream inputStream = new FileInputStream( parcelFileDescriptor.getFileDescriptor( ) );
+
+                photoFile = new File( this.getCacheDir( ), fileName );
+
+                FileOutputStream outputStream = new FileOutputStream( photoFile );
+                IOUtils.copyStream( inputStream, outputStream );
+
+
+
+//                //임시파일 생성
+//                File file = createImgCacheFile( );
+//                String cacheFilePath = file.getAbsolutePath( );
+
+
+                // 압축시킨다. 해상도 낮춰서
+                Bitmap photo = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                OutputStream os;
+                try {
+                    os = new FileOutputStream(photoFile);
+                    photo.compress(Bitmap.CompressFormat.JPEG, 60, os);
+                    os.flush();
+                    os.close();
+                } catch (Exception e) {
+                    Log.e(getClass().getSimpleName(), "Error writing bitmap", e);
+                }
+
+                // todo : 사진 여러장 화면에 보여주기 코드 추가하기
+
+                imgPhotoAdd1.setImageBitmap(photo);
+                imgPhotoAdd1.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+//                imageView.setImageBitmap( getBitmapAlbum( imageView, albumUri ) );
+
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+
+            // 네트워크로 보낸다.(-->네트워크로 보내는게 필요하다면 여기에 적으면 된다)
+
+
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+
+    // 로테이트비트맵
+    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_NORMAL:
+                return bitmap;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle();
+            return bmRotated;
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
+
+
+    //앨범에서 선택한 사진이름 가져오기
+    public String getFileName( Uri uri ) {
+        Cursor cursor = getContentResolver( ).query( uri, null, null, null, null );
+        try {
+            if ( cursor == null ) return null;
+            cursor.moveToFirst( );
+            @SuppressLint("Range") String fileName = cursor.getString( cursor.getColumnIndex( OpenableColumns.DISPLAY_NAME ) );
+            cursor.close( );
+            return fileName;
+
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+            cursor.close( );
+            return null;
+        }
+    }
+
+
+
+
+    // 다이얼로그
+    // 멤버변수
+    Dialog dialog;
+
+    //다이얼로그 띄우기
+    //- 데이터베이스에 집어 넣는 동안 다른 행동 못 하도록 다이얼로그 띄워서 터치 막기
+    void showProgress(){
+        dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(new ProgressBar(this));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+
+    //다이얼로그 없애기
+    void dismissProgress(){
+        dialog.dismiss();
     }
 }
