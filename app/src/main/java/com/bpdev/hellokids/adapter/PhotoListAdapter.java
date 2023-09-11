@@ -91,9 +91,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
         TextView textContent;
         Button btnView;
         ImageView imgPhoto1;
-        ImageView imgPhoto2;
-        ImageView imgPhoto3;
-        ImageView imgPhoto4;
         CardView cardView;
 
 
@@ -107,9 +104,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
             textContent = itemView.findViewById(R.id.textContent);
             btnView = itemView.findViewById(R.id.btnView);
             imgPhoto1 = itemView.findViewById(R.id.imgPhoto1);
-            imgPhoto2 = itemView.findViewById(R.id.imgPhoto2);
-            imgPhoto3 = itemView.findViewById(R.id.imgPhoto3);
-            imgPhoto4 = itemView.findViewById(R.id.imgPhoto4);
             cardView = itemView.findViewById(R.id.cardView);
 
 

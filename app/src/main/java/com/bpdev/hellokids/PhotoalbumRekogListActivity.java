@@ -34,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PhotoalbumListActivity extends AppCompatActivity {
+public class PhotoalbumRekogListActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -50,7 +50,9 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
     // 메인 파트 버튼
     Button btnSelectDate;
-    Button btntoRekog;
+
+
+
 
     // 사진 관련 버튼
     Button btnCreate;
@@ -72,11 +74,10 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photoalbum_list);
+        setContentView(R.layout.activity_photoalbum_rekog_list);
 
 
         // -- -- -- 화면 연결 -- -- -- //
@@ -96,7 +97,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         // 메인 파트 버튼 연결
         btnSelectDate = findViewById(R.id.btnSelectDate);
         btnCreate = findViewById(R.id.btnCreate);
-        btntoRekog = findViewById(R.id.btntoRekog);
+
 
         // 리사이클러 뷰
         recyclerView = findViewById(R.id.recyclerView);
@@ -109,47 +110,14 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
 
 
-
         // -- -- 메인 파트 버튼 -- -- //
 
-
-        // 자동으로 사진첩 목록 불러오기
-
-
-
-
-        // 사진첩 만들기
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this, PhotoalbumAddActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        // 원아별 사진첩 이동 버튼
-        btntoRekog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this, PhotoalbumRekogListActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-        // todo : 사진첩 목록 가져오기 API 만들고 오기 : 0907 - 만드는 중.
-        // todo : 사진첩 목록은 선생님 아이디와 반 아이디로 가져오기
-        // todo : 반 별 목록 중, 같은 폴더 사진 가져오는 것은 따로 API 만들어야 함. : 어댑터에서 사용하자
-        // 반 선택 하기
-        // - 선생님이 속한 원의 반을 자동으로 가져와서 띄움.
         // 스피너
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // 스피너에 반 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumListActivity.this);
+        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogListActivity.this);
 
         SettingApi api = retrofit.create(SettingApi.class);
 
@@ -295,7 +263,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
                 int month1 = calendar.get(Calendar.MONTH);
                 int day1 = calendar.get(Calendar.DAY_OF_MONTH);
 
-                datePickerDialog = new DatePickerDialog(PhotoalbumListActivity.this,
+                datePickerDialog = new DatePickerDialog(PhotoalbumRekogListActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year1, int month1, int day1) {
@@ -331,9 +299,14 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
 
 
-
-
-
+        // 원아별 사진첩 만들기 버튼
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this, PhotoalbumRekogActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -346,7 +319,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -356,7 +329,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this,LoginActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -369,7 +342,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this, MainActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -379,7 +352,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -389,7 +362,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumListActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -401,7 +374,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 선생님화면
-                Intent intent = new Intent(PhotoalbumListActivity.this, SchoolbusListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this, SchoolbusListActivity.class);
                 startActivity(intent);
 
                 // 학부모화면
@@ -416,11 +389,9 @@ public class PhotoalbumListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PhotoalbumListActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogListActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });
-
     }
-
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PhotoalbumListActivity">
+    tools:context=".PhotoalbumRekogListActivity">
 
     <RelativeLayout
         android:id="@+id/menus"
@@ -77,12 +77,12 @@
         <TextView
             android:id="@+id/textPageTitle"
             style="@style/text_title"
-            android:text="사진첩" />
+            android:text="원아별 사진첩" />
 
         <TextView
             android:id="@+id/textView4"
             style="@style/text_title_sub"
-            android:text="소중한 추억을 사진첩에 담아봅니다" />
+            android:text="원아별 사진을 모아 볼 수 있습니다." />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,12 +127,12 @@
             <Button
                 android:id="@+id/btnCreate"
                 style="@style/btn_move_activity"
-                android:layout_marginBottom="5dp"
-                android:text="사진첩 만들기"
+                android:layout_marginBottom="10dp"
+                android:text="원아별 사진첩 만들기"
                 app:cornerRadius="8dp" />
 
             <Button
-                android:id="@+id/btntoRekog"
+                android:id="@+id/btnRekog2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -141,9 +141,10 @@
                 android:backgroundTint="#8D96FC"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="원아별 사진첩으로 이동"
+                android:text="원아별 사진 폴더 생성 및 자동분류"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

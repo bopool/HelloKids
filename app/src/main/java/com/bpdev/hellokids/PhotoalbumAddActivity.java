@@ -39,7 +39,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 
-import com.bpdev.hellokids.adapter.ScheduleAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.PhotoAlbumApi;
 import com.bpdev.hellokids.api.SettingApi;
@@ -187,7 +186,6 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
 
         // -- -- -- 메인 파트 동작 -- -- -- //
 
-
         // 스피너
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -334,7 +332,7 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PhotoalbumAddActivity.this,PhotoalbumListActivity.class);
+                Intent intent = new Intent(PhotoalbumAddActivity.this, PhotoalbumListActivity.class);
                 startActivity(intent);
             }
         });
@@ -567,6 +565,17 @@ public class PhotoalbumAddActivity extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+
+        // 원아별 폴더 생성 및 자동분류 버튼
+        btnRekog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(PhotoalbumAddActivity.this, PhotoalbumRekogActivity.class);
+                startActivity(intent);
             }
         });
 

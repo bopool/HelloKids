@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".PhotoalbumAddActivity">
+    tools:context=".PhotoalbumRekogActivity">
 
 
     <ScrollView
@@ -168,6 +168,21 @@
                         android:layout_weight="1"
                         android:text="제목 가져와서 보여주기" />
 
+                    <EditText
+                        android:id="@+id/textInputTitle2"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="#F4F4F4"
+                        android:ems="10"
+                        android:hint="사진첩 제목을 입력하세요"
+                        android:inputType="text"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColorHint="#BBBBBB"
+                        android:textSize="16sp" />
+
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
@@ -187,11 +202,27 @@
                     style="@style/text_input_frame_cardview"
                     app:cardCornerRadius="8dp">
 
+                    <EditText
+                        android:id="@+id/textInputContents2"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_margin="10dp"
+                        android:background="#F4F4F4"
+                        android:ems="10"
+                        android:gravity="top|left"
+                        android:hint="사진첩 내용을 입력하세요"
+                        android:inputType="text"
+                        android:maxLines="10"
+                        android:padding="5dp"
+                        android:singleLine="false"
+                        android:textColorHint="#BBBBBB"
+                        android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/textContentShow"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="100dp"
                         android:layout_margin="10dp"
                         android:text="내용 보여주기" />
 
@@ -221,27 +252,12 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnRekog1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#8D96FC"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="얼굴인식 실행하기"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="60dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/baseline_add_photo_alternate_24"
                     android:backgroundTint="#F4F4F4"
                     android:padding="20dp"
@@ -256,100 +272,97 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center|right"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/imgPhotoAdd1"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:orientation="vertical">
 
-                            <Button
-                                android:id="@+id/btnSelectPhoto"
-                                style="@style/btn_detail_green_left"
-                                android:layout_width="110dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="bottom|right"
-                                android:layout_marginRight="20dp"
-                                android:foregroundGravity="right"
-                                android:text="원아 프로필 선택"
-                                android:textSize="10sp"
-                                android:visibility="visible"
-                                app:cornerRadius="8dp" />
+                                <ImageView
+                                    android:id="@+id/imgPhotoAdd1"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/kidsicon" />
+
+                                <Button
+                                    android:id="@+id/btnSelectPhoto"
+                                    style="@style/btn_detail_green_left"
+                                    android:layout_width="110dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="bottom|right"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:foregroundGravity="right"
+                                    android:text="원아 프로필 선택"
+                                    android:textSize="10sp"
+                                    android:visibility="visible"
+                                    app:cornerRadius="8dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imgPhotoAdd2"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+                                <Button
+                                    android:id="@+id/btnPhotoAdd"
+                                    style="@style/btn_detail_green_left"
+                                    android:layout_width="100dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:text="추  가"
+                                    android:textSize="10sp"
+                                    app:cornerRadius="8dp" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
-                        <LinearLayout
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/photoRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_weight="1"
-                            android:minHeight="120dp"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/imgPhotoAdd2"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
-
-                            <ImageView
-                                android:id="@+id/imgPhotoAdd3"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
-
-                            <ImageView
-                                android:id="@+id/imgPhotoAdd4"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
-
-                            <ImageView
-                                android:id="@+id/imgPhotoAdd5"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
-
-                            <ImageView
-                                android:id="@+id/imgPhotoAdd6"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/photoRecyclerView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                app:reverseLayout="false" />
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/btnPhotoAdd"
-                            style="@style/btn_detail_green_left"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="bottom|right"
-                            android:layout_marginRight="20dp"
-                            android:foregroundGravity="right"
-                            android:text="사진 선택"
-                            android:textSize="10sp"
-                            app:cornerRadius="8dp" />
+                            android:visibility="gone"
+                            app:reverseLayout="false" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnRekog1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="#8D96FC"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="얼굴인식 실행하기"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
 
 
         </LinearLayout>

@@ -1,5 +1,7 @@
 package com.bpdev.hellokids;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +35,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -65,7 +66,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PhotoalbumAddRekogActivity extends AppCompatActivity {
+public class PhotoalbumRekogActivity extends AppCompatActivity {
 
     // 최상단 헤더 버튼
     TextView btnRegister;
@@ -90,10 +91,6 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     TextView textContentShow;
     ImageView imgPhotoAdd1;
     ImageView imgPhotoAdd2;
-    ImageView imgPhotoAdd3;
-    ImageView imgPhotoAdd4;
-    ImageView imgPhotoAdd5;
-    ImageView imgPhotoAdd6;
 
 
     // 작성일 선택
@@ -122,7 +119,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photoalbum_add_rekog);
+        setContentView(R.layout.activity_photoalbum_rekog);
 
 
         // 최상단 헤더 버튼 화면 연결
@@ -146,13 +143,6 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         textContentShow = findViewById(R.id.textContentShow);
         imgPhotoAdd1 = findViewById(R.id.imgPhotoAdd1);
         imgPhotoAdd2 = findViewById(R.id.imgPhotoAdd2);
-        imgPhotoAdd3 = findViewById(R.id.imgPhotoAdd3);
-        imgPhotoAdd4 = findViewById(R.id.imgPhotoAdd4);
-        imgPhotoAdd5 = findViewById(R.id.imgPhotoAdd5);
-        imgPhotoAdd6 = findViewById(R.id.imgPhotoAdd6);
-
-
-
 
         // 스피너 연결
         spinnerClass = findViewById(R.id.spinnerClass);
@@ -164,7 +154,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // 스피너에 반 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumAddRekogActivity.this);
+        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
         SettingApi api = retrofit.create(SettingApi.class);
 
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -295,14 +285,14 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
 
         // 등록하기 버튼
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this,PhotoalbumListActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent = new Intent(PhotoalbumAddRekogActivity.this,PhotoalbumListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         // 작성일 선택 버튼
@@ -317,7 +307,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
                 int month1 = calendar.get(Calendar.MONTH);
                 int day1 = calendar.get(Calendar.DAY_OF_MONTH);
 
-                datePickerDialog = new DatePickerDialog(PhotoalbumAddRekogActivity.this,
+                datePickerDialog = new DatePickerDialog(PhotoalbumRekogActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year1, int month1, int day1) {
@@ -362,6 +352,12 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         });
 
 
+        // 원아 프로필 사진 이미지 뷰에 나타내기
+        // 이미지뷰를 클릭하면 리사이클러뷰가 나타나서 원아를 선택할 수 있음.
+
+        //imgPhotoAdd1
+
+
 
         // 이미지 뷰 클릭해서 사진 선택
         imgPhotoAdd2.setOnClickListener(new View.OnClickListener() {
@@ -374,59 +370,6 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
                 //
                 imgPhotoAdd2.setImageBitmap(photo);
                 imgPhotoAdd2.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            }
-        });
-
-
-        imgPhotoAdd3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //함수 호출
-                showDialog();
-
-                //
-                imgPhotoAdd3.setImageBitmap(photo);
-                imgPhotoAdd3.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            }
-        });
-
-        imgPhotoAdd4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //함수 호출
-                showDialog();
-
-                //
-                imgPhotoAdd4.setImageBitmap(photo);
-                imgPhotoAdd4.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            }
-        });
-
-        imgPhotoAdd5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //함수 호출
-                showDialog();
-
-                //
-                imgPhotoAdd5.setImageBitmap(photo);
-                imgPhotoAdd5.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            }
-        });
-
-        imgPhotoAdd6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //함수 호출
-                showDialog();
-
-                //
-                imgPhotoAdd6.setImageBitmap(photo);
-                imgPhotoAdd6.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             }
         });
 
@@ -453,7 +396,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -463,7 +406,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this,LoginActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -478,7 +421,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this, MainActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -488,7 +431,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -498,7 +441,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -510,7 +453,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 선생님화면
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this, SchoolbusListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, SchoolbusListActivity.class);
                 startActivity(intent);
 
                 // 학부모화면
@@ -524,7 +467,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         btnBottomSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumAddRekogActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });
@@ -543,7 +486,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     // 알러트 다이얼로그
     // alert_title 부분은 리소스폴더 - 벨류 - 스트링스 xml에서 복사해온다
     private void showDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(PhotoalbumAddRekogActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PhotoalbumRekogActivity.this);
         builder.setTitle(R.string.alert_title);
         builder.setItems(R.array.alert_photo, new DialogInterface.OnClickListener() {
             @Override
@@ -577,31 +520,31 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     // 카메라 함수
     private void camera(){
         int permissionCheck = ContextCompat.checkSelfPermission(
-                PhotoalbumAddRekogActivity.this, android.Manifest.permission.CAMERA);
+                PhotoalbumRekogActivity.this, android.Manifest.permission.CAMERA);
 
         if(permissionCheck != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(PhotoalbumAddRekogActivity.this,
+            ActivityCompat.requestPermissions(PhotoalbumRekogActivity.this,
                     new String[]{android.Manifest.permission.CAMERA} ,
                     1000);
-            Toast.makeText(PhotoalbumAddRekogActivity.this, "카메라 권한 필요합니다.",
+            Toast.makeText(PhotoalbumRekogActivity.this, "카메라 권한 필요합니다.",
                     Toast.LENGTH_SHORT).show();
             return;
         } else { // 권한 허가했다면
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if(i.resolveActivity(PhotoalbumAddRekogActivity.this.getPackageManager())  != null  ){
+            if(i.resolveActivity(PhotoalbumRekogActivity.this.getPackageManager())  != null  ){
 
                 // 사진의 파일명을 만들기
                 String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 photoFile = getPhotoFile(fileName);
 
-                Uri fileProvider = FileProvider.getUriForFile(PhotoalbumAddRekogActivity.this,
+                Uri fileProvider = FileProvider.getUriForFile(PhotoalbumRekogActivity.this,
                         // todo : 메니페스트파일에서 안드로이드:어쏘리티즈(authorities) = '' 의 내용과 아래 "" 부분이 같아야 함. + 추가함(김하연)
                         "com.bpdev.hellokids.fileprovider", photoFile);
                 i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
                 startActivityForResult(i, 100);
 
             } else{ //카메라가 없다면
-                Toast.makeText(PhotoalbumAddRekogActivity.this, "카메라 앱이 없습니다.",
+                Toast.makeText(PhotoalbumRekogActivity.this, "카메라 앱이 없습니다.",
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -646,7 +589,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
     // 체크퍼미션 함수
     private boolean checkPermission(){
-        int result = ContextCompat.checkSelfPermission(PhotoalbumAddRekogActivity.this,
+        int result = ContextCompat.checkSelfPermission(PhotoalbumRekogActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(result == PackageManager.PERMISSION_DENIED){
             return false;
@@ -661,14 +604,14 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
     // 리퀘스트 퍼미션
     private void requestPermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(PhotoalbumAddRekogActivity.this,
+        if(ActivityCompat.shouldShowRequestPermissionRationale(PhotoalbumRekogActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE)){
             Log.i("DEBUGGING5", "true");
-            Toast.makeText(PhotoalbumAddRekogActivity.this, "권한 수락이 필요합니다.",
+            Toast.makeText(PhotoalbumRekogActivity.this, "권한 수락이 필요합니다.",
                     Toast.LENGTH_SHORT).show();
         }else{
             Log.i("DEBUGGING6", "false");
-            ActivityCompat.requestPermissions(PhotoalbumAddRekogActivity.this,
+            ActivityCompat.requestPermissions(PhotoalbumRekogActivity.this,
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 500);
         }
     }
@@ -696,20 +639,20 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         switch (requestCode) {
             case 1000: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(PhotoalbumAddRekogActivity.this, "권한 허가 되었음",
+                    Toast.makeText(PhotoalbumRekogActivity.this, "권한 허가 되었음",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(PhotoalbumAddRekogActivity.this, "아직 승인하지 않았음",
+                    Toast.makeText(PhotoalbumRekogActivity.this, "아직 승인하지 않았음",
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
             case 500: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(PhotoalbumAddRekogActivity.this, "권한 허가 되었음",
+                    Toast.makeText(PhotoalbumRekogActivity.this, "권한 허가 되었음",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(PhotoalbumAddRekogActivity.this, "아직 승인하지 않았음",
+                    Toast.makeText(PhotoalbumRekogActivity.this, "아직 승인하지 않았음",
                             Toast.LENGTH_SHORT).show();
                 }
 
@@ -815,8 +758,6 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 
 
     // 로테이트비트맵
