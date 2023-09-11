@@ -57,51 +57,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout style="@style/top_image_layout">
-
-            <TextView
-                android:id="@+id/btnLogin"
-                style="@style/top_button1"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/btnRegister"
-                style="@style/top_button2"
-                android:visibility="invisible" />
+        <LinearLayout
+            style="@style/top_image_layout"
+            android:gravity="right">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
                 android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/btnTranslate"
-                    style="@style/top_button3" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/btnLogin"
+                        style="@style/top_button1"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/btnRegister"
+                        style="@style/top_button2"
+                        android:visibility="visible" />
+
+                    <ImageButton
+                        android:id="@+id/btnTranslate"
+                        style="@style/top_button3" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="0dp"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardViewEn"
                         style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:backgroundTint="@color/white"
+                        android:layout_width="80dp"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="0dp"
+                        android:backgroundTint="#D8E38A"
+                        android:padding="5dp"
                         android:visibility="invisible"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
+                        app:cardCornerRadius="3dp">
 
                         <TextView
                             android:id="@+id/textEn"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#D9E48B"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="3dp"
                             android:text="English"
-                            android:textSize="12sp"
+                            android:textAlignment="center"
+                            android:textColor="#5D8E62"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:visibility="invisible" />
                     </androidx.cardview.widget.CardView>
@@ -109,21 +123,25 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardViewCn"
                         style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:backgroundTint="@color/white"
+                        android:layout_width="80dp"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="0dp"
+                        android:backgroundTint="#D8E38A"
+                        android:padding="5dp"
                         android:visibility="invisible"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
+                        app:cardCornerRadius="3dp">
 
                         <TextView
                             android:id="@+id/textCn"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#D9E48B"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="3dp"
                             android:text="汉语"
-                            android:textSize="12sp"
+                            android:textAlignment="center"
+                            android:textColor="#5D8E62"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:visibility="invisible" />
 
@@ -133,21 +151,25 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardViewVi"
                         style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:backgroundTint="@color/white"
+                        android:layout_width="80dp"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="0dp"
+                        android:backgroundTint="#D8E38A"
+                        android:padding="5dp"
                         android:visibility="invisible"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
+                        app:cardCornerRadius="3dp">
 
                         <TextView
                             android:id="@+id/textVi"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#D9E48B"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="3dp"
                             android:text="Tiếng Việt"
-                            android:textSize="12sp"
+                            android:textAlignment="center"
+                            android:textColor="#5D8E62"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:visibility="invisible" />
 
@@ -156,21 +178,25 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardViewTh"
                         style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:backgroundTint="@color/white"
+                        android:layout_width="80dp"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="0dp"
+                        android:backgroundTint="#D8E38A"
+                        android:padding="5dp"
                         android:visibility="invisible"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
+                        app:cardCornerRadius="3dp">
 
                         <TextView
                             android:id="@+id/textTh"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#D9E48B"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="3dp"
                             android:text="ภาษาไทย"
-                            android:textSize="12sp"
+                            android:textAlignment="center"
+                            android:textColor="#5D8E62"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:visibility="invisible" />
 
@@ -179,21 +205,25 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardViewJa"
                         style="@style/text_input_frame_cardview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:backgroundTint="@color/white"
+                        android:layout_width="80dp"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="0dp"
+                        android:backgroundTint="#D8E38A"
+                        android:padding="5dp"
                         android:visibility="invisible"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
+                        app:cardCornerRadius="3dp">
 
                         <TextView
                             android:id="@+id/textJa"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#D9E48B"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="3dp"
                             android:text="日本語"
-                            android:textSize="12sp"
+                            android:textAlignment="center"
+                            android:textColor="#5D8E62"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:visibility="invisible" />
 
@@ -269,42 +299,28 @@
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/textTitle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal">
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="놀이와 발달 강연 진행 안내"
+                                android:textColor="#222222"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:id="@+id/textTitle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
-                                    android:text="놀이와 발달 강연 진행 안내"
-                                    android:textColor="#222222"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/textContents"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="8월 26일에는 놀이와 발달을 주제로 강연을 진행했습니다"
+                                android:textColor="#222222"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
 
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textContents"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="8월 26일에는 놀이와 발달을 주제로 강연을 진행했습니다"
-                            android:textColor="#222222"
-                            android:textSize="12sp"
-                            android:textStyle="normal" />
                     </LinearLayout>
 
                 </LinearLayout>
