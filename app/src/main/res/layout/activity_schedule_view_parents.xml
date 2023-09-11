@@ -61,21 +61,153 @@
 
             <TextView
                 android:id="@+id/btnLogin"
-                style="@style/top_button1" />
+                style="@style/top_button1"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/btnRegister"
-                style="@style/top_button2" />
+                style="@style/top_button2"
+                android:visibility="invisible" />
 
-            <ImageButton
-                android:id="@+id/btnTranslate"
-                style="@style/top_button3" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnTranslate"
+                    style="@style/top_button3" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewEn"
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/white"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <TextView
+                            android:id="@+id/textEn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#D9E48B"
+                            android:text="English"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewCn"
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/white"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <TextView
+                            android:id="@+id/textCn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#D9E48B"
+                            android:text="汉语"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewVi"
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/white"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <TextView
+                            android:id="@+id/textVi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#D9E48B"
+                            android:text="Tiếng Việt"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewTh"
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/white"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <TextView
+                            android:id="@+id/textTh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#D9E48B"
+                            android:text="ภาษาไทย"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewJa"
+                        style="@style/text_input_frame_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/white"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <TextView
+                            android:id="@+id/textJa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#D9E48B"
+                            android:text="日本語"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView

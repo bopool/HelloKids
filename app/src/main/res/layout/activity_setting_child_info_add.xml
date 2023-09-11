@@ -100,23 +100,6 @@
                 android:layout_marginRight="20dp" />
 
             <TextView
-                android:id="@+id/textView39"
-                style="@style/text_input_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="170dp"
-                android:layout_marginTop="30dp"
-                android:layout_weight="1"
-                android:text="프로필 사진" />
-
-            <ImageView
-                android:id="@+id/imgProfile"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="130dp"
-                app:srcCompat="@drawable/kidsicon" />
-
-            <TextView
                 android:id="@+id/textView41"
                 style="@style/text_input_title"
                 android:layout_width="match_parent"
