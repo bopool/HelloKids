@@ -50,6 +50,7 @@ import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.DailyNote;
 import com.bpdev.hellokids.model.DailyNoteRow;
 import com.bpdev.hellokids.model.FoodMenu;
+import com.bpdev.hellokids.model.FoodMenuList;
 import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.Result;
 import com.bumptech.glide.Glide;
@@ -231,13 +232,15 @@ public class FoodmenuEditActivity extends AppCompatActivity {
         });
 
 
-        foodMenuArrayList = (ArrayList<FoodMenu>) getIntent().getSerializableExtra("foodMenuArrayList");
-        index = getIntent().getIntExtra("index", 0);
-        textContents.setText(foodMenuArrayList.get(index).getMealContent()+"");
-        textCategory.setText(foodMenuArrayList.get(index).getMealType()+"");
-        btnSelectDate.setText(foodMenuArrayList.get(index).getMealDate()+"");
+        Intent intent = getIntent();
+        index = intent.getIntExtra("index", 0);
+        foodMenu = (FoodMenu) intent.getSerializableExtra("foodMenu");
+
+        textContents.setText(foodMenu.getMealContent());
+        textCategory.setText(foodMenu.getMealType());
+        btnSelectDate.setText(foodMenu.getMealDate());
         Glide.with(FoodmenuEditActivity.this)
-                .load(foodMenuArrayList.get(index).getMealPhotoUrl())
+                .load(foodMenu.getMealPhotoUrl())
                 .into(mealPhoto);
 
 
@@ -295,7 +298,6 @@ public class FoodmenuEditActivity extends AppCompatActivity {
                 } else {
                     foodDate = date1;
                 }
-                int id = index;
                 if(foodContent.isEmpty() || foodType.isEmpty() || foodDate.isEmpty()){
                     Snackbar.make(btnEdit, "필수항목을 모두 입력하세요.", Snackbar.LENGTH_SHORT).show();
                     return;
@@ -306,6 +308,8 @@ public class FoodmenuEditActivity extends AppCompatActivity {
                 FoodMenuApi foodMenuApi = retrofit.create(FoodMenuApi.class);
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
+
+                int id = foodMenu.getId();
 
                 if (photoFile == null) {
                     RequestBody mealDate = RequestBody.create(foodDate, MediaType.parse("text/plain"));

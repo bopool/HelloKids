@@ -133,7 +133,7 @@ public class FoodmenuViewActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FoodmenuViewActivity.this, FoodmenuEditActivity.class);
-                intent.putExtra("foodMenuArrayList",foodMenuArrayList);
+                intent.putExtra("foodMenu",foodMenu);
                 intent.putExtra("index",index);
                 startActivity(intent);
 
