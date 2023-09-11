@@ -91,22 +91,32 @@
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView21"
-                style="@style/text_input_title"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="반 선택"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinnerClass2"
-                style="@style/btn_select_form1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="반 선택"
-                app:cornerRadius="8dp"
-                app:iconGravity="end" />
+                <TextView
+                    android:id="@+id/textView21"
+                    style="@style/text_input_title"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="0dp"
+                    android:text="반 선택"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerClass2"
+                    style="@style/btn_select_form1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="반 선택"
+                    app:cornerRadius="8dp"
+                    app:iconGravity="end" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSelectDate"

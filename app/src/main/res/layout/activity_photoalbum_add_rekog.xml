@@ -111,8 +111,10 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnAdd"
+                    android:id="@+id/btnAdd2"
                     style="@style/btn_move_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="등록하기"
                     app:cornerRadius="8dp" />
 
@@ -159,7 +161,7 @@
                     app:cardCornerRadius="8dp">
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/textTitleShow"
                         style="@style/text_input_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -186,7 +188,7 @@
                     app:cardCornerRadius="8dp">
 
                     <TextView
-                        android:id="@+id/textView25"
+                        android:id="@+id/textContentShow"
                         style="@style/text_input_title"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
@@ -219,6 +221,21 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btnRekog1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#8D96FC"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="얼굴인식 실행하기"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -240,6 +257,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|right"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -268,6 +286,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:layout_marginTop="20dp"
+                            android:layout_weight="1"
                             android:minHeight="120dp"
                             android:orientation="horizontal">
 
