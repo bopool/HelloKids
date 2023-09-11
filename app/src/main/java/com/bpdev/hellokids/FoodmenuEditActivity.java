@@ -76,14 +76,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class FoodmenuEditActivity extends AppCompatActivity {
-    // 스피너, 반 이름
-    ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api
-    String[] classNameList = {};
-    Spinner spinnerSelectClass;
-    ArrayList<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
-    ArrayAdapter<String> arrayAdapter;
-    HashMap<String, Integer> map = new HashMap<>(); // 스피너 반이름 클릭 시 데이터의 id 반환
-    int classId1;
+
 
 
     // 최상단 헤더 버튼

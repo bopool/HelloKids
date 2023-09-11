@@ -27,10 +27,6 @@ public class NoticeEditActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +45,6 @@ public class NoticeEditActivity extends AppCompatActivity {
         btnBottomSetting = findViewById(R.id.btnBottomSetting);
 
         // 메인 파트 화면 연결
-
-
 
 
 

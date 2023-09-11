@@ -279,7 +279,7 @@ public class NoticeListActivity extends AppCompatActivity {
 //                progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
 
-                    Log.i("식단표 제대로 되나요 : ", "성공");
+                    Log.i("공지사항 제대로 되나요 : ", "성공");
                     NoticeRes noticeRes = response.body();
                     count = noticeRes.getCount();
                     offset = offset + count;
@@ -287,10 +287,9 @@ public class NoticeListActivity extends AppCompatActivity {
                     noticeAdapter = new NoticeAdapter(NoticeListActivity.this, noticeArrayList);
                     recyclerView.setLayoutManager(new LinearLayoutManager(NoticeListActivity.this));
                     recyclerView.setAdapter(noticeAdapter);
-                    noticeAdapter.notifyDataSetChanged();
 
 
-                    Log.i("식단표 제대로 되나요 : ", "count: " + count + "offset: " + offset);
+                    Log.i("공지사항 제대로 되나요 : ", "count: " + count + "offset: " + offset);
 
                 } else {
 

@@ -355,6 +355,7 @@ public class FoodmenuListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        foodMenuArrayList.clear();
         offset = 0;
         getNetworkData();
 

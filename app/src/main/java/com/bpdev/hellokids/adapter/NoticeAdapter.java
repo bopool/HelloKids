@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bpdev.hellokids.FoodmenuViewActivity;
+import com.bpdev.hellokids.NoticeListActivity;
 import com.bpdev.hellokids.NoticeViewActivity;
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.model.Notice;
@@ -48,7 +48,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Notice notice = noticeArrayList.get(position);
-        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" +position);
+        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" + position);
         holder.txtDate.setText(notice.getNoticeDate() );
         holder.noticeListTitle.setText(notice.getNoticeTitle());
         holder.noticeListContents.setText(notice.getNoticeContents());
@@ -56,6 +56,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                 .load(notice.getNoticePhotoUrl())
                 .into(holder.noticeListPhoto);
     }
+
 
     @Override
     public int getItemCount() {
@@ -82,20 +83,19 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             noticeListPhoto = itemView.findViewById(R.id.noticeListPhoto);
             noticeListCardView = itemView.findViewById(R.id.noticeListCardView);
 
-
-
             noticeListCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View itemView) {
+                public void onClick(View view) {
 
                     int index = getAdapterPosition();
-                    Log.i("어댑터 index" , ""+index);
+                    Log.i("어댑터 index" , ""+index+1);
                     Notice notice = noticeArrayList.get(index);
 
                     Intent intent = new Intent(context, NoticeViewActivity.class);
                     intent.putExtra("notice", notice);
                     intent.putExtra("index", index);
-                    context.startActivity(intent);
+                    ((NoticeListActivity)context).launcher.launch(intent);
+
 
                 }
             });

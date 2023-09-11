@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 public class FoodMenu implements Serializable {
 
+    private int id;
     private String mealDate;
     private String mealPhotoUrl;
     private String mealContent;
     private String mealType;
 
-    public FoodMenu(String mealDate, String mealPhotoUrl, String mealContent, String mealType) {
+    public FoodMenu(int id, String mealDate, String mealPhotoUrl, String mealContent, String mealType) {
+        this.id = id;
         this.mealDate = mealDate;
         this.mealPhotoUrl = mealPhotoUrl;
         this.mealContent = mealContent;
@@ -17,6 +19,14 @@ public class FoodMenu implements Serializable {
     }
 
     public FoodMenu() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMealDate() {

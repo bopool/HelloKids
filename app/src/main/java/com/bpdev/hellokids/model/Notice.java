@@ -4,18 +4,28 @@ import java.io.Serializable;
 
 public class Notice implements Serializable {
 
+    private int id;
     private String noticeDate;
     private String noticeTitle;
     private String noticeContents;
     private String noticePhotoUrl;
     private int isPublish;
 
-    public Notice(String noticeDate, String noticeTitle, String noticeContents, String noticePhotoUrl, int isPublish) {
+    public Notice(int id, String noticeDate, String noticeTitle, String noticeContents, String noticePhotoUrl, int isPublish) {
+        this.id = id;
         this.noticeDate = noticeDate;
         this.noticeTitle = noticeTitle;
         this.noticeContents = noticeContents;
         this.noticePhotoUrl = noticePhotoUrl;
         this.isPublish = isPublish;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNoticeDate() {

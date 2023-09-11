@@ -64,7 +64,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FoodMenu foodMenu = foodMenuArrayList.get(position);
-        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트" +position + ", " + foodMenu.getMealContent() +", "+ foodMenu.getMealDate() +", "+ foodMenu.getMealType());
+        Log.i("이미지 출력이 안돼서 테스트 " , "이미지 출력 테스트: position" +position + ", foodMenu.getId(): "+foodMenu.getId() + ", content" + foodMenu.getMealContent() +", "+ foodMenu.getMealDate() +", "+ foodMenu.getMealType());
         holder.textTitle.setText(foodMenu.getMealContent() );
         holder.textType.setText(foodMenu.getMealType());
         Glide.with(context)
@@ -98,9 +98,9 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.ViewHo
                     public void onClick(View view) {
 
                         int index = getAdapterPosition();
+
                         Log.i("어댑터 index" , ""+index);
                         FoodMenu foodMenu = foodMenuArrayList.get(index);
-
                         Intent intent = new Intent(context, FoodmenuViewActivity.class);
                         intent.putExtra("foodMenu",foodMenu);
                         intent.putExtra("index",index);

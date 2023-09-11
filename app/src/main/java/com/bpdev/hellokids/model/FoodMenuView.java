@@ -6,20 +6,20 @@ import java.util.List;
 
 public class FoodMenuView {
 
-    private FoodMenu item;
+    private FoodMenu items;
 
     public FoodMenuView() {
     }
 
     public FoodMenuView(FoodMenu item) {
-        this.item = item;
+        this.items = items;
     }
 
     public FoodMenu getItem() {
-        return item;
+        return items;
     }
 
     public void setItem(FoodMenu item) {
-        this.item = item;
+        this.items = items;
     }
 }

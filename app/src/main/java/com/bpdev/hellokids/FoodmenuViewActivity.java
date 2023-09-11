@@ -18,22 +18,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.bpdev.hellokids.adapter.FoodMenuAdapter;
 import com.bpdev.hellokids.api.FoodMenuApi;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.FoodMenu;
-import com.bpdev.hellokids.model.FoodMenuList;
 import com.bpdev.hellokids.model.FoodMenuView;
 import com.bpdev.hellokids.model.Result;
 import com.bumptech.glide.Glide;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,13 +53,11 @@ public class FoodmenuViewActivity extends AppCompatActivity {
     TextView contentType;
     Button btnEdit;
     Button btnDelete;
+    int index;
+    int id;
 
     FoodMenu foodMenu;
-    int index;
     ArrayList<FoodMenu> foodMenuArrayList;
-    FoodMenuAdapter foodMenuAdapter;
-
-
 
 
     @Override
@@ -96,9 +87,10 @@ public class FoodmenuViewActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btnEdit);
         btnDelete = findViewById(R.id.btnDelete);
 
-
-        index = getIntent().getIntExtra("index", 0);
-        int id = index;
+        Intent intent = getIntent();
+        index = intent.getIntExtra("index", 0);
+        foodMenu = (FoodMenu) intent.getSerializableExtra("foodMenu");
+        id = foodMenu.getId();
 
         Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
         FoodMenuApi api = retrofit.create(FoodMenuApi.class);
@@ -112,7 +104,7 @@ public class FoodmenuViewActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
 
                     foodMenu = response.body().getItem();
-                    Log.i("뷰액티비티 foodMenuArrayList", ""+foodMenuArrayList);
+                    Log.i("뷰액티비티 foodMenuArrayList", "foodMenu : "+foodMenu);
                     textDate.setText(foodMenu.getMealDate());
                     textContent.setText(foodMenu.getMealContent());
                     contentType.setText(foodMenu.getMealType());
@@ -258,16 +250,12 @@ public class FoodmenuViewActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 showProgress();
-                index = getIntent().getIntExtra("index", 0);
 
                 Retrofit retrofit = NetworkClient.getRetrofitClient(FoodmenuViewActivity.this);
-
                 FoodMenuApi api = retrofit.create(FoodMenuApi.class);
-
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
-
-                Call<Result> call = api.foodMenuDelete("Bearer " + token, index);
+                Call<Result> call = api.foodMenuDelete("Bearer " + token, id);
 
                 call.enqueue(new Callback<Result>() {
                     @Override

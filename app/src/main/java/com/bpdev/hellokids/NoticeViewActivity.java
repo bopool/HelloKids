@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +30,8 @@ import com.bpdev.hellokids.model.Notice;
 import com.bpdev.hellokids.model.NoticeRes;
 import com.bpdev.hellokids.model.Result;
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,9 +63,9 @@ public class NoticeViewActivity extends AppCompatActivity {
 
     Notice notice;
     int index;
-    int noticeArrayList;
+    int id;
+    ArrayList<Notice> noticeArrayList;
     NoticeAdapter noticeAdapter;
-
 
 
     @Override
@@ -92,25 +98,24 @@ public class NoticeViewActivity extends AppCompatActivity {
 
 
         index = getIntent().getIntExtra("index", 0);
-//        Notice notice = getIntent().getSerializableExtra("notice", notice);
+        notice = (Notice) getIntent().getSerializableExtra("notice");
+        id = notice.getId();
 
         Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeViewActivity.this);
         NoticeApi noticeApi = retrofit.create(NoticeApi.class);
 
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String token = sp.getString(Config.ACCESS_TOKEN,"");
-        Call<NoticeRes> call = noticeApi.noticeView("Bearer " + token, index);
+        Call<NoticeRes> call = noticeApi.noticeView("Bearer " + token, id);
         call.enqueue(new Callback<NoticeRes>() {
             @Override
             public void onResponse(Call<NoticeRes> call, Response<NoticeRes> response) {
                 if(response.isSuccessful()){
-
+                    Log.i("뷰액티비티 noticeArrayList", ""+ response.body().getItems() + ", " + notice+ ", " + index);
                     notice = response.body().getItems().get(0);
-                    Log.i("뷰액티비티 noticeArrayList", ""+noticeArrayList + ", " + notice);
                     textDate.setText(notice.getNoticeDate());
                     textContents.setText(notice.getNoticeContents());
-                    textTitle.setText(notice.getNoticePhotoUrl());
-                    textDate.setText(notice.getNoticeTitle());
+                    textTitle.setText(notice.getNoticeTitle());
                     Glide.with(NoticeViewActivity.this)
                             .load(notice.getNoticePhotoUrl())
                             .into(photoContent);
@@ -168,8 +173,6 @@ public class NoticeViewActivity extends AppCompatActivity {
         });
 
         // 번역 버튼
-
-
 
 
 
@@ -254,23 +257,16 @@ public class NoticeViewActivity extends AppCompatActivity {
 
                 showProgress();
                 index = getIntent().getIntExtra("index", 0);
-
                 Retrofit retrofit = NetworkClient.getRetrofitClient(NoticeViewActivity.this);
-
                 NoticeApi api = retrofit.create(NoticeApi.class);
-
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String token = sp.getString(Config.ACCESS_TOKEN,"");
-
-                Call<Result> call = api.noticeDelete("Bearer " + token, index);
-
+                Call<Result> call = api.noticeDelete("Bearer " + token, id);
                 call.enqueue(new Callback<Result>() {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
                         dismissProgress();
-
                         if(response.isSuccessful()){
-
                             // 선생님일 때
 //                            Intent intent = new Intent(DailynoteViewActivity.this, DailynoteListActivity .class);
 //                            startActivity(intent);
