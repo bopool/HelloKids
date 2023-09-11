@@ -58,7 +58,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textClass = itemView.findViewById(R.id.textClass);
+//            textClass = itemView.findViewById(R.id.textClass);
             btnEdit = itemView.findViewById(R.id.btnEdit);
 
         }
