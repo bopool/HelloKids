@@ -203,7 +203,7 @@
                     style="@style/text_input_frame_cardview"
                     app:cardCornerRadius="8dp">>
                     <EditText
-                        android:id="@+id/textInputTitle"
+                        android:id="@+id/textEditTitle"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"

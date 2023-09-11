@@ -139,7 +139,7 @@ public class NoticeViewActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(NoticeViewActivity.this, NoticeEditActivity.class);
-                intent.putExtra("noticeArrayList",noticeArrayList);
+                intent.putExtra("notice",notice);
                 intent.putExtra("index",index);
                 startActivity(intent);
 

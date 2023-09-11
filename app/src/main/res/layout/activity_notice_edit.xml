@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="100dp"
                 android:orientation="vertical">
 
                 <Button
@@ -71,7 +72,7 @@
                     app:cardCornerRadius="8dp">
 
                     <EditText
-                        android:id="@+id/editInputTitle"
+                        android:id="@+id/noticeEditTitle"
                         android:layout_width="match_parent"
 
                         android:layout_height="wrap_content"
@@ -130,7 +131,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:backgroundTint="#F4F4F4"
@@ -138,10 +139,11 @@
                     app:cardCornerRadius="8dp">
 
                     <ImageView
-                        android:id="@+id/selectPhoto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:id="@+id/photoContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
                         android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="10dp"
                         app:srcCompat="@drawable/baseline_add_photo_alternate_24" />
                 </androidx.cardview.widget.CardView>
 
