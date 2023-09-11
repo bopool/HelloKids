@@ -31,7 +31,7 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="5dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/teacher" />
+                    app:srcCompat="@drawable/kidsicon" />
 
                 <LinearLayout
                     android:layout_width="160dp"
@@ -50,20 +50,14 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textApplyDate"
+                        android:id="@+id/textBirthDate"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="6dp"
                         android:layout_weight="1"
-                        android:text="등록날짜" />
+                        android:text="원아 생일" />
                 </LinearLayout>
-
-                <CheckBox
-                    android:id="@+id/checkBox5"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp" />
 
             </LinearLayout>
 

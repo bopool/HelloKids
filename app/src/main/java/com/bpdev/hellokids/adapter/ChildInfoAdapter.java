@@ -59,7 +59,7 @@ public class ChildInfoAdapter extends RecyclerView.Adapter<ChildInfoAdapter.View
             super(itemView);
 
             textChildName = itemView.findViewById(R.id.textChildName);
-//            textBirthDate = itemView.findViewById(R.id.textBirthDate);
+            textBirthDate = itemView.findViewById(R.id.textBirthDate);
             imgKidsProfile = itemView.findViewById(R.id.imgKidsProfile);
         }
     }
