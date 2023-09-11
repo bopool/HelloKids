@@ -101,6 +101,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     String date1;
 
     // 앨범에서 사진 선택, 레트로핏 이미지 담기
+    Bitmap photo;
     File photoUrl;
     File photoFile;
     int classIdTemp;
@@ -351,26 +352,85 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
         });
 
 
-        // 파일 선택하기 버튼
+
+        // 원아 선택하기 버튼
         btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, 2222);
+            }
+        });
 
-                //setResult(1111, intent);
 
-                // launcher.launch(intent);
 
+        // 이미지 뷰 클릭해서 사진 선택
+        imgPhotoAdd2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
                 //함수 호출
                 showDialog();
+
+                //
+                imgPhotoAdd2.setImageBitmap(photo);
+                imgPhotoAdd2.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             }
         });
+
+
+        imgPhotoAdd3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //함수 호출
+                showDialog();
+
+                //
+                imgPhotoAdd3.setImageBitmap(photo);
+                imgPhotoAdd3.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
+        });
+
+        imgPhotoAdd4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //함수 호출
+                showDialog();
+
+                //
+                imgPhotoAdd4.setImageBitmap(photo);
+                imgPhotoAdd4.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
+        });
+
+        imgPhotoAdd5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //함수 호출
+                showDialog();
+
+                //
+                imgPhotoAdd5.setImageBitmap(photo);
+                imgPhotoAdd5.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
+        });
+
+        imgPhotoAdd6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //함수 호출
+                showDialog();
+
+                //
+                imgPhotoAdd6.setImageBitmap(photo);
+                imgPhotoAdd6.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
+        });
+
+
         
         
         
@@ -551,6 +611,7 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
 
 
+
     // 사진 가져오는 함수
     private File getPhotoFile(String fileName) {
         File storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -628,7 +689,6 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
 
 
-
     // 권한 설정 알림창(권한 주겠습니까? 뜨는 창)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -666,7 +726,8 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 100 && resultCode == RESULT_OK){
 
-            Bitmap photo = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            // 원본 : Bitmap photo = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            photo = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
 
             ExifInterface exif = null;
             try {
@@ -738,8 +799,8 @@ public class PhotoalbumAddRekogActivity extends AppCompatActivity {
 
                 // todo : 사진 여러장 화면에 보여주기 코드 추가하기
 
-                imgPhotoAdd1.setImageBitmap(photo);
-                imgPhotoAdd1.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                imgPhotoAdd2.setImageBitmap(photo);
+                imgPhotoAdd2.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 //                imageView.setImageBitmap( getBitmapAlbum( imageView, albumUri ) );
 
