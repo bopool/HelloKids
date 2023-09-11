@@ -61,6 +61,13 @@
             android:id="@+id/header"
             style="@style/top_image_layout">
 
+            <Button
+                android:id="@+id/btnBack3"
+                style="@style/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/btnLogin"
                 style="@style/top_button1" />
@@ -103,7 +110,9 @@
             <Spinner
                 android:id="@+id/spinnerChild"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
 
             <Button
                 android:id="@+id/btnSelectDate"
@@ -119,7 +128,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="100dp" />
         </LinearLayout>
 
 

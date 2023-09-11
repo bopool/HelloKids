@@ -61,6 +61,13 @@
             android:id="@+id/header"
             style="@style/top_image_layout">
 
+            <Button
+                android:id="@+id/btnBack2"
+                style="@style/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/btnLogin"
                 style="@style/top_button1" />
@@ -84,6 +91,7 @@
             <TextView
                 android:id="@+id/textPageTitle"
                 style="@style/text_title"
+                android:layout_marginLeft="20dp"
                 android:text="알림장" />
 
             <TextView
@@ -114,7 +122,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="100dp" />
         </LinearLayout>
 
 

@@ -14,7 +14,8 @@
 
         <Button
             android:id="@+id/btnBack"
-            style="@style/back_button_text_title" />
+            style="@style/back_button_text_title"
+            android:layout_gravity="left" />
 
         <TextView
             android:id="@+id/btnLogin"

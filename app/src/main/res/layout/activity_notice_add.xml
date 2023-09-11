@@ -15,6 +15,7 @@
         <Button
             android:id="@+id/btnBack"
             style="@style/back_button_text_title"
+            android:layout_gravity="left"
             android:text="공지사항 작성하기" />
 
         <TextView

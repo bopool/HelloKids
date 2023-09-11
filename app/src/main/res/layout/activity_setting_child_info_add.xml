@@ -10,6 +10,13 @@
         android:id="@+id/header"
         style="@style/top_image_layout">
 
+        <Button
+            android:id="@+id/btnBack26"
+            style="@style/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/btnLogin"
             style="@style/top_button1" />
@@ -90,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
+                android:paddingLeft="6dp"
                 android:text="반 선택" />
 
             <Spinner

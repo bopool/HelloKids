@@ -12,6 +12,13 @@
         style="@style/top_image_layout"
         android:layout_alignParentTop="true">
 
+        <Button
+            android:id="@+id/btnBack4"
+            style="@style/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/btnLogin"
             style="@style/top_button1" />
@@ -101,12 +108,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="15dp">
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_margin="15dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -128,35 +135,27 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
+                            <TextView
+                                android:id="@+id/textContents"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="8월 26일에는 놀이와 발달을 주제로 강연을 진행합니다. 참가신청을 하신 학부모님께서는 오후 4시 전까지 본원 강의실에 자리해 주시기 바랍니다. "
+                                android:textColor="#222222"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
                         </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textContents"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="8월 26일에는 놀이와 발달을 주제로 강연을 진행합니다. 참가신청을 하신 학부모님께서는 오후 4시 전까지 본원 강의실에 자리해 주시기 바랍니다. "
-                            android:textColor="#222222"
-                            android:textSize="12sp"
-                            android:textStyle="normal" />
-                    </LinearLayout>
-
                     <TableLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="18dp">
 
                         <TableRow
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="20dp">
+                            android:layout_height="match_parent">
 
                             <TextView
                                 android:id="@+id/textView19"
@@ -213,7 +212,7 @@
 
                         <TableRow
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="match_parent">
 
                             <TextView
                                 android:id="@+id/textView19"

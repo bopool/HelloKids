@@ -61,6 +61,13 @@
             android:id="@+id/header"
             style="@style/top_image_layout">
 
+            <Button
+                android:id="@+id/btnBack28"
+                style="@style/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/btnLogin"
                 style="@style/top_button1" />
@@ -107,19 +114,20 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp" />
 
+            <Button
+                android:id="@+id/btnCreate"
+                style="@style/btn_move_activity"
+                android:layout_marginTop="0dp"
+                android:text="추가하기"
+                app:cornerRadius="8dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
-
-            <Button
-                android:id="@+id/btnCreate"
-                style="@style/btn_move_activity"
-                android:layout_marginTop="30dp"
-                android:text="추가하기"
-                app:cornerRadius="8dp" />
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="100dp" />
 
         </LinearLayout>
 

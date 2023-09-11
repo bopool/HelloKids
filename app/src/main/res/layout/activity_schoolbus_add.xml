@@ -11,6 +11,13 @@
         style="@style/top_image_layout"
         android:layout_alignParentTop="true">
 
+        <Button
+            android:id="@+id/btnBack16"
+            style="@style/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/btnLogin"
             style="@style/top_button1" />
@@ -40,13 +47,6 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imgBackArrow"
-                android:layout_width="40dp"
-                android:layout_height="37dp"
-                android:layout_gravity="bottom"
-                app:srcCompat="@drawable/baseline_arrow_back_24" />
-
             <TextView
                 android:id="@+id/textPageTitle"
                 style="@style/text_title"
@@ -66,7 +66,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/menus"
         android:layout_below="@id/pageTitle">
 
         <LinearLayout
@@ -78,17 +77,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="100dp"
                 android:orientation="vertical">
 
                 <Spinner
                     android:id="@+id/spinnerSelectBus"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
@@ -105,8 +106,8 @@
                         <TextView
                             android:id="@+id/textGo"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
                             android:gravity="center"
                             android:text="등하원"
                             android:textColor="@color/black"
@@ -159,7 +160,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
@@ -177,7 +178,7 @@
                             android:id="@+id/textTeacherName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_margin="11dp"
                             android:text="김선생"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
@@ -201,7 +202,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"/>
+                        android:orientation="vertical" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -240,14 +241,16 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal"
-                                android:padding="15dp">
+                                android:paddingLeft="15dp"
+                                android:paddingTop="15dp"
+                                android:paddingRight="15dp">
 
                                 <TextView
                                     android:id="@+id/textBusName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="1호차 |"
+                                    android:text="1호차 "
                                     android:textColor="@color/black"
                                     tools:ignore="DuplicateIds" />
 
@@ -300,7 +303,7 @@
                         android:id="@+id/btnCreate"
                         style="@style/btn_move_half_right"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="30dp"
                         android:backgroundTint="#A8CA35"

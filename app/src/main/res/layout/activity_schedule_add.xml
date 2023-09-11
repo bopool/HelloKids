@@ -15,6 +15,7 @@
         <Button
             android:id="@+id/Schedule_btn_back"
             style="@style/back_button_text_title"
+            android:layout_gravity="left"
             android:text="일정표 작성하기" />
 
         <TextView

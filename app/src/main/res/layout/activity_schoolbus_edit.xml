@@ -11,6 +11,13 @@
         style="@style/top_image_layout"
         android:layout_alignParentTop="true">
 
+        <Button
+            android:id="@+id/btnBack19"
+            style="@style/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/btnLogin"
             style="@style/top_button1" />
@@ -32,28 +39,10 @@
         android:layout_below="@id/header"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imgBackArrow"
-                android:layout_width="40dp"
-                android:layout_height="37dp"
-                android:layout_gravity="bottom"
-                app:srcCompat="@drawable/baseline_arrow_back_24" />
-
-            <TextView
-                android:id="@+id/textPageTitle"
-                style="@style/text_title"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="15"
-                android:text="차량 운행 수정 및 삭제" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textPageTitle"
+            style="@style/text_title"
+            android:text="차량 운행 수정 및 삭제" />
 
         <TextView
             android:id="@+id/textView4"
@@ -75,19 +64,18 @@
             android:id="@+id/linearEditBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnSchoolbusEdit"
-                style="@style/btn_move_half_right"
-                android:layout_width="100dp"
+                style="@style/btn_move_half_left"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="0dp"
+                android:layout_weight="1"
                 android:backgroundTint="#A8CA35"
                 android:padding="0dp"
                 android:paddingLeft="0dp"
@@ -102,13 +90,13 @@
             <Button
                 android:id="@+id/btnSchoolbusDelete"
                 style="@style/btn_move_half_right"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="0dp"
+                android:layout_weight="1"
                 android:backgroundTint="#A8CA35"
                 android:padding="0dp"
                 android:paddingLeft="0dp"

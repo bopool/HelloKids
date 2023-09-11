@@ -60,6 +60,13 @@
         <LinearLayout
             style="@style/top_image_layout">
 
+            <Button
+                android:id="@+id/btnBack12"
+                style="@style/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/btnLogin"
                 style="@style/top_button1" />

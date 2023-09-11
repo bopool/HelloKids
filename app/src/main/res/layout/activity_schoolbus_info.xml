@@ -59,6 +59,13 @@
             android:id="@+id/header"
             style="@style/top_image_layout">
 
+            <Button
+                android:id="@+id/btnBack20"
+                style="@style/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/btnLogin"
                 style="@style/top_button1" />
@@ -129,8 +136,8 @@
                     <androidx.cardview.widget.CardView
                         style="@style/text_input_frame_cardview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
                         android:backgroundTint="@color/white"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="4dp">
@@ -152,7 +159,8 @@
                     <androidx.cardview.widget.CardView
                         style="@style/text_input_frame_cardview"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:backgroundTint="@color/white"
                         app:cardCornerRadius="8dp"
@@ -176,7 +184,7 @@
                     <androidx.cardview.widget.CardView
                         style="@style/text_input_frame_cardview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_marginBottom="5dp"
                         android:backgroundTint="@color/white"
                         app:cardCornerRadius="8dp"
@@ -206,7 +214,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
@@ -225,7 +233,7 @@
                                 android:id="@+id/textTeacherName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                                android:layout_margin="12dp"
                                 android:text="김솔미 선생님"
                                 android:textColor="#222222"
                                 android:textSize="16sp" />
@@ -284,19 +292,19 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        style="@style/text_input_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="차량 정보" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="12dp"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            style="@style/text_input_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="차량 정보" />
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -313,20 +321,23 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_margin="3dp"
                                 android:orientation="vertical">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="horizontal"
-                                    android:padding="15dp">
+                                    android:paddingLeft="15dp"
+                                    android:paddingTop="15dp"
+                                    android:paddingRight="15dp">
 
                                     <TextView
                                         android:id="@+id/textSmallBusName"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="1호차 |"
+                                        android:text="1호차"
                                         android:textColor="@color/black"
                                         tools:ignore="DuplicateIds" />
 
@@ -351,7 +362,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="김운행 기사님 |"
+                                        android:text="김운행 기사님 "
                                         android:textColor="@color/black" />
 
                                     <TextView

@@ -12,6 +12,13 @@
         style="@style/top_image_layout"
         android:layout_alignParentTop="true">
 
+        <Button
+            android:id="@+id/btnBack36"
+            style="@style/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/btnLogin"
             style="@style/top_button1" />
@@ -52,7 +59,6 @@
         android:layout_below="@id/pageTitle"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:padding="10dp"
         android:text="차량 등록 하기"
         app:cornerRadius="8dp" />
 
@@ -63,6 +69,7 @@
         android:layout_above="@id/menus"
         android:layout_below="@id/btnCreate"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp" />
 
     <RelativeLayout

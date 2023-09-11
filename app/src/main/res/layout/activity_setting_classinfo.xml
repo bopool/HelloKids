@@ -16,6 +16,13 @@
             android:id="@+id/header"
             style="@style/top_image_layout">
 
+            <Button
+                android:id="@+id/btnBack31"
+                style="@style/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/btnLogin"
                 style="@style/top_button1" />
@@ -36,71 +43,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/textPageTitle"
+                style="@style/text_title"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:text="어린이집 및 반 관리" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imgBackArrow"
-                    android:layout_width="35dp"
-                    android:layout_height="37dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/baseline_arrow_back_24" />
+                <Button
+                    android:id="@+id/btnAddNursery"
+                    style="@style/btn_move_half_left"
+                    android:layout_width="match_parent"
+                    android:backgroundTint="#A8CA35"
+                    android:text="어린이집 추가 하기"
+                    android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textPageTitle"
-                    style="@style/text_title"
-                    android:layout_marginLeft="15dp"
-                    android:text="어린이집 및 반 관리" />
-
+                <Button
+                    android:id="@+id/btnAddClass"
+                    style="@style/btn_move_half_right"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="right"
+                    android:backgroundTint="#A8CA35"
+                    android:text="반 추가 하기"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnAddNursery"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center|right"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="#A8CA35"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="3dp"
-            android:text="어린이집 추가 하기"
-            android:textSize="18sp"
-            app:iconPadding="4dp" />
-
-        <Button
-            android:id="@+id/btnAddClass"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center|right"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="#A8CA35"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="3dp"
-            android:text="반 추가 하기"
-            android:textSize="18sp"
-            app:iconPadding="4dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="100dp" />
 
 
     </LinearLayout>

@@ -130,7 +130,7 @@
                     android:id="@+id/spinnerClass"
                     style="@style/btn_select_form1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:text="반 선택"
                     app:cornerRadius="8dp"
                     app:iconGravity="end" />
