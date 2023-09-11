@@ -1,13 +1,33 @@
 package com.bpdev.hellokids;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.bpdev.hellokids.adapter.ApproveAdapter;
+import com.bpdev.hellokids.adapter.ScheduleAdapter;
+import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.SettingApi;
+import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.ClassList;
+import com.bpdev.hellokids.model.Parents;
+import com.bpdev.hellokids.model.ParentsRes;
+import com.bpdev.hellokids.model.ScheduleRes;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SettingApproveActivity extends AppCompatActivity {
 
@@ -24,10 +44,11 @@ public class SettingApproveActivity extends AppCompatActivity {
     Button btnBottomSetting;
 
     // 메인 파트 버튼
+    RecyclerView recyclerView;
 
+    ApproveAdapter adapter; // 리사이클러뷰에 row 연결할 어댑터
 
-
-
+    ArrayList<Parents> parentsArrayList = new ArrayList<>(); // 반별 일정표 리스트 조회 api에 쓸 것
 
 
     @Override
@@ -53,10 +74,39 @@ public class SettingApproveActivity extends AppCompatActivity {
 
         // 메인 파트 화면 연결
 
+        recyclerView = findViewById(R.id.recyclerView);
 
+        recyclerView.setHasFixedSize(true);
+        //layoutManager: recyclerview에 listview 객체를 하나씩 띄움
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
+        Retrofit retrofit = NetworkClient.getRetrofitClient(SettingApproveActivity.this);
+        SettingApi api = retrofit.create(SettingApi.class);
 
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token = sp.getString(Config.ACCESS_TOKEN, "");
 
+        Call<ParentsRes> call = api.notApproveList("Bearer " + token);
+        call.enqueue(new Callback<ParentsRes>() {
+            @Override
+            public void onResponse(Call<ParentsRes> call, Response<ParentsRes> response) {
+                if (response.isSuccessful()) {
+                    ParentsRes parentsRes = response.body();
+                    parentsArrayList.addAll(parentsRes.getItems());
+
+                    for (int i = 0; i < parentsArrayList.size(); i++) {
+                        adapter = new ApproveAdapter(SettingApproveActivity.this, parentsArrayList);
+                        recyclerView.setAdapter(adapter);
+                    }
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParentsRes> call, Throwable t) {
+            }
+        });
 
 
         // -- -- 최상단 헤더 버튼 -- -- //

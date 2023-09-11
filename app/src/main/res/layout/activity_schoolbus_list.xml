@@ -84,7 +84,7 @@
             <TextView
                 android:id="@+id/textPageTitle"
                 style="@style/text_title"
-                android:text="안심등하원(선생님)" />
+                android:text="안심등하원" />
 
             <TextView
                 android:id="@+id/textPageContents"

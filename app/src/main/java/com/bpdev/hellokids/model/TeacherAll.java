@@ -12,6 +12,16 @@ public class TeacherAll implements Serializable {
     private String email;
     private String phone;
 
+    public TeacherAll(int classId, int nurseryId, String teacherName, String teacherUserId, String password, String email, String phone) {
+        this.classId = classId;
+        this.nurseryId = nurseryId;
+        this.teacherName = teacherName;
+        this.teacherUserId = teacherUserId;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public int getId() {
         return id;
     }

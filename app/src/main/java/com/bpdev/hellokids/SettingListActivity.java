@@ -82,6 +82,9 @@ public class SettingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(SettingListActivity.this, SettingApproveActivity.class);
+                startActivity(intent);
+
             }
         });
 

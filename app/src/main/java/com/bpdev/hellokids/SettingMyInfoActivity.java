@@ -24,11 +24,14 @@ import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.api.UserApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.AttendanceRes;
+import com.bpdev.hellokids.model.BusDailyRecord;
 import com.bpdev.hellokids.model.BusList;
+import com.bpdev.hellokids.model.BusRes;
 import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.NurseryRes;
 import com.bpdev.hellokids.model.NurseryResList;
+import com.bpdev.hellokids.model.Result;
 import com.bpdev.hellokids.model.ScheduleList;
 import com.bpdev.hellokids.model.TeacherAll;
 import com.bpdev.hellokids.model.TeacherAllList;
@@ -153,68 +156,12 @@ public class SettingMyInfoActivity extends AppCompatActivity {
         });
 
         // 스피너에 연결해줄 어댑터 생성
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // 스피너에 반 이름 가져오기
-        Retrofit retrofit = NetworkClient.getRetrofitClient(SettingMyInfoActivity.this);
-        SettingApi api = retrofit.create(SettingApi.class);
-
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token = sp.getString(Config.ACCESS_TOKEN, "");
-
-        Call<ClassList> call = api.classListView("Bearer " + token);
-        call.enqueue(new Callback<ClassList>() {
-            @Override
-            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
-                if (response.isSuccessful()) {
-                    ClassList classList = response.body();
-                    classArrayList.addAll(classList.getItems());
-
-                    for (int i = 0; i < classArrayList.size(); i++) {
-                        classNameArrayList.add(classArrayList.get(i).getClassName());
-                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ClassList> call, Throwable t) {
-            }
-        });
-
-        // 스피너에 어댑터 연결
-        classSpinner.setAdapter(arrayAdapter);
-
-        // 스피너 초기화
-        classSpinner.setSelection(0,false);
-
-        // 스피너 클릭 이벤트 리스너
-        classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            // 하나 선택했을 때
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String spinnerValue = adapterView.getItemAtPosition(i).toString();
-                classSpinner.setSelection(i);
-                Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
-
-                classId = map.get(spinnerValue);
-
-                Log.i("classId", classId + "");
-
-
-            }
-
-            // 아무것도 선택 안했을 때 근데 onCreate()가 실행되면서 자동으로 선택이 되기때문에 이 코드가 실행되지 않는다 -> 이 부분이 필요하면 방법을 찾아야한다
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        // -----------------------------------------------------------------------------------------------------------------------------------
-        // 스피너에 연결해줄 어댑터 생성
         arrayAdapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nurseryNameArrayList);
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // 스피너에 연결해줄 어댑터 생성
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
         Retrofit retrofit2 = NetworkClient.getRetrofitClient(SettingMyInfoActivity.this);
@@ -249,7 +196,7 @@ public class SettingMyInfoActivity extends AppCompatActivity {
         nurserySpinner.setAdapter(arrayAdapter1);
 
         // 스피너 초기화
-        nurserySpinner.setSelection(0,false);
+        classSpinner.setSelection(0,false);
 
         nurserySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             // 하나 선택했을 때
@@ -260,6 +207,97 @@ public class SettingMyInfoActivity extends AppCompatActivity {
 
                 nurseryId = map.get(spinnerValue);
 
+                // 스피너에 반 이름 가져오기
+                Retrofit retrofit = NetworkClient.getRetrofitClient(SettingMyInfoActivity.this);
+                SettingApi api = retrofit.create(SettingApi.class);
+
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+                Call<ClassList> call = api.nurseryClassList(nurseryId,"Bearer " + token);
+                call.enqueue(new Callback<ClassList>() {
+                    @Override
+                    public void onResponse(Call<ClassList> call, Response<ClassList> response) {
+                        if (response.isSuccessful()) {
+                            ClassList classList = response.body();
+                            classArrayList.addAll(classList.getItems());
+
+                            for (int i = 0; i < classArrayList.size(); i++) {
+                                classNameArrayList.add(classArrayList.get(i).getClassName());
+                                map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
+                                arrayAdapter.notifyDataSetChanged();
+                            }
+
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ClassList> call, Throwable t) {
+                    }
+                });
+
+            }
+
+            // 아무것도 선택 안했을 때 근데 onCreate()가 실행되면서 자동으로 선택이 되기때문에 이 코드가 실행되지 않는다 -> 이 부분이 필요하면 방법을 찾아야한다
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        // -----------------------------------------------------------------------------------------------------------------------------------------
+        // 스피너에 연결해줄 어댑터 생성
+//        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, classNameArrayList);
+//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        // 스피너에 반 이름 가져오기
+//        Retrofit retrofit = NetworkClient.getRetrofitClient(SettingMyInfoActivity.this);
+//        SettingApi api = retrofit.create(SettingApi.class);
+//
+//        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//        String token = sp.getString(Config.ACCESS_TOKEN, "");
+//
+//        Call<ClassList> call = api.nurseryClassList(nurseryId,"Bearer " + token);
+//        call.enqueue(new Callback<ClassList>() {
+//            @Override
+//            public void onResponse(Call<ClassList> call, Response<ClassList> response) {
+//                if (response.isSuccessful()) {
+//                    ClassList classList = response.body();
+//                    classArrayList.addAll(classList.getItems());
+//
+//                    for (int i = 0; i < classArrayList.size(); i++) {
+//                        classNameArrayList.add(classArrayList.get(i).getClassName());
+//                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
+//                        arrayAdapter.notifyDataSetChanged();
+//                    }
+//                } else {
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ClassList> call, Throwable t) {
+//            }
+//        });
+
+        // 스피너에 어댑터 연결
+        classSpinner.setAdapter(arrayAdapter);
+
+        //classArrayList = new ArrayList<>(); // 중복 방지 위한 초기화 해줬는데도 중복되서 나온다
+
+        // 스피너 초기화
+        classSpinner.setSelection(0,false);
+
+        // 스피너 클릭 이벤트 리스너
+        classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            // 하나 선택했을 때
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String spinnerValue = adapterView.getItemAtPosition(i).toString();
+                classSpinner.setSelection(i);
+                Toast.makeText(getApplicationContext(), spinnerValue+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
+
+                classId = map.get(spinnerValue);
+
+                Log.i("classId", classId + "");
+
 
             }
 
@@ -269,6 +307,46 @@ public class SettingMyInfoActivity extends AppCompatActivity {
             }
         });
 
+
+        // -----------------------------------------------------------------------------------------------------------------------------------
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String teacherName = userName.getText().toString().trim();
+                String teacherUserId = userId.getText().toString().trim();
+                String password = editPassword.getText().toString().trim();
+                String email = editEmail.getText().toString().trim();
+                String phone = editPhoneNumber.getText().toString().trim();
+
+                Retrofit retrofit2 = NetworkClient.getRetrofitClient(SettingMyInfoActivity.this);
+                UserApi api2 = retrofit2.create(UserApi.class);
+
+                SharedPreferences sp2 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token2 = sp2.getString(Config.ACCESS_TOKEN, "");
+
+                TeacherAll teacherAll = new TeacherAll(classId,nurseryId,teacherName,teacherUserId,password,email,phone);
+                Call<Result> call2 = api2. update("Bearer " + token2, teacherAll);
+                call2.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        if (response.isSuccessful()) {
+                            Intent intent = new Intent(SettingMyInfoActivity.this, SettingListActivity.class);
+                            startActivity(intent);
+
+                            finish();
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+                    }
+                });
+
+
+            }
+        });
 
 
         // -- -- -- 하단 바로가기 메뉴 버튼 -- -- -- //

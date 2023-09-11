@@ -27,16 +27,8 @@
                 android:orientation="horizontal"
                 android:padding="15dp">
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="76dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/kidsicon" />
-
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/textChildName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -48,7 +40,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/btnWrite2"
+                    android:id="@+id/btnApprove"
                     style="@style/btn_move_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

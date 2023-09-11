@@ -1,6 +1,7 @@
 package com.bpdev.hellokids.api;
 
 
+import com.bpdev.hellokids.model.Result;
 import com.bpdev.hellokids.model.TeacherAll;
 import com.bpdev.hellokids.model.TeacherAllList;
 import com.bpdev.hellokids.model.User;
@@ -23,8 +24,8 @@ public interface UserApi {
     @POST("/user/register/teacher")
     Call<UserRes> register(@Body User user);
 
-    @PUT("/user/teacher/{id}")
-    Call<UserRes> update(@Path("id") int Id, @Body User user);
+    @PUT("/user/teacher")
+    Call<Result> update(@Header("Authorization") String token, @Body TeacherAll teacherAll);
 
     @GET("/user/teacher/{id}")
     Call<TeacherRes> teacherView(@Path("id") int Id,@Header("Authorization") String token);
@@ -41,7 +42,7 @@ public interface UserApi {
     Call<UserRes> register1(@Body User1 user);
 
     @PUT("/user/parent/<int:id>")
-    Call<UserRes> update(@Path("parentId") int id, @Body User1 user);
+    Call<UserRes> update1(@Path("parentId") int id, @Body User1 user);
 
     @GET("/user/parent/<int:id>")
     Call<UserRes> parentsView(@Path("parentId") int id);
