@@ -134,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 선생님 화면
-                Intent intent = new Intent(MainActivity.this,DailynoteListActivity.class);
-                startActivity(intent);
-                // 학부모 화면
-//                Intent intent = new Intent(MainActivity.this,DailyNoteParentsListActivity.class);
+//                Intent intent = new Intent(MainActivity.this,DailynoteListActivity.class);
 //                startActivity(intent);
+                // 학부모 화면
+                Intent intent = new Intent(MainActivity.this,DailyNoteParentsListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -168,11 +168,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 선생님 화면
-                Intent intent = new Intent(MainActivity.this,ScheduleListActivity.class);
-                startActivity(intent);
-                // 학부모 화면
-//                Intent intent = new Intent(MainActivity.this,ScheduleChildListActivity.class);
+//                Intent intent = new Intent(MainActivity.this,ScheduleListActivity.class);
 //                startActivity(intent);
+                // 학부모 화면
+                Intent intent = new Intent(MainActivity.this,ScheduleChildListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -191,8 +191,14 @@ public class MainActivity extends AppCompatActivity {
         btnAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,AttendanceParentsListActivity.class);
+                // 선생님 화면
+                Intent intent = new Intent(MainActivity.this,AttendanceListActivity.class);
                 startActivity(intent);
+                // 학부모 화면
+//                Intent intent = new Intent(MainActivity.this,AttendanceParentsListActivity.class);
+//                startActivity(intent);
+
+
             }
         });
 

@@ -11,11 +11,15 @@ import com.bpdev.hellokids.model.Nursery;
 import com.bpdev.hellokids.model.NurseryResList;
 import com.bpdev.hellokids.model.Result;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface SettingApi {
@@ -37,9 +41,13 @@ public interface SettingApi {
 
     @POST("/setting/child/add/{classId}")
     Call<Result>childAdd(@Path("classId") int classId,@Header("Authorization") String token, @Body ChildInfo childInfo); // 원아 등록
+    @Multipart
+    @PUT("/setting/child/{id}/photo")
+    Call<Result> childProfileAdd(@Path("id") int id, @Header("Authorization") String token, @Part MultipartBody.Part profileUrl); // 원아 프로필 등록
 
     @GET("/setting/children/{classId}")
     Call<ChildInfoList> classChildListView(@Path("classId") int classId, @Header("Authorization") String token); // 선생님이 속한 반의 원아 리스트 조회
+
 
 
 }
