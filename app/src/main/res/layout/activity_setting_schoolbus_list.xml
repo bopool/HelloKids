@@ -61,7 +61,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/menus"
-        android:layout_below="@id/btnCreate" />
+        android:layout_below="@id/btnCreate"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
     <RelativeLayout
         android:id="@+id/menus"
