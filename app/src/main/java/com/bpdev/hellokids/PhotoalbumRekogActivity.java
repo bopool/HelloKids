@@ -372,8 +372,8 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
-        // 원아 선택하기 버튼
-        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+        // 추가 버튼
+        btnPhotoAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -486,9 +486,22 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
+        // 원아 프로필 선택하기 버튼 누르면 원아 선택 창 띄우기
+        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
-        // 이미지 뷰 클릭해서 사진 선택
+
+
+
+
+
+        // 이미지 뷰 클릭 해서 얼굴 인식 할 사진 선택
         imgPhotoAdd2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
