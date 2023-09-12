@@ -6,6 +6,7 @@ import com.bpdev.hellokids.model.TeacherAll;
 import com.bpdev.hellokids.model.TeacherAllList;
 import com.bpdev.hellokids.model.User;
 import com.bpdev.hellokids.model.User1;
+import com.bpdev.hellokids.model.UserCheck;
 import com.bpdev.hellokids.model.UserRes;
 import com.bpdev.hellokids.model.TeacherRes;
 
@@ -57,6 +58,12 @@ public interface UserApi {
 
     @DELETE("/user/logout")
     Call<UserRes> logout(@Body User user);
+
+    @GET("/user/check/{email}")
+    Call<UserCheck> userCheck(@Header("Authorization") String token, @Path("email") String email);
+
+
+
 //
 //
 //    // setting

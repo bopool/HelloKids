@@ -3,6 +3,7 @@ package com.bpdev.hellokids;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +13,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bpdev.hellokids.model.ChildId;
 import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.ParentsApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.api.UserApi;
 import com.bpdev.hellokids.model.User;
+import com.bpdev.hellokids.model.UserCheck;
 import com.bpdev.hellokids.model.UserRes;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -45,7 +50,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText editPassword;
     Button registerBtn;
 
-
+    ChildId childId;
+    int num;
+    int isTeacher;
+    String email;
 
 
     @Override
@@ -161,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = editEmail.getText().toString().trim();
+                email = editEmail.getText().toString().trim();
                 String password = editPassword.getText().toString().trim();
 
                 Pattern pattern = Patterns.EMAIL_ADDRESS;
@@ -181,18 +189,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 Retrofit retrofit = NetworkClient.getRetrofitClient(LoginActivity.this);
-
                 UserApi api = retrofit.create(UserApi.class);
-
                 User user = new User(email, password);
-
                 Call<UserRes> call = api.login(user);
 
                 call.enqueue(new Callback<UserRes>() {
                     @Override
                     public void onResponse(Call<UserRes> call, Response<UserRes> response) {
-
-
 
                         if( response.isSuccessful() ){
                             // 200 OK 일때의 코드 작성.
@@ -205,10 +208,65 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString(Config.ACCESS_TOKEN, accessToken);
                             editor.apply();
 
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
+                            UserApi userApi = retrofit.create(UserApi.class);
+                            Call<UserCheck> call2 = userApi.userCheck("Bearer "+accessToken, email);
 
-                            finish();
+                            call2.enqueue(new Callback<UserCheck>() {
+                                @Override
+                                public void onResponse(Call<UserCheck> call2, Response<UserCheck> response) {
+                                    if (response.isSuccessful()) {
+
+                                        Log.i("로그인액티비티 num", "num : " + response.body().getIsTeacher() + isTeacher);
+                                        isTeacher = response.body().getIsTeacher()[0];
+
+                                        if( isTeacher == 1 ){
+                                            // 선생님인 경우
+                                            Intent intent = new Intent(LoginActivity.this, MainTeacherActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            // 선생님이 아닌 경우
+                                            ParentsApi parentsApi = retrofit.create(ParentsApi.class);
+                                            Call<ChildId> call1 = parentsApi.parentsWaiting("Bearer "+accessToken);
+
+                                            call1.enqueue(new Callback<ChildId>() {
+                                                @Override
+                                                public void onResponse(Call<ChildId> call1, Response<ChildId> response1) {
+                                                    if (response1.isSuccessful()) {
+
+                                                        Log.i("로그인액티비티 num", "num : " + response1.body().getNum() + num );
+                                                        num = response1.body().getNum()[0];
+
+                                                        if( num == 0 ){
+                                                            Intent intent = new Intent(LoginActivity.this, MainWaitingActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        } else {
+                                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    } else {
+//                                       num = 1;
+                                                    }
+                                                }
+                                                @Override
+                                                public void onFailure(Call<ChildId> call1, Throwable t) {
+                                                    Log.i("로그인액티비티 waiting", "num : " + num +", t: "+ t  );
+
+                                                }
+                                            });
+                                        }
+                                    } else {
+//                                       num = 1;
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<UserCheck> call2, Throwable t) {
+                                    Log.i("로그인액티비티 유저 구분", "isTeacher : " + isTeacher +", t: "+ t  );
+
+                                }
+                            });
 
                         } else if (response.code() == 400){
                             Snackbar.make(registerBtn,
