@@ -31,6 +31,7 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="5dp"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/kidsicon" />
 
                 <LinearLayout
@@ -56,7 +57,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="6dp"
                         android:layout_weight="1"
-                        android:text="원아 생일" />
+                        android:text="원아 생일"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
