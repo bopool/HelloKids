@@ -137,7 +137,7 @@
         <item name = "android:layout_gravity">right|top</item>
         <item name = "android:letterSpacing">-0.03</item>
         <item name = "android:paddingRight">10dp</item>
-        <item name = "android:text">로그인</item>
+        <item name = "android:text">로그아웃</item>
         <item name = "android:textSize">14sp</item>
         <item name = "android:textStyle">bold</item>
     </style>
