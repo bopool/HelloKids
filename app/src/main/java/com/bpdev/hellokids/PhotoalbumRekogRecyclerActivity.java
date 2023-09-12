@@ -96,13 +96,12 @@ public class PhotoalbumRekogRecyclerActivity extends AppCompatActivity {
 
                     ChildInfoList childInfoList = response.body();
 
-                    childInfoList.addAll(childInfoList.getItems());
+                    childInfoArrayList.addAll(childInfoList.getItems());
 
                     //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
                     photoRekogRecyclerAdapter = new PhotoRekogRecyclerAdapter(PhotoalbumRekogRecyclerActivity.this, childInfoArrayList);
                     recyclerView.setAdapter(photoRekogRecyclerAdapter);
                     // scheduleArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
-
 
                 } else {
 
