@@ -1,9 +1,6 @@
 package com.bpdev.hellokids.adapter;
 
-
 import android.content.Context;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,38 +13,33 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bpdev.hellokids.R;
-import com.bpdev.hellokids.model.PhotoList;
+import com.bpdev.hellokids.model.PhotoAlbumAll;
 import com.bpdev.hellokids.model.PhotoListRes;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Viewholder>{
-                                      // 이거 안씀!!!
-
+public class PhotoAlbumAdapter extends RecyclerView.Adapter<PhotoAlbumAdapter.Viewholder>{ // 사진첩 목록 가져올 때 사용
     Context context;
-    ArrayList<PhotoListRes> photoListResArrayList;
+    ArrayList<PhotoAlbumAll> photoAlbumResArrayList;
 
-    public PhotoListAdapter(Context context, ArrayList<PhotoListRes> photoListResArrayList) {
+    public PhotoAlbumAdapter(Context context, ArrayList<PhotoAlbumAll> photoAlbumResArrayList) {
         this.context = context;
-        this.photoListResArrayList = photoListResArrayList;
+        this.photoAlbumResArrayList = photoAlbumResArrayList;
     }
-
-
 
     @NonNull
     @Override
-    public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PhotoAlbumAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_photoalbum_list, parent, false);
-        return new PhotoListAdapter.Viewholder(view);
+        return new PhotoAlbumAdapter.Viewholder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull PhotoAlbumAdapter.Viewholder holder, int position) {
         // 데이터 가져와서 처리 하는 부분
-        PhotoListRes photoListRes = photoListResArrayList.get(position);
+        PhotoAlbumAll photoAlbumAll = photoAlbumResArrayList.get(position);
 
 
         // todo : 레트로핏으로 사진첩의 글 id가 같은 사진의 개수를 세어서 가져오기
@@ -69,19 +61,18 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
 
 
         // 텍스트 반영
-        holder.textDate.setText( photoListRes.date );
-        holder.textTitle.setText( photoListRes.title );
-        holder.textContent.setText( photoListRes.contents );
+        holder.textDate.setText( photoAlbumAll.getDate() );
+        holder.textTitle.setText( photoAlbumAll.getTitle() );
+        holder.textContent.setText( photoAlbumAll.getContents() );
+        Glide.with(context)
+                .load(photoAlbumAll.getPhotoUrl())
+                .into(holder.imgPhoto1);
     }
-
 
     @Override
     public int getItemCount() {
-        return photoListResArrayList.size();
+        return photoAlbumResArrayList.size();
     }
-
-
-
 
 
     public class Viewholder extends  RecyclerView.ViewHolder {
@@ -92,22 +83,15 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
         Button btnView;
         ImageView imgPhoto1;
         CardView cardView;
-
-
-
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 
-            //
             textDate = itemView.findViewById(R.id.textDate);
             textTitle = itemView.findViewById(R.id.textTitle);
             textContent = itemView.findViewById(R.id.textContent);
             btnView = itemView.findViewById(R.id.btnView);
             imgPhoto1 = itemView.findViewById(R.id.imgPhoto1);
             cardView = itemView.findViewById(R.id.cardView);
-
-
         }
     }
-
 }

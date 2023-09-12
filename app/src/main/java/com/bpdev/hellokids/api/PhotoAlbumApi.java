@@ -3,6 +3,8 @@ package com.bpdev.hellokids.api;
 
 
 
+import com.bpdev.hellokids.model.BusInfoList;
+import com.bpdev.hellokids.model.PhotoAlbumAllList;
 import com.bpdev.hellokids.model.PhotoAlbumId;
 import com.bpdev.hellokids.model.Result;
 
@@ -40,6 +42,9 @@ public interface PhotoAlbumApi {
     // 사진첩 글 아이디 생성 API
     @POST("/photoAlbum/addId")
     Call<Result> photoAlbumAddId (@Header("Authorization") String token, @Body PhotoAlbumId photoAlbumId);
+
+    @GET("/photoAlbum/classlist")
+    Call<PhotoAlbumAllList>photoAlbumList(@Header("Authorization") String token); // 사진첩 목록 조죄
 
 
 }
