@@ -1,5 +1,6 @@
 package com.bpdev.hellokids;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -307,6 +308,11 @@ public class PhotoalbumRekogListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+
+
+
+
 
 
 
@@ -394,4 +400,7 @@ public class PhotoalbumRekogListActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

@@ -43,8 +43,12 @@ public interface PhotoAlbumApi {
     @POST("/photoAlbum/addId")
     Call<Result> photoAlbumAddId (@Header("Authorization") String token, @Body PhotoAlbumId photoAlbumId);
 
+    // 사진첩(전체 사진폴더) 리스트 불러오기
     @GET("/photoAlbum/classlist")
     Call<PhotoAlbumAllList>photoAlbumList(@Header("Authorization") String token); // 사진첩 목록 조죄
+
+    // 사진첩(얼굴인식폴더) 리스트 불러오기
+
 
 
 }
