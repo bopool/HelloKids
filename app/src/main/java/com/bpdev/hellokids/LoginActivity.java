@@ -50,10 +50,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText editPassword;
     Button registerBtn;
 
-    ChildId childId;
-    int num;
-    int isTeacher;
     String email;
+    int isTeacher;
+    int number;
 
 
     @Override
@@ -213,16 +212,10 @@ public class LoginActivity extends AppCompatActivity {
 
                             call2.enqueue(new Callback<UserCheck>() {
                                 @Override
-                                public void onResponse(Call<UserCheck> call2, Response<UserCheck> response) {
-                                    if (response.isSuccessful()) {
+                                public void onResponse(Call<UserCheck> call2, Response<UserCheck> response2) {
+                                    if (response2.isSuccessful()) {
 
-                                        Log.i("로그인액티비티 num", "num : " + response.body().getIsTeacher() + isTeacher);
-                                        if (response.body().getIsTeacher() == null){
-                                            isTeacher = 0;
-                                        } else {
-                                            isTeacher = response.body().getIsTeacher()[0];
-                                        }
-
+                                        isTeacher = response2.body().getIsTeacher();
 
                                         if( isTeacher == 1 ){
                                             // 선생님인 경우
@@ -236,33 +229,35 @@ public class LoginActivity extends AppCompatActivity {
 
                                             call1.enqueue(new Callback<ChildId>() {
                                                 @Override
-                                                public void onResponse(Call<ChildId> call1, Response<ChildId> response1) {
-                                                    if (response1.isSuccessful()) {
+                                                public void onResponse(Call<ChildId> call1, Response<ChildId> responseCheck) {
+                                                    if (responseCheck.isSuccessful()) {
 
-                                                        if (response1.body().getNum() == null){
-                                                            num = 0;
-                                                        } else {
-                                                            num = response1.body().getNum()[0];
-                                                        }
-                                                        Log.i("로그인액티비티 num", "num : " + response1.body().getNum() + num );
+                                                        number = responseCheck.body().getNum();
 
+                                                        Log.i("로그인액티비티 number", "number : " + responseCheck.body().getNum() + number );
 
-                                                        if( num == 0 ){
+                                                        if( number == 0 ){
+                                                            // 승인한 경우
+                                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        } else if (number == 1) {
+                                                            // 미승인한 경우
                                                             Intent intent = new Intent(LoginActivity.this, MainWaitingActivity.class);
                                                             startActivity(intent);
                                                             finish();
                                                         } else {
-                                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                            startActivity(intent);
-                                                            finish();
+                                                            Log.i("로그인액티비티 0도 1도 아닐 때", "num : " + number );
+
                                                         }
+
                                                     } else {
-//                                       num = 1;
+
                                                     }
                                                 }
                                                 @Override
                                                 public void onFailure(Call<ChildId> call1, Throwable t) {
-                                                    Log.i("로그인액티비티 waiting", "num : " + num +", t: "+ t  );
+                                                    Log.i("로그인액티비티 number onFailure", "num : " + number +", t: "+ t  );
 
                                                 }
                                             });
@@ -297,12 +292,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-
-
             }
         });
-
-
 
     }
 }

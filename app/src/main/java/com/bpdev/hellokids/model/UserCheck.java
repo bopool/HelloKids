@@ -2,20 +2,20 @@ package com.bpdev.hellokids.model;
 
 public class UserCheck {
 
-    private int[] isTeacher;
+    private int isTeacher;
 
     public UserCheck() {
     }
 
-    public UserCheck(int[] isTeacher) {
+    public UserCheck(int isTeacher) {
         this.isTeacher = isTeacher;
     }
 
-    public int[] getIsTeacher() {
+    public int getIsTeacher() {
         return isTeacher;
     }
 
-    public void setIsTeacher(int[] isTeacher) {
+    public void setIsTeacher(int isTeacher) {
         this.isTeacher = isTeacher;
     }
 }

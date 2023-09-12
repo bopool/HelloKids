@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class ChildId {
 
-    private int[] num;
+    private int num;
 
-    public ChildId(int[] num) {
+    public ChildId(int num) {
         this.num = num;
     }
 
     public ChildId() {
     }
 
-    public int[] getNum() {
+    public int getNum() {
         return num;
     }
 
-    public void setNum(int[] num) {
+    public void setNum(int num) {
         this.num = num;
     }
 }
