@@ -3,27 +3,23 @@ package com.bpdev.hellokids.api;
 
 
 
-import com.bpdev.hellokids.model.BusInfoList;
+
+import com.bpdev.hellokids.model.BusList;
 import com.bpdev.hellokids.model.PhotoAlbumAllList;
+import com.bpdev.hellokids.model.PhotoAlbumChildProfileRes;
 import com.bpdev.hellokids.model.PhotoAlbumId;
 import com.bpdev.hellokids.model.Result;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Header;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
-import okhttp3.RequestBody;
-import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 
 public interface PhotoAlbumApi {
@@ -51,4 +47,18 @@ public interface PhotoAlbumApi {
     @GET("/photoAlbum/rekoglist")
     Call<PhotoAlbumAllList>photoAlbumRecogList(@Header("Authorization") String token); // 사진첩 목록 조죄
 
+    // 사진첩 얼굴인식 API
+    @Multipart
+    @POST("/photoAlbum/autoRekog")
+    Call<Result> photoAlbumRekog (@Header("Authorization") String token,
+                                  @Part("date") RequestBody date,
+                                  @Part("title") RequestBody title,
+                                  @Part("contents") RequestBody contents,
+                                  @Part("classId") RequestBody classId,
+                                  @Part("childId") RequestBody childId,
+                                  @Part MultipartBody.Part photoUrl_1);
+
+    // 사진첩 원아 프로필 가져오기 API
+    @GET("/photoAlbum/getProfileUrl/{id}")
+    Call<PhotoAlbumChildProfileRes> photochildProfile(@Path("id") int id, @Header("Authorization") String token);
 }

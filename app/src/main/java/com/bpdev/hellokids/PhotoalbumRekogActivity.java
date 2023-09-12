@@ -35,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -44,10 +45,13 @@ import android.widget.Toast;
 
 import com.bpdev.hellokids.adapter.ScheduleAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.PhotoAlbumApi;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
+import com.bpdev.hellokids.model.PhotoAlbumChildProfileRes;
+import com.bpdev.hellokids.model.Result;
 import com.google.android.gms.common.util.IOUtils;
 
 import java.io.File;
@@ -61,6 +65,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,6 +96,9 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
     Button btnRekog1;
     TextView textTitleShow;
     TextView textContentShow;
+
+    EditText textInputTitle2;
+    EditText textInputContents2;
     ImageView imgPhotoAdd1;
     ImageView imgPhotoAdd2;
 
@@ -99,9 +109,12 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
     // 앨범에서 사진 선택, 레트로핏 이미지 담기
     Bitmap photo;
-    File photoUrl;
+    File photoUrl_1;
     File photoFile;
     int classIdTemp;
+
+    int childId1; // - 프로필 사진 선택한 원아 아이디
+    //ArrayList<PhotoAlbumChildProfileRes> photoAlbumChildProfileResArrayList = new ArrayList<>();
 
 
     // 스피너, 반 이름
@@ -141,8 +154,13 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         btnRekog1 = findViewById(R.id.btnRekog1);
         textTitleShow = findViewById(R.id.textTitleShow);
         textContentShow = findViewById(R.id.textContentShow);
+        textInputTitle2 = findViewById(R.id.textInputTitle2);
+        textInputContents2 = findViewById(R.id.textInputContents2);
         imgPhotoAdd1 = findViewById(R.id.imgPhotoAdd1);
         imgPhotoAdd2 = findViewById(R.id.imgPhotoAdd2);
+
+        childId1 = getIntent().getIntExtra("childId1",0);
+
 
         // 스피너 연결
         spinnerClass = findViewById(R.id.spinnerClass);
@@ -284,6 +302,9 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         });
 
 
+
+
+
         // 등록하기 버튼
 //        btnAdd.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -293,6 +314,10 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+
+
+
+
 
 
         // 작성일 선택 버튼
@@ -343,19 +368,120 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
+
+
+
         // 원아 선택하기 버튼
         btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                // 반, 작성일, 제목, 내용 가져오기
+
+                // 스피너에서 선택한 반 이름 가져오기 : classId1
+
+                // 작성을 가져오기 : date1
+
+                // 제목과 내용 가져오기
+                String title1 = textInputTitle2.getText().toString().trim();
+                Log.i("title : ", ""+title1);
+                String contents1 = textInputContents2.getText().toString().trim();
+                Log.i("contents : ", ""+contents1);
+
+
+                //
+                Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
+
+                // 포스트 생성 API 만들고 돌아오기 --> PostApi 이동
+                PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+
+                // -- 인증토큰 (헤더에 세팅할 토큰 가져오기)
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+                // -- 보낼 파일
+                // 사진 파일 가져오기
+                // 파라미터 설명 : content 보낼꺼야, (파일을 보낼꺼냐 텍스트를 보낼꺼냐) 파일 중 jpg로 보낼꺼다
+                RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/jpg"));
+
+                // MultipartBody.Part.createFormData("photo"--> API명세서 바디에있는 폼데이터내용 중 키 값을 넣은것,)
+                // 용량이 큰 파일은 잘게 쪼개서 보내는 작업
+                MultipartBody.Part photoUrl_1 = MultipartBody.Part.createFormData("photoUrl_1", photoFile.getName(), fileBody);
+
+                // -- 보낼 텍스트
+                // 파라미터 설명 : content 보낼꺼야, (파일을 보낼꺼냐 텍스트를 보낼꺼냐) 텍스트보낼꺼야
+
+                RequestBody date = RequestBody.create(date1, MediaType.parse("text/plain"));
+                RequestBody title = RequestBody.create(title1, MediaType.parse("text/plain"));
+                RequestBody contents = RequestBody.create(contents1, MediaType.parse("text/plain"));
+                RequestBody classId = RequestBody.create(String.valueOf(classId1), MediaType.parse("text/plain"));
+                RequestBody childId = RequestBody.create(String.valueOf(childId1), MediaType.parse("text/plain"));
+
+
+                //
+                Call<Result> call = photoAlbumApi.photoAlbumRekog("Bearer "+token, date, title, contents, classId, childId, photoUrl_1);
+
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+
+                        if(response.isSuccessful()){
+                            // 포스팅성공시 애드액티비티 종료, 메인액티비티 숨어있는거 불러오기
+                            Log.i("Hello Success" , "success");
+
+                        }else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+
+                        Log.i("Hello Fail" , ""+t);
+
+                    }
+                });
+
             }
         });
 
 
-        // 원아 프로필 사진 이미지 뷰에 나타내기
-        // 이미지뷰를 클릭하면 리사이클러뷰가 나타나서 원아를 선택할 수 있음.
 
-        //imgPhotoAdd1
+
+
+
+        // 선택한 원아의 프로필 사진을 이미지뷰에 띄우기
+        retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
+        PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+
+        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+
+        Call<PhotoAlbumChildProfileRes> call1 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token1 );
+        call1.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
+            @Override
+            public void onResponse(Call<PhotoAlbumChildProfileRes> call1, Response<PhotoAlbumChildProfileRes> response1) {
+                if (response1.isSuccessful()) {
+                    PhotoAlbumChildProfileRes photoAlbumChildProfileRes = response1.body();
+
+                    for (int i = 0; i < classArrayList.size(); i++) {
+                        classNameArrayList.add(classArrayList.get(i).getClassName());
+                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoAlbumChildProfileRes> call1, Throwable t) {
+            }
+        });
+
+
+
+
 
 
 
@@ -367,9 +493,6 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
                 //함수 호출
                 showDialog();
 
-                //
-                imgPhotoAdd2.setImageBitmap(photo);
-                imgPhotoAdd2.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             }
         });
 
