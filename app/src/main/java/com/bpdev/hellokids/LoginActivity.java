@@ -217,7 +217,12 @@ public class LoginActivity extends AppCompatActivity {
                                     if (response.isSuccessful()) {
 
                                         Log.i("로그인액티비티 num", "num : " + response.body().getIsTeacher() + isTeacher);
-                                        isTeacher = response.body().getIsTeacher()[0];
+                                        if (response.body().getIsTeacher() == null){
+                                            isTeacher = 0;
+                                        } else {
+                                            isTeacher = response.body().getIsTeacher()[0];
+                                        }
+
 
                                         if( isTeacher == 1 ){
                                             // 선생님인 경우
@@ -234,8 +239,13 @@ public class LoginActivity extends AppCompatActivity {
                                                 public void onResponse(Call<ChildId> call1, Response<ChildId> response1) {
                                                     if (response1.isSuccessful()) {
 
+                                                        if (response1.body().getNum() == null){
+                                                            num = 0;
+                                                        } else {
+                                                            num = response1.body().getNum()[0];
+                                                        }
                                                         Log.i("로그인액티비티 num", "num : " + response1.body().getNum() + num );
-                                                        num = response1.body().getNum()[0];
+
 
                                                         if( num == 0 ){
                                                             Intent intent = new Intent(LoginActivity.this, MainWaitingActivity.class);
