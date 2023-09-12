@@ -91,6 +91,7 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
         CardView cardView;
 
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -102,11 +103,18 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     int index = getAdapterPosition();
                     ChildInfo childInfo =  childInfoArrayList.get(index);
+
                     Intent intent = new Intent(context, PhotoalbumRekogActivity.class);
                     int id = childInfo.getId(); // 원아 아이디
-                    intent.putExtra("id",id);
+                    intent.putExtra("id", id);
+
+                    Intent intent1 = new Intent(context, PhotoalbumRekogActivity.class);
+                    String profileUrl = childInfo.getProfileUrl();// 원아 프로필 사진
+                    intent1.putExtra("profileUrl", profileUrl);
+
                     context.startActivity(intent);
                 }
             });

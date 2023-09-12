@@ -64,7 +64,9 @@ public interface PhotoAlbumApi {
     @GET("/photoAlbum/getProfileUrl/{id}")
     Call<PhotoAlbumChildProfileRes> photochildProfile(@Path("id") int id, @Header("Authorization") String token);
 
+
     // 사진첩 얼굴인식 글 목록 생성 API
+    @Multipart
     @POST("/photoAlbum/addChildProfileListId")
     Call<Result> photoAlbumRekogId (@Header("Authorization") String token,
                                   @Part("childId") RequestBody childId,

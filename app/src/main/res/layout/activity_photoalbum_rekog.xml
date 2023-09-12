@@ -294,7 +294,7 @@
                                     app:srcCompat="@drawable/kidsicon" />
 
                                 <Button
-                                    android:id="@+id/btnSelectPhoto"
+                                    android:id="@+id/btnSelectConfirm"
                                     style="@style/btn_detail_green_left"
                                     android:layout_width="110dp"
                                     android:layout_height="40dp"
@@ -302,7 +302,7 @@
                                     android:layout_marginLeft="20dp"
                                     android:layout_marginRight="20dp"
                                     android:foregroundGravity="right"
-                                    android:text="원아 프로필 선택"
+                                    android:text="선택 확인"
                                     android:textSize="10sp"
                                     android:visibility="visible"
                                     app:cornerRadius="8dp" />

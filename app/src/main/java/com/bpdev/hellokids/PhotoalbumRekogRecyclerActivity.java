@@ -103,6 +103,10 @@ public class PhotoalbumRekogRecyclerActivity extends AppCompatActivity {
                     recyclerView.setAdapter(photoRekogRecyclerAdapter);
                     // scheduleArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
 
+
+
+
+
                 } else {
 
                 }

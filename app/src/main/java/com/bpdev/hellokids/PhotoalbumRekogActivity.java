@@ -53,6 +53,7 @@ import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.PhotoAlbumChildProfileRes;
 import com.bpdev.hellokids.model.Result;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.util.IOUtils;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -94,7 +95,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
     Button btnAdd;
     Button btnSelectDate;
     Button btnPhotoAdd;
-    Button btnSelectPhoto;
+    Button btnSelectConfirm;
     Button btnRekog1;
     TextView textTitleShow;
     TextView textContentShow;
@@ -117,7 +118,12 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
     int totalAlbumNum1 = 0;
 
+    int classId1;
     int childId1; // - 프로필 사진 선택한 원아 아이디
+    String profileUrl;
+
+    Bitmap photo1; // 원아 프로필 사진 담은 변수
+
     //ArrayList<PhotoAlbumChildProfileRes> photoAlbumChildProfileResArrayList = new ArrayList<>();
 
 
@@ -128,7 +134,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
     ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
     ArrayAdapter<String> arrayAdapter;
     HashMap<String, Integer> map = new HashMap<>(); // 스피너에 들어가있는 반이름을 클릭하면 그 반이름을 가진 반 데이터의 id를 반환할 때 사용
-    int classId1;
+    //int classId1;
 
 
     
@@ -153,7 +159,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
         // 메인 파트 화면 연결
         btnSelectDate = findViewById(R.id.btnSelectDate);
-        btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
+        btnSelectConfirm = findViewById(R.id.btnSelectConfirm);
         btnPhotoAdd = findViewById(R.id.btnPhotoAdd);
         btnRekog1 = findViewById(R.id.btnRekog1);
         textTitleShow = findViewById(R.id.textTitleShow);
@@ -163,13 +169,21 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         imgPhotoAdd1 = findViewById(R.id.imgPhotoAdd1);
         imgPhotoAdd2 = findViewById(R.id.imgPhotoAdd2);
 
-
+        // 인텐트
         Intent intent = getIntent();
-        childId1 = intent.getIntExtra("childId1",0);
+        childId1 = intent.getIntExtra("id", 0);
+        Log.i("TestXXX1 ", "childId1 : " + childId1);
+
+        Intent intent1 = getIntent();
+        profileUrl = String.valueOf(intent1.getIntExtra("profileUrl", 0 ));
+        Log.i("TestXXX2 ", "profileUrl : " + profileUrl);
+
 
 
         // 스피너 연결
         spinnerClass = findViewById(R.id.spinnerClass);
+
+
 
 
         // -- -- -- 메인 파트 동작 -- -- -- //
@@ -223,7 +237,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
                 //String.valueOf(classId1);
 
-                Log.i("classId", classId1 + "");
+                Log.i("TestXXX3 classId", classId1 + "");
 
 
 //                // 반별 일정표 리스트 조회  ------>>> 여기서부터 반 목록 가져오는걸로 바꾸면 된다.
@@ -389,9 +403,9 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
                 // 제목과 내용 가져오기
                 String title1 = textInputTitle2.getText().toString().trim();
-                Log.i("title : ", ""+title1);
+                Log.i("TestXXX4 title : ", ""+title1);
                 String contents1 = textInputContents2.getText().toString().trim();
-                Log.i("contents : ", ""+contents1);
+                Log.i("TestXXX5 contents1 : ", ""+contents1);
 
 
                 //
@@ -433,7 +447,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
                         if(response.isSuccessful()){
                             // 포스팅성공시 애드액티비티 종료, 메인액티비티 숨어있는거 불러오기
-                            Log.i("Hello Success" , "success");
+                            Log.i("TestXXX7 Success" , "success");
 
                         }else {
 
@@ -443,7 +457,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Result> call, Throwable t) {
 
-                        Log.i("Hello Fail" , ""+t);
+                        Log.i("TestXXX6 Fail" , ""+t);
 
                     }
                 });
@@ -457,45 +471,20 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
         // 선택한 원아의 프로필 사진을 이미지뷰에 띄우기
-//        retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
-//        PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
-//
-//        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-//        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
-//
-//        Call<PhotoAlbumChildProfileRes> call3 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token1 );
-//        call3.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
-//            @Override
-//            public void onResponse(Call<PhotoAlbumChildProfileRes> call3, Response<PhotoAlbumChildProfileRes> response3) {
-//                if (response3.isSuccessful()) {
-//                    PhotoAlbumChildProfileRes photoAlbumChildProfileRes;
-//                    photoAlbumChildProfileRes = response3.body();
-//                    String url = photoAlbumChildProfileRes.profileUrl;
-//
-//                    for (int i = 0; i < classArrayList.size(); i++) {
-//                        classNameArrayList.add(classArrayList.get(i).getClassName());
-//                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
-//                        arrayAdapter.notifyDataSetChanged();
-//                    }
-//                } else {
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PhotoAlbumChildProfileRes> call1, Throwable t) {
-//            }
-//        });
-
-
-
-        //
+        // 원아 아이콘 클릭하면 원아 목록 띄우고 선택한 원아 프로필 사진으로 바꾸기
         imgPhotoAdd1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
-                int classId2 = classId1; // 원아 아이디
-                intent.putExtra("classId2",classId2);
-                startActivity(intent);
+//                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
+//                int classId2 = classId1; // 반 아이디
+//                intent.putExtra("classId2",classId2);
+//                startActivity(intent);
+//
+//                // 프로필 이미지를 글라이드에 담아 보여주기
+//                ChildInfo childInfo;
+//                Glide.with(PhotoalbumRekogActivity.this).load(profileUrl).into(imgPhotoAdd1);
+
+
             }
         });
 
@@ -503,8 +492,8 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
-        // 원아 프로필 선택하기 버튼 누르면 글 목록 생성하기
-        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+        // 선택 확인 버튼 누르면 글 목록 생성하기
+        btnSelectConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -521,7 +510,10 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
                 // -- 보낼 텍스트
                 // 파라미터 설명 : content 보낼꺼야, (파일을 보낼꺼냐 텍스트를 보낼꺼냐) 텍스트보낼꺼야
-                RequestBody childId = RequestBody.create(String.valueOf(childId1), MediaType.parse("text/plain"));
+                // 원래 원아 아이디 : childId1
+                int childIdTemp = 4; // 임시로 앱 돌리기 위해 임의지정한 원아 아이디 :
+
+                RequestBody childId = RequestBody.create(String.valueOf(childIdTemp), MediaType.parse("text/plain"));
                 RequestBody totalAlbumNum = RequestBody.create(String.valueOf(totalAlbumNum1), MediaType.parse("text/plain"));
 
                 //
@@ -533,7 +525,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
                         if(response.isSuccessful()){
 
-                            Snackbar.make(btnSelectPhoto,
+                            Snackbar.make(btnSelectConfirm,
                                     "확인",
                                     Snackbar.LENGTH_SHORT).show();
 
