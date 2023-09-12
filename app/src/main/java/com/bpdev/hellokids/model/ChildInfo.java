@@ -17,6 +17,13 @@ public class ChildInfo implements Serializable {
         this.sex = sex;
     }
 
+    public ChildInfo(int id, int classId, String childName, String profileUrl) {
+        this.id = id;
+        this.classId = classId;
+        this.childName = childName;
+        this.profileUrl = profileUrl;
+    }
+
     public ChildInfo(int id, int classId, int nurseryId, String childName, String birth, int sex, String profileUrl) {
         this.id = id;
         this.classId = classId;

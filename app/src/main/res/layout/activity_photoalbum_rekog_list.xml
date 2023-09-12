@@ -130,6 +130,7 @@
                 android:id="@+id/btnSelectDate"
                 style="@style/btn_date_select"
                 android:text="날짜 선택"
+                android:visibility="gone"
                 app:cornerRadius="8dp" />
 
             <Button

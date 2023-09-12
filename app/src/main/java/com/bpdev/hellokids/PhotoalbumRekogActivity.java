@@ -48,11 +48,13 @@ import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.PhotoAlbumApi;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
+import com.bpdev.hellokids.model.ChildInfo;
 import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.PhotoAlbumChildProfileRes;
 import com.bpdev.hellokids.model.Result;
 import com.google.android.gms.common.util.IOUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -112,6 +114,8 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
     File photoUrl_1;
     File photoFile;
     int classIdTemp;
+
+    int totalAlbumNum1 = 0;
 
     int childId1; // - 프로필 사진 선택한 원아 아이디
     //ArrayList<PhotoAlbumChildProfileRes> photoAlbumChildProfileResArrayList = new ArrayList<>();
@@ -453,32 +457,45 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
         // 선택한 원아의 프로필 사진을 이미지뷰에 띄우기
-        retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
-        PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+//        retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
+//        PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+//
+//        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+//
+//        Call<PhotoAlbumChildProfileRes> call3 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token1 );
+//        call3.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
+//            @Override
+//            public void onResponse(Call<PhotoAlbumChildProfileRes> call3, Response<PhotoAlbumChildProfileRes> response3) {
+//                if (response3.isSuccessful()) {
+//                    PhotoAlbumChildProfileRes photoAlbumChildProfileRes;
+//                    photoAlbumChildProfileRes = response3.body();
+//                    String url = photoAlbumChildProfileRes.profileUrl;
+//
+//                    for (int i = 0; i < classArrayList.size(); i++) {
+//                        classNameArrayList.add(classArrayList.get(i).getClassName());
+//                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
+//                        arrayAdapter.notifyDataSetChanged();
+//                    }
+//                } else {
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PhotoAlbumChildProfileRes> call1, Throwable t) {
+//            }
+//        });
 
-        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
 
-        Call<PhotoAlbumChildProfileRes> call3 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token1 );
-        call3.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
+
+        //
+        imgPhotoAdd1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<PhotoAlbumChildProfileRes> call3, Response<PhotoAlbumChildProfileRes> response3) {
-                if (response3.isSuccessful()) {
-                    PhotoAlbumChildProfileRes photoAlbumChildProfileRes;
-                    photoAlbumChildProfileRes = response3.body();
-                    String url = photoAlbumChildProfileRes.profileUrl;
-
-                    for (int i = 0; i < classArrayList.size(); i++) {
-                        classNameArrayList.add(classArrayList.get(i).getClassName());
-                        map.put(classArrayList.get(i).getClassName(), classArrayList.get(i).getId());
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PhotoAlbumChildProfileRes> call1, Throwable t) {
+            public void onClick(View view) {
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
+                int classId2 = classId1; // 원아 아이디
+                intent.putExtra("classId2",classId2);
+                startActivity(intent);
             }
         });
 
@@ -486,14 +503,53 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
-        // 원아 프로필 선택하기 버튼 누르면 원아 선택 창 띄우기
+        // 원아 프로필 선택하기 버튼 누르면 글 목록 생성하기
         btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
-                intent.putExtra("childId", childId1);
-                startActivity(intent);
+                // 스피너에서 선택한 반 이름 가져오기 : classId1
+                Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
+
+                // 포스트 생성 API 만들고 돌아오기 --> PostApi 이동
+                PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+
+                // -- 인증토큰 (헤더에 세팅할 토큰 가져오기)
+                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token = sp.getString(Config.ACCESS_TOKEN, "");
+
+
+                // -- 보낼 텍스트
+                // 파라미터 설명 : content 보낼꺼야, (파일을 보낼꺼냐 텍스트를 보낼꺼냐) 텍스트보낼꺼야
+                RequestBody childId = RequestBody.create(String.valueOf(childId1), MediaType.parse("text/plain"));
+                RequestBody totalAlbumNum = RequestBody.create(String.valueOf(totalAlbumNum1), MediaType.parse("text/plain"));
+
+                //
+                Call<Result> call = photoAlbumApi.photoAlbumRekogId("Bearer "+token, childId, totalAlbumNum);
+
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+
+                        if(response.isSuccessful()){
+
+                            Snackbar.make(btnSelectPhoto,
+                                    "확인",
+                                    Snackbar.LENGTH_SHORT).show();
+
+                        }else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+
+                        Log.i("Hello Fail" , ""+t);
+
+                    }
+                });
+                
 
 
             }
