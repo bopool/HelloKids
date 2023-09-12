@@ -133,9 +133,7 @@ public class MainActivity extends AppCompatActivity {
         btnDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 선생님 화면
-//                Intent intent = new Intent(MainActivity.this,DailynoteListActivity.class);
-//                startActivity(intent);
+
                 // 학부모 화면
                 Intent intent = new Intent(MainActivity.this,DailyNoteParentsListActivity.class);
                 startActivity(intent);
@@ -167,12 +165,9 @@ public class MainActivity extends AppCompatActivity {
         btnSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 선생님 화면
-                Intent intent = new Intent(MainActivity.this,ScheduleListActivity.class);
-                startActivity(intent);
                 // 학부모 화면
-                //Intent intent = new Intent(MainActivity.this,ScheduleChildListActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(MainActivity.this,ScheduleChildListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -191,12 +186,10 @@ public class MainActivity extends AppCompatActivity {
         btnAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 선생님 화면
-                Intent intent = new Intent(MainActivity.this,AttendanceListActivity.class);
-                startActivity(intent);
+
                 // 학부모 화면
-//                Intent intent = new Intent(MainActivity.this,AttendanceParentsListActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this,AttendanceParentsListActivity.class);
+                startActivity(intent);
 
 
             }
@@ -208,10 +201,6 @@ public class MainActivity extends AppCompatActivity {
         btnSchoolbus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // 선생님 화면
-//                Intent intent = new Intent(MainActivity.this,SchoolbusListActivity.class);
-//                startActivity(intent);
 
                 // 학부모 화면
                 Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
@@ -259,13 +248,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // 선생님화면
-                Intent intent = new Intent(MainActivity.this, SchoolbusListActivity.class);
-                startActivity(intent);
-
                 // 학부모화면
-//                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, SchoolbusParentListActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -116,7 +116,7 @@ public class SchoolbusParentListActivity extends AppCompatActivity {
         SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         token1 = sp1.getString(Config.ACCESS_TOKEN, "");
 
-        Call<BusList> call1 = api1.busInfoTodayList("createdAt", "Bearer " + token1);
+        Call<BusList> call1 = api1.busInfoTodayList("2023-09-12", "Bearer " + token1);
         call1.enqueue(new Callback<BusList>() {
             @Override
             public void onResponse(Call<BusList> call, Response<BusList> response) {
