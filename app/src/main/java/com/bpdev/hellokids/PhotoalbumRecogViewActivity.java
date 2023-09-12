@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.bpdev.hellokids.adapter.PhotoAlbumAdapter;
 import com.bpdev.hellokids.adapter.PhotoViewAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.PhotoAlbumApi;
@@ -28,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PhotoalbumViewActivity extends AppCompatActivity {
+public class PhotoalbumRecogViewActivity extends AppCompatActivity {
 
     // 최상단 헤더의 버튼
     TextView btnRegister;
@@ -55,13 +54,10 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
     PhotoViewAdapter adapter;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photoalbum_view);
+        setContentView(R.layout.activity_photoalbum_recog_view);
 
         id = getIntent().getIntExtra("id", 0);
 
@@ -89,7 +85,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        Retrofit retrofit1 = NetworkClient.getRetrofitClient(PhotoalbumViewActivity.this);
+        Retrofit retrofit1 = NetworkClient.getRetrofitClient(PhotoalbumRecogViewActivity.this);
 
         PhotoAlbumApi api1 = retrofit1.create(PhotoAlbumApi.class);
 
@@ -110,7 +106,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
                     textTitle.setText( photoAlbumArrayList.get(0).getTitle());
                     textContents.setText( photoAlbumArrayList.get(0).getContents());
                     //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
-                    adapter = new PhotoViewAdapter(PhotoalbumViewActivity.this, photoAlbumArrayList);
+                    adapter = new PhotoViewAdapter(PhotoalbumRecogViewActivity.this, photoAlbumArrayList);
                     recyclerView.setAdapter(adapter);
                     // scheduleArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
 
@@ -137,7 +133,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumViewActivity.this,RegisterSelectActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this,RegisterSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -147,7 +143,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumViewActivity.this,LoginActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -168,7 +164,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
         btnBottomHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumViewActivity.this, MainActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -178,7 +174,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
         btnBottomNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumViewActivity.this, NoticeListActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this, NoticeListActivity.class);
                 startActivity(intent);
             }
         });
@@ -188,7 +184,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
         btnBottomDailyNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhotoalbumViewActivity.this, DailynoteListActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this, DailynoteListActivity.class);
                 startActivity(intent);
             }
         });
@@ -200,7 +196,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 선생님화면
-                Intent intent = new Intent(PhotoalbumViewActivity.this, SchoolbusListActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this, SchoolbusListActivity.class);
                 startActivity(intent);
 
                 // 학부모화면
@@ -215,7 +211,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PhotoalbumViewActivity.this, SettingListActivity.class);
+                Intent intent = new Intent(PhotoalbumRecogViewActivity.this, SettingListActivity.class);
                 startActivity(intent);
             }
         });

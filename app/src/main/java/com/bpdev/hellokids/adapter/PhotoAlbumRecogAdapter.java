@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bpdev.hellokids.PhotoalbumRecogViewActivity;
 import com.bpdev.hellokids.PhotoalbumViewActivity;
 import com.bpdev.hellokids.R;
 import com.bpdev.hellokids.SchoolbusLocationActivity;
@@ -24,26 +25,29 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class PhotoAlbumAdapter extends RecyclerView.Adapter<PhotoAlbumAdapter.Viewholder>{ // 사진첩 목록 가져올 때 사용
+
+public class PhotoAlbumRecogAdapter extends RecyclerView.Adapter<PhotoAlbumRecogAdapter.Viewholder> {
+
+
     Context context;
     ArrayList<PhotoAlbumAll> photoAlbumResArrayList;
 
 
-    public PhotoAlbumAdapter(Context context, ArrayList<PhotoAlbumAll> photoAlbumResArrayList) {
+    public PhotoAlbumRecogAdapter(Context context, ArrayList<PhotoAlbumAll> photoAlbumResArrayList) {
         this.context = context;
         this.photoAlbumResArrayList = photoAlbumResArrayList;
     }
 
     @NonNull
     @Override
-    public PhotoAlbumAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PhotoAlbumRecogAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_photoalbum_list, parent, false);
-        return new PhotoAlbumAdapter.Viewholder(view);
+        return new PhotoAlbumRecogAdapter.Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PhotoAlbumAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull PhotoAlbumRecogAdapter.Viewholder holder, int position) {
         // 데이터 가져와서 처리 하는 부분
         PhotoAlbumAll photoAlbumAll = photoAlbumResArrayList.get(position);
 
@@ -105,7 +109,7 @@ public class PhotoAlbumAdapter extends RecyclerView.Adapter<PhotoAlbumAdapter.Vi
                     int index = getAdapterPosition();
                     PhotoAlbumAll photoAlbumAll =  photoAlbumResArrayList.get(index);
                     int id = photoAlbumAll.getId(); // 사진첩 id
-                    Intent intent = new Intent(context, PhotoalbumViewActivity.class);
+                    Intent intent = new Intent(context, PhotoalbumRecogViewActivity.class);
                     intent.putExtra("id",id);
                     context.startActivity(intent);
                 }
@@ -113,3 +117,4 @@ public class PhotoAlbumAdapter extends RecyclerView.Adapter<PhotoAlbumAdapter.Vi
         }
     }
 }
+
