@@ -131,6 +131,7 @@ public class PhotoalbumViewActivity extends AppCompatActivity {
 
 
 
+
         // -- -- 최상단 헤더 버튼 -- -- //
 
         // 회원가입 버튼

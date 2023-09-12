@@ -159,7 +159,9 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         imgPhotoAdd1 = findViewById(R.id.imgPhotoAdd1);
         imgPhotoAdd2 = findViewById(R.id.imgPhotoAdd2);
 
-        childId1 = getIntent().getIntExtra("childId1",0);
+
+        Intent intent = getIntent();
+        childId1 = intent.getIntExtra("childId1",0);
 
 
         // 스피너 연결
@@ -216,7 +218,6 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
                 classId1 = map.get(spinnerValue);
 
                 //String.valueOf(classId1);
-
 
                 Log.i("classId", classId1 + "");
 
@@ -458,12 +459,14 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
 
-        Call<PhotoAlbumChildProfileRes> call1 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token1 );
-        call1.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
+        Call<PhotoAlbumChildProfileRes> call3 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token1 );
+        call3.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
             @Override
-            public void onResponse(Call<PhotoAlbumChildProfileRes> call1, Response<PhotoAlbumChildProfileRes> response1) {
-                if (response1.isSuccessful()) {
-                    PhotoAlbumChildProfileRes photoAlbumChildProfileRes = response1.body();
+            public void onResponse(Call<PhotoAlbumChildProfileRes> call3, Response<PhotoAlbumChildProfileRes> response3) {
+                if (response3.isSuccessful()) {
+                    PhotoAlbumChildProfileRes photoAlbumChildProfileRes;
+                    photoAlbumChildProfileRes = response3.body();
+                    String url = photoAlbumChildProfileRes.profileUrl;
 
                     for (int i = 0; i < classArrayList.size(); i++) {
                         classNameArrayList.add(classArrayList.get(i).getClassName());
