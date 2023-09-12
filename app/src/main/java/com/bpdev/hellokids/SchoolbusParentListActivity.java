@@ -64,7 +64,7 @@ public class SchoolbusParentListActivity extends AppCompatActivity {
 
     ArrayList<Bus> busArrayList = new ArrayList<>();
 
-    int id = 0; // 버스 운행기록 id
+    int id = 1; // 버스 운행기록 id
 
     String token1;
 
@@ -78,6 +78,7 @@ public class SchoolbusParentListActivity extends AppCompatActivity {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale);
         createdAt =formatter.format(today);
+        Log.i("createdAt",createdAt);
 
         // 최상단 헤더 버튼 화면 연결
         btnRegister = findViewById(R.id.btnRegister);
@@ -115,7 +116,7 @@ public class SchoolbusParentListActivity extends AppCompatActivity {
         SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         token1 = sp1.getString(Config.ACCESS_TOKEN, "");
 
-        Call<BusList> call1 = api1.busInfoTodayList(createdAt, "Bearer " + token1);
+        Call<BusList> call1 = api1.busInfoTodayList("createdAt", "Bearer " + token1);
         call1.enqueue(new Callback<BusList>() {
             @Override
             public void onResponse(Call<BusList> call, Response<BusList> response) {
@@ -127,6 +128,9 @@ public class SchoolbusParentListActivity extends AppCompatActivity {
                         int hour = Integer.parseInt(busArrayList.get(0).getShuttleTime().substring(11, 12));
                         if (hour == 0) { // 첫번째 버스가 등원일 경우 두번째 버스는 하원버스
                             textBusName.setText(busArrayList.get(0).getShuttleName());
+                            int busbusid = busArrayList.get(0).getId();
+                            Log.i("busbusid",busbusid+"");
+
                             textBusNum.setText(busArrayList.get(0).getShuttleNum());
                             textBusTime.setText(busArrayList.get(0).getShuttleTime().substring(11,13)+"시"+busArrayList.get(0).getShuttleTime().substring(14,16)+"분");
                             textBusName1.setText(busArrayList.get(1).getShuttleName());

@@ -19,11 +19,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bpdev.hellokids.adapter.PhotoAlbumAdapter;
+import com.bpdev.hellokids.adapter.ScheduleAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.PhotoAlbumApi;
+import com.bpdev.hellokids.api.ScheduleApi;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
 import com.bpdev.hellokids.model.NurseryClass;
+import com.bpdev.hellokids.model.PhotoAlbumAll;
+import com.bpdev.hellokids.model.PhotoAlbumAllList;
+import com.bpdev.hellokids.model.ScheduleList;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,7 +77,9 @@ public class PhotoalbumListActivity extends AppCompatActivity {
     HashMap<String, Integer> map = new HashMap<>(); // 스피너에 들어가있는 반이름을 클릭하면 그 반이름을 가진 반 데이터의 id를 반환할 때 사용
     int classId1;
 
-
+    // 사진첩 목록 조회 api에 쓸 것
+    ArrayList<PhotoAlbumAll> photoAlbumArrayList = new ArrayList<>(); // api에 쓸 것
+    PhotoAlbumAdapter adapter;
 
 
     @Override
@@ -110,10 +119,45 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
 
 
-        // -- -- 메인 파트 버튼 -- -- //
+        // -- -- 메인 파트 -- -- //
 
 
         // 자동으로 사진첩 목록 불러오기
+
+        Retrofit retrofit1 = NetworkClient.getRetrofitClient(PhotoalbumListActivity.this);
+
+        PhotoAlbumApi api1 = retrofit1.create(PhotoAlbumApi.class);
+
+        SharedPreferences sp1 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String token1 = sp1.getString(Config.ACCESS_TOKEN, "");
+
+        Log.i("token1", token1);
+
+        Call<PhotoAlbumAllList> call1 = api1.photoAlbumList("Bearer " + token1);
+        call1.enqueue(new Callback<PhotoAlbumAllList>() {
+            @Override
+            public void onResponse(Call<PhotoAlbumAllList> call, Response<PhotoAlbumAllList> response) {
+                if (response.isSuccessful()) {
+                    PhotoAlbumAllList photoAlbumAllList = response.body();
+
+                    photoAlbumArrayList.addAll(photoAlbumAllList.getItems());
+
+                    //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
+                    adapter = new PhotoAlbumAdapter(PhotoalbumListActivity.this, photoAlbumArrayList);
+                    recyclerView.setAdapter(adapter);
+                    // scheduleArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
+
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoAlbumAllList> call, Throwable t) {
+
+            }
+        });
 
 
 
