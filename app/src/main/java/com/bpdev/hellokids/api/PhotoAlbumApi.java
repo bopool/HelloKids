@@ -44,7 +44,10 @@ public interface PhotoAlbumApi {
 
     @GET("/photoAlbum/classlistView/{id}")
     Call<PhotoAlbumAllList>photoAlbumView(@Path("id") int id,@Header("Authorization") String token); // 사진첩 상세보기
-    
+
+    @GET("/photoAlbum/rekoglistView/{id}")
+    Call<PhotoAlbumAllList>photoAlbumRecogView(@Path("id") int id,@Header("Authorization") String token);
+
 
     // 사진첩 얼굴인식 API
     @Multipart

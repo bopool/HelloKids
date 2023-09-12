@@ -94,7 +94,7 @@ public class PhotoalbumRecogViewActivity extends AppCompatActivity {
 
         Log.i("token1", token1);
 
-        Call<PhotoAlbumAllList> call1 = api1.photoAlbumView(id,"Bearer " + token1);
+        Call<PhotoAlbumAllList> call1 = api1.photoAlbumRecogView(id,"Bearer " + token1);
         call1.enqueue(new Callback<PhotoAlbumAllList>() {
             @Override
             public void onResponse(Call<PhotoAlbumAllList> call, Response<PhotoAlbumAllList> response) {
