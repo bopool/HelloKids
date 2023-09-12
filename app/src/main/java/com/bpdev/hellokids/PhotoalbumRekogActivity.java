@@ -490,8 +490,12 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
+                intent.putExtra("childId", childId1);
                 startActivity(intent);
+
+
             }
         });
 

@@ -29,16 +29,12 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
     Context context;
     ArrayList<Child> childArrayList;
 
-
     int childId1;
 
     public PhotoRekogRecyclerAdapter(Context context, ArrayList<Child> childArrayList) {
         this.context = context;
         this.childArrayList = childArrayList;
     }
-
-
-
 
 
     @NonNull
@@ -52,23 +48,19 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
     public void onBindViewHolder(@NonNull PhotoRekogRecyclerAdapter.ViewHolder holder, int position) {
 
         Child child = childArrayList.get(position); // position는 해당 위치를 나타낸다
-
         childId1 = child.getId();
-
         holder.textChildName.setText(child.getChildName());
         // holder.textBirthDate.setText(child.getBirth());
 //        Glide.with(context)
 //                .load(childInfo.getProfileUrl())
-//                .into(holder.imgKidsProfile);
+//                .into(holder.imgKidsProfile);s
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return childArrayList.size();
     }
-
-
 
 
 
