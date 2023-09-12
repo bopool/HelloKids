@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bpdev.hellokids.adapter.PhotoAlbumAdapter;
+import com.bpdev.hellokids.adapter.PhotoAlbumRecogAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.PhotoAlbumApi;
 import com.bpdev.hellokids.api.SettingApi;
@@ -79,7 +80,7 @@ public class PhotoalbumRekogListActivity extends AppCompatActivity {
 
     // 사진첩 목록 조회 api에 쓸 것
     ArrayList<PhotoAlbumAll> photoAlbumArrayList = new ArrayList<>(); // api에 쓸 것
-    PhotoAlbumAdapter adapter;
+    PhotoAlbumRecogAdapter adapter;
 
 
 
@@ -143,7 +144,7 @@ public class PhotoalbumRekogListActivity extends AppCompatActivity {
                     photoAlbumArrayList.addAll(photoAlbumAllList.getItems());
 
                     //Adapter를 이용해서 postInfo에 있는 내용을 가져와서 저장해둔 listView 형식에 맞게 띄움
-                    adapter = new PhotoAlbumAdapter(PhotoalbumRekogListActivity.this, photoAlbumArrayList);
+                    adapter = new PhotoAlbumRecogAdapter(PhotoalbumRekogListActivity.this, photoAlbumArrayList);
                     recyclerView.setAdapter(adapter);
                     // scheduleArrayList = new ArrayList<>(); // 중복 방지 위한 초기화
 
