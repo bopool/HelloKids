@@ -119,7 +119,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
 
 
 
-        // -- -- 메인 파트 버튼 -- -- //
+        // -- -- 메인 파트 -- -- //
 
 
         // 자동으로 사진첩 목록 불러오기

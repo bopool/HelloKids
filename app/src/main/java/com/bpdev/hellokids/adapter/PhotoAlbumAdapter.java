@@ -1,6 +1,7 @@
 package com.bpdev.hellokids.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bpdev.hellokids.PhotoalbumViewActivity;
 import com.bpdev.hellokids.R;
+import com.bpdev.hellokids.SchoolbusLocationActivity;
 import com.bpdev.hellokids.model.PhotoAlbumAll;
 import com.bpdev.hellokids.model.PhotoListRes;
 import com.bumptech.glide.Glide;
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 public class PhotoAlbumAdapter extends RecyclerView.Adapter<PhotoAlbumAdapter.Viewholder>{ // 사진첩 목록 가져올 때 사용
     Context context;
     ArrayList<PhotoAlbumAll> photoAlbumResArrayList;
+
+    int id; // 사진첩 id
 
     public PhotoAlbumAdapter(Context context, ArrayList<PhotoAlbumAll> photoAlbumResArrayList) {
         this.context = context;
@@ -92,6 +97,14 @@ public class PhotoAlbumAdapter extends RecyclerView.Adapter<PhotoAlbumAdapter.Vi
             btnView = itemView.findViewById(R.id.btnView);
             imgPhoto1 = itemView.findViewById(R.id.imgPhoto1);
             cardView = itemView.findViewById(R.id.cardView);
+
+            btnView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, PhotoalbumViewActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

@@ -48,7 +48,7 @@ public interface PhotoAlbumApi {
     Call<PhotoAlbumAllList>photoAlbumList(@Header("Authorization") String token); // 사진첩 목록 조죄
 
     // 사진첩(얼굴인식폴더) 리스트 불러오기
-
-
+    @GET("/photoAlbum/rekoglist")
+    Call<PhotoAlbumAllList>photoAlbumRecogList(@Header("Authorization") String token); // 사진첩 목록 조죄
 
 }
