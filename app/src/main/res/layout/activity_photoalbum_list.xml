@@ -111,7 +111,7 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="2dp"
                     android:text="반 선택"
                     android:textSize="12sp"
@@ -138,7 +138,7 @@
             <Button
                 android:id="@+id/btnCreate"
                 style="@style/btn_move_activity"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="1dp"
                 android:text="사진첩 만들기"
                 app:cornerRadius="8dp" />
 
@@ -154,7 +154,8 @@
                 android:paddingBottom="14dp"
                 android:text="원아별 사진첩으로 이동"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:cornerRadius="8dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

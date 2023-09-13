@@ -246,7 +246,7 @@
                         android:layout_width="110dp"
                         android:layout_height="40dp"
                         android:layout_gravity="bottom|right"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="5dp"
                         android:foregroundGravity="right"
                         android:text="파일 선택 하기"
                         android:textSize="10sp"
@@ -261,7 +261,7 @@
                         android:layout_gravity="bottom|right"
                         android:layout_marginRight="20dp"
                         android:foregroundGravity="right"
-                        android:text="추가"
+                        android:text="추     가"
                         android:textSize="10sp"
                         app:cornerRadius="8dp" />
 

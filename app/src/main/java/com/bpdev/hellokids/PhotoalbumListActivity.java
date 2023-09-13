@@ -227,9 +227,7 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         });
 
         spinnerClass2.setAdapter(arrayAdapter);
-
         spinnerClass2.setSelection(0);
-
 
 
         spinnerClass2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -242,7 +240,6 @@ public class PhotoalbumListActivity extends AppCompatActivity {
                 classId1 = map.get(spinnerValue);
 
                 //String.valueOf(classId1);
-
 
                 Log.i("classId", classId1 + "");
 
