@@ -19,18 +19,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bpdev.hellokids.adapter.NoticeAdapter;
 import com.bpdev.hellokids.adapter.PhotoAlbumAdapter;
 import com.bpdev.hellokids.adapter.ScheduleAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
+import com.bpdev.hellokids.api.NoticeApi;
 import com.bpdev.hellokids.api.PhotoAlbumApi;
 import com.bpdev.hellokids.api.ScheduleApi;
 import com.bpdev.hellokids.api.SettingApi;
 import com.bpdev.hellokids.config.Config;
 import com.bpdev.hellokids.model.ClassList;
+import com.bpdev.hellokids.model.NoticeRes;
 import com.bpdev.hellokids.model.NurseryClass;
 import com.bpdev.hellokids.model.PhotoAlbumAll;
 import com.bpdev.hellokids.model.PhotoAlbumAllList;
 import com.bpdev.hellokids.model.ScheduleList;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -466,5 +470,107 @@ public class PhotoalbumListActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
+//    // 페이징 처리
+//    int offset = 0;
+//    int limit = 10;
+//    int count = 0;
+//    String token;
+//
+//
+//
+//    private void addNetworkData() {
+////        progressBar.setVisibility(View.VISIBLE);
+//        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumListActivity.this);
+//        NoticeApi noticeApi = retrofit.create(NoticeApi.class);
+//
+//        Call<NoticeRes> call = noticeApi.noticeList("Bearer " + token, offset, limit, count);
+//        call.enqueue(new Callback<NoticeRes>() {
+//            @Override
+//            public void onResponse(Call<NoticeRes> call, Response<NoticeRes> response) {
+////                progressBar.setVisibility(View.GONE);
+//
+//                if (response.isSuccessful()) {
+//                    NoticeRes noticeRes = response.body();
+//                    // 페이징 위한 변수 처리
+//                    count = noticeRes.getCount();
+//                    offset = offset + count;
+//                    photoAlbumArrayList.addAll(PhotoAlbumAllList.getItems());
+//                    adapter.notifyDataSetChanged();
+//
+//
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NoticeRes> call, Throwable t) {
+////                progressBar.setVisibility(View.GONE);
+//            }
+//        });
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    private void getNetworkData() {
+////      progressBar.setVisibility(View.VISIBLE);
+//        photoAlbumArrayList.clear();
+//
+//        Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumListActivity.this);
+//        NoticeApi noticeApi = retrofit.create(NoticeApi.class);
+//        Log.i("리사이클러뷰 불러오기", "token : "+token + ", offset,limit,count"+ offset + limit + count);
+//        Call<NoticeRes> call = noticeApi.noticeList("Bearer " + token, offset, limit, count);
+//        call.enqueue(new Callback<NoticeRes>() {
+//            @Override
+//            public void onResponse(Call<NoticeRes> call, Response<NoticeRes> response) {
+////                progressBar.setVisibility(View.GONE);
+//                if (response.isSuccessful()) {
+//
+//                    Log.i("공지사항 제대로 되나요 : ", "성공");
+//                    NoticeRes noticeRes = response.body();
+//                    count = noticeRes.getCount();
+//                    offset = offset + count;
+//                    noticeArrayList.addAll(noticeRes.getItems());
+//                    noticeAdapter = new NoticeAdapter(NoticeListActivity.this, noticeArrayList);
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(NoticeListActivity.this));
+//                    recyclerView.setAdapter(noticeAdapter);
+//
+//
+//                    Log.i("공지사항 제대로 되나요 : ", "count: " + count + "offset: " + offset);
+//
+//                } else {
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NoticeRes> call, Throwable t) {
+////                progressBar.setVisibility(View.GONE);
+//            }
+//        });
+//
+//
+//
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        noticeArrayList.clear();
+//        offset = 0;
+//        getNetworkData();
+//
+//
+//    }
 
 }

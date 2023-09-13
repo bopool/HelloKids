@@ -37,7 +37,8 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="10dp"
                 android:text="선택한 원아 Id  :  "
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textChildId1"
@@ -47,7 +48,8 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="10dp"
                 android:text="ID"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

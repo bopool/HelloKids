@@ -124,6 +124,7 @@ public class PhotoalbumRekogListActivity extends AppCompatActivity {
         // -- -- 메인 파트 -- -- //
 
         // 자동으로 사진첩 목록 불러오기
+        //
 
         Retrofit retrofit1 = NetworkClient.getRetrofitClient(PhotoalbumRekogListActivity.this);
 
@@ -448,6 +449,8 @@ public class PhotoalbumRekogListActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 

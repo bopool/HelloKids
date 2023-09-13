@@ -332,13 +332,14 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
-        // 등록하기 버튼
+//        // 등록하기 버튼
 //        btnAdd.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //
-//                Intent intent = new Intent(PhotoalbumAddRekogActivity.this,PhotoalbumListActivity.class);
-//                startActivity(intent);
+//                finish();
+////                Intent intent = new Intent(PhotoalbumRekogActivity.this,PhotoalbumRekogListActivity.class);
+////                startActivity(intent);
 //            }
 //        });
 
@@ -398,7 +399,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
 
 
-        // 추가 버튼
+        // 얼굴인식 실행 버튼
         btnPhotoAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -457,8 +458,15 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
                             // 포스팅성공시 애드액티비티 종료, 메인액티비티 숨어있는거 불러오기
                             Log.i("TestXXX7 Success" , "success");
 
+                            Snackbar.make(btnSelectConfirm,
+                                    "얼굴인식에 성공했습니다",
+                                    Snackbar.LENGTH_SHORT).show();
+
                         }else {
 
+                            Snackbar.make(btnSelectConfirm,
+                                    "같은 얼굴이 아닙니다.",
+                                    Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
@@ -616,20 +624,13 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
                 //함수 호출
                 showDialog();
 
+
             }
         });
 
 
         
-        
-        
-        // 얼굴인식 실행하기 버튼
-        btnRekog1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
+
         
         
 
@@ -1102,12 +1103,19 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         dialog.dismiss();
     }
 
+
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
         //ChildInfo childInfo;
         Log.i("테스트글라이드!", "profileUrl : "+profileUrl);
         Glide.with(PhotoalbumRekogActivity.this).load(profileUrl).into(imgPhotoAdd1);
+        
+        //todo : 여기에 레트로핏 넣어서 원아 프로필 이미지 보내는 것 시도해보기
 
 
     }
