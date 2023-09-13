@@ -150,11 +150,11 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#8D96FC"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
                 android:text="원아별 사진첩으로 이동"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

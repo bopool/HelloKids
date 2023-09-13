@@ -25,7 +25,7 @@
         <Button
             android:id="@+id/btnBack"
             style="@style/back_button_text_title"
-            android:text="사진첩 만들기" />
+            android:text="원아별 사진첩 만들기" />
 
         <TextView
             android:id="@+id/btnLogin"
@@ -291,7 +291,7 @@
                                     android:layout_height="100dp"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
-                                    app:srcCompat="@drawable/kidsicon" />
+                                    android:src="@drawable/kidsicon" />
 
                                 <Button
                                     android:id="@+id/btnSelectConfirm"
@@ -300,6 +300,7 @@
                                     android:layout_height="40dp"
                                     android:layout_gravity="bottom|right"
                                     android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="10dp"
                                     android:layout_marginRight="20dp"
                                     android:foregroundGravity="right"
                                     android:text="선택 확인"
@@ -330,8 +331,9 @@
                                     android:layout_height="40dp"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="10dp"
                                     android:layout_marginRight="20dp"
-                                    android:text="추  가"
+                                    android:text="얼굴인식실행"
                                     android:textSize="10sp"
                                     app:cornerRadius="8dp" />
                             </LinearLayout>
@@ -364,7 +366,8 @@
                 android:paddingBottom="8dp"
                 android:text="얼굴인식 실행하기"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
 
         </LinearLayout>

@@ -42,6 +42,7 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
 
     Context context;
     ArrayList<ChildInfo> childInfoArrayList;
+    ChildInfo childInfo;
 
 
     int id;
@@ -63,8 +64,7 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        ChildInfo childInfo = childInfoArrayList.get(position); // position는 해당 위치를 나타낸다
-
+        childInfo = childInfoArrayList.get(position); // position는 해당 위치를 나타낸다
         id = childInfo.getId();
 
         holder.textChildName.setText(childInfo.getChildName());
@@ -105,15 +105,19 @@ public class PhotoRekogRecyclerAdapter extends RecyclerView.Adapter<PhotoRekogRe
                 public void onClick(View view) {
 
                     int index = getAdapterPosition();
-                    ChildInfo childInfo =  childInfoArrayList.get(index);
-
+                    childInfo =  childInfoArrayList.get(index);
                     Intent intent = new Intent(context, PhotoalbumRekogActivity.class);
                     int id = childInfo.getId(); // 원아 아이디
-                    intent.putExtra("id", id);
 
-                    Intent intent1 = new Intent(context, PhotoalbumRekogActivity.class);
+                    intent.putExtra("id", id);
                     String profileUrl = childInfo.getProfileUrl();// 원아 프로필 사진
-                    intent1.putExtra("profileUrl", profileUrl);
+                    intent.putExtra("profileUrl", profileUrl);
+
+//                    Intent intent1 = new Intent(context, PhotoalbumRekogActivity.class);
+//                    String profileUrl = childInfo.getProfileUrl();// 원아 프로필 사진
+//                    intent1.putExtra("profileUrl", profileUrl);
+
+
 
                     context.startActivity(intent);
                 }

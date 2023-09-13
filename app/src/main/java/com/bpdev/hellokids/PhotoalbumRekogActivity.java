@@ -43,7 +43,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bpdev.hellokids.adapter.ScheduleAdapter;
 import com.bpdev.hellokids.api.NetworkClient;
 import com.bpdev.hellokids.api.PhotoAlbumApi;
 import com.bpdev.hellokids.api.SettingApi;
@@ -117,19 +116,19 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
     int classIdTemp;
 
     int totalAlbumNum1 = 0;
+    ChildInfo childInfo;
 
     int classId1;
     int childId1; // - 프로필 사진 선택한 원아 아이디
     String profileUrl;
+    String profile;
 
-    Bitmap photo1; // 원아 프로필 사진 담은 변수
-
-    //ArrayList<PhotoAlbumChildProfileRes> photoAlbumChildProfileResArrayList = new ArrayList<>();
+    //Bitmap photo1; // 원아 프로필 사진 담은 변수
+    ArrayList<PhotoAlbumChildProfileRes> photoAlbumChildProfileResArrayList = new ArrayList<>();
 
 
     // 스피너, 반 이름
     Spinner spinnerClass;
-    ScheduleAdapter adapter;
     ArrayList<String> classNameArrayList = new ArrayList<>(); // 스피너에 넣어줄 반 목록
     ArrayList<NurseryClass> classArrayList = new ArrayList<>(); // api에 쓸 것
     ArrayAdapter<String> arrayAdapter;
@@ -172,12 +171,21 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         // 인텐트
         Intent intent = getIntent();
         childId1 = intent.getIntExtra("id", 0);
+        profileUrl = intent.getStringExtra("profileUrl");
+
+
+
+//        childInfo = (ChildInfo) intent.getSerializableExtra("childInfo");
+//
+//        profileUrl = childInfo.getProfileUrl();
+//        childId1 = childInfo.getId();
+
         Log.i("TestXXX1 ", "childId1 : " + childId1);
 
-        Intent intent1 = getIntent();
-        profileUrl = String.valueOf(intent1.getIntExtra("profileUrl", 0 ));
+//        Intent intent1 = getIntent();
         Log.i("TestXXX2 ", "profileUrl : " + profileUrl);
 
+        imgPhotoAdd1.setImageDrawable(getResources().getDrawable(R.drawable.kidsicon));
 
 
         // 스피너 연결
@@ -475,14 +483,61 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         imgPhotoAdd1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
-//                int classId2 = classId1; // 반 아이디
-//                intent.putExtra("classId2",classId2);
-//                startActivity(intent);
+
+
+                Intent intent = new Intent(PhotoalbumRekogActivity.this, PhotoalbumRekogRecyclerActivity.class);
+                int classId2 = classId1; // 반 아이디
+                intent.putExtra("classId2",classId2);
+                startActivity(intent);
+
+
+
+//                // 선택한 원아 아이디로 원아 프로필 가져오기
+//                //
+//                Retrofit retrofit2 = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
 //
-//                // 프로필 이미지를 글라이드에 담아 보여주기
-//                ChildInfo childInfo;
-//                Glide.with(PhotoalbumRekogActivity.this).load(profileUrl).into(imgPhotoAdd1);
+//                // 포토앨범API 생성 API 만들고 돌아오기
+//                PhotoAlbumApi photoAlbumApi = retrofit2.create(PhotoAlbumApi.class);
+//
+//                // -- 인증토큰 (헤더에 세팅할 토큰 가져오기)
+//                SharedPreferences sp2 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+//                String token2 = sp2.getString(Config.ACCESS_TOKEN, "");
+//
+//                int childIdTemp = 4; // 임시로 앱 돌리기 위해 임의지정한 원아 아이디 :
+//
+//                //
+//                Call<PhotoAlbumChildProfileRes> call2 = photoAlbumApi.photochildProfile(childId1, "Bearer " + token2);
+//
+//                call2.enqueue(new Callback<PhotoAlbumChildProfileRes>() {
+//                    @Override
+//                    public void onResponse(Call<PhotoAlbumChildProfileRes> call2, Response<PhotoAlbumChildProfileRes> response) {
+//
+//                        if(response.isSuccessful()){
+////                            Snackbar.make(btnSelectConfirm,
+////                                    "확인",
+////                                    Snackbar.LENGTH_SHORT).show();
+//
+//
+//                            PhotoAlbumChildProfileRes photoAlbumChildProfileRes = response.body();
+//
+//                            photoAlbumChildProfileResArrayList.addAll(photoAlbumChildProfileRes);
+//
+//                            // 프로필 이미지를 글라이드에 담아 보여주기
+//                            //ChildInfo childInfo;
+//                            Glide.with(PhotoalbumRekogActivity.this).load(profile).into(imgPhotoAdd1);
+//
+//
+//
+//                        }else {
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<PhotoAlbumChildProfileRes> call2, Throwable t) {
+//                        Log.i("Hello Fail" , ""+t);
+//                    }
+//                });
 
 
             }
@@ -498,14 +553,14 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 스피너에서 선택한 반 이름 가져오기 : classId1
-                Retrofit retrofit = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
+                Retrofit retrofit5 = NetworkClient.getRetrofitClient(PhotoalbumRekogActivity.this);
 
                 // 포스트 생성 API 만들고 돌아오기 --> PostApi 이동
-                PhotoAlbumApi photoAlbumApi = retrofit.create(PhotoAlbumApi.class);
+                PhotoAlbumApi photoAlbumApi = retrofit5.create(PhotoAlbumApi.class);
 
                 // -- 인증토큰 (헤더에 세팅할 토큰 가져오기)
-                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                String token = sp.getString(Config.ACCESS_TOKEN, "");
+                SharedPreferences sp5 = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String token5 = sp5.getString(Config.ACCESS_TOKEN, "");
 
 
                 // -- 보낼 텍스트
@@ -513,11 +568,11 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
                 // 원래 원아 아이디 : childId1
                 int childIdTemp = 4; // 임시로 앱 돌리기 위해 임의지정한 원아 아이디 :
 
-                RequestBody childId = RequestBody.create(String.valueOf(childIdTemp), MediaType.parse("text/plain"));
+                RequestBody childId = RequestBody.create(String.valueOf(childId1), MediaType.parse("text/plain"));
                 RequestBody totalAlbumNum = RequestBody.create(String.valueOf(totalAlbumNum1), MediaType.parse("text/plain"));
 
                 //
-                Call<Result> call = photoAlbumApi.photoAlbumRekogId("Bearer "+token, childId, totalAlbumNum);
+                Call<Result> call = photoAlbumApi.photoAlbumRekogId("Bearer "+token5, childId, totalAlbumNum);
 
                 call.enqueue(new Callback<Result>() {
                     @Override
@@ -541,7 +596,7 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
 
                     }
                 });
-                
+
 
 
             }
@@ -577,7 +632,12 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
         });
         
         
-        
+
+
+
+
+
+
 
 
 
@@ -1041,4 +1101,17 @@ public class PhotoalbumRekogActivity extends AppCompatActivity {
     void dismissProgress(){
         dialog.dismiss();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //ChildInfo childInfo;
+        Log.i("테스트글라이드!", "profileUrl : "+profileUrl);
+        Glide.with(PhotoalbumRekogActivity.this).load(profileUrl).into(imgPhotoAdd1);
+
+
+    }
+
+
+
 }

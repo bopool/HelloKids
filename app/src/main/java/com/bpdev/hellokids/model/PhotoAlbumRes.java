@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class PhotoAlbumRes {
 
+        // 어디에 쓰는거더라...?
+
         int nurseryId;
         int classId;
         int teacherId;
