@@ -291,6 +291,8 @@
                                     android:layout_height="100dp"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
+                                    android:background="@drawable/kidsicon"
+                                    android:scaleType="centerCrop"
                                     android:src="@drawable/kidsicon" />
 
                                 <Button
