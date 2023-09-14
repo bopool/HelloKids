@@ -1,6 +1,7 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=Hello%20Kids&fontSize=70)
 ## 프로젝트 개요
 * HelloKids(헬로키즈)는 선생님에게는 효율적인 원아관리를 학부모님에게는 자녀의 어린이집 활동을 잘 파악할 수 있는 편리한 기능을 제공합니다.
+<img src="https://github.com/bopool/aws-hellokids-api/assets/130967557/65ea1f81-0585-42a1-b4ab-3b7a2f4aa3d8"  width="700" height="387">
 ![헬로키즈앱 소개](https://github.com/bopool/aws-hellokids-api/assets/130967557/65ea1f81-0585-42a1-b4ab-3b7a2f4aa3d8)
   
 ## Stacks
