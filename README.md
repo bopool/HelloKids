@@ -11,7 +11,7 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 <img src="https://github.com/bopool/aws-hellokids-api/assets/130967557/65ea1f81-0585-42a1-b4ab-3b7a2f4aa3d8"  width="700" height="387" /><br/><br/>
 
 ## 사용한 기술
-### <span style="color:#A9CB35">Back-ends</span>
+### <span style="color:yellowgreen">Back-ends</span>
 #### Visual Studio Code (Python)
 - Flask 프레임워크 사용, 100개의 Restful API 개발
 - JWT(JSON Web Token) 회원가입 로그인 구현
@@ -33,7 +33,7 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 - 각 DB Table의 CRUD 기능 쿼리문 작성
 <br/><br/>
 
-### <span style="color:#A9CB35">Front-ends</span>
+### <span style="color:yellowgreen">Front-ends</span>
 #### Android Studio (Java)
 - Retrofit2 라이브러리로 Restful API 구현
 - Glide 라이브러리로 이미지 파일 데이터 로딩
@@ -43,7 +43,7 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 - CalendarView로 날짜 선택 구현
 <br/><br/>
 
-### <span style="color:#A9CB35">Open API</span>
+### <span style="color:yellowgreen">Open API</span>
 - Papago API 다국어 번역 기능 구현 
 - AWS Rekognition 얼굴 비교 기능 구현
 <br/><br/><br/>
