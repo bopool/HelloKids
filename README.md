@@ -1,4 +1,5 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=Hello%20Kids&fontSize=70)
+
 # HelloKids Android
 * 이 곳에서는 HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있습니다. 
 
@@ -19,7 +20,6 @@
 * CalendarView로 날짜 선택 구현
 
 ##  프로젝트 일정
-
 | Week | 진행 내용 |
 | ------ | ----------- |
 | 1주차 | 프로젝트 아이템 선정, 화면기획서 초안 만들기 |
