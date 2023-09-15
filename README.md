@@ -43,7 +43,7 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 - CalendarView로 날짜 선택 구현
 <br/><br/>
 
-#### Open API
+### Open API
 - Papago API 다국어 번역 기능 구현 
 - AWS Rekognition 얼굴 비교 기능 구현
 <br/><br/><br/>
