@@ -31,6 +31,7 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 #### MySQL (SQL)
 - MySQL Workbench를 사용하여 AWS RDS 접속 DB 구축
 - 각 DB Table의 CRUD 기능 쿼리문 작성
+<br/><br/>
 
 ### Front-ends
 #### Android Studio (Java)
@@ -40,8 +41,9 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 - GMS Location 라이브러리로 위치확인기능 구현
 - Spinner로 드롭다운 메뉴 구현
 - CalendarView로 날짜 선택 구현
+<br/><br/>
 
-### Open API
+#### Open API
 - Papago API 다국어 번역 기능 구현 
 - AWS Rekognition 얼굴 비교 기능 구현
 <br/><br/><br/>
