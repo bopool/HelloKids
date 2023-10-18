@@ -47,7 +47,7 @@ HelloKids(헬로키즈) 앱의 프론트엔드 개발 내용을 보실 수 있�
 * HelloKids(헬로키즈)는 선생님에게는 효율적인 원아관리를 <br/>
 학부모님에게는 자녀의 어린이집 활동을 잘 파악할 수 있는 편리한 기능을 제공합니다. <br/>
 <a href= "https://drive.google.com/file/d/1WKZkOnatBQTaRcdXXQeS9JwYQLpF5cm1/view">[프로젝트 소개 프리젠테이션 문서 보러 가기]</a><br/>
-<img src="https://github.com/bopool/HelloKids/blob/master/app/src/main/res/drawable-v24/hello_kids_presentation-1.jpg"  width="700" height="387" /><br/><br/>
+<img src="https://github.com/bopool/HelloKids/blob/master/app/src/main/res/drawable-v24/hello_kids_presentation-1.jpg" /><br/><br/>
 
 ##  프로젝트 일정
 | Week | 진행 내용 |
